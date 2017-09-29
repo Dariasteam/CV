@@ -51,7 +51,7 @@ private slots:
 
 signals:
   void load_image(QString file_name);
-  void save_image(QString file_name);
+  void save_image(QString file_name, unsigned i);
 };
 
 #endif // MAINWINDOW_H

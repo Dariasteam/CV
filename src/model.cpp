@@ -16,7 +16,13 @@ void model::load_image(QString file_name) {
 }
 
 void model::store_image(QString file_name, unsigned i) {
+  image_list[i]->save(file_name);
+}
 
+void model::delete_imagepix_at(unsigned i) {
+  image_list.removeAt(i);
+  pixmap_list.removeAt(i);
+  cout << "Imagen eliminada" << std::endl;
 }
 
 QImage* model::get_image_at(int i) {

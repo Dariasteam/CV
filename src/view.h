@@ -13,13 +13,16 @@ class view : public QWidget {
 
 private:
   QList <canvas_window*> canvas_list;
-  unsigned active_canvas;
+  short active_canvas;
 public:
   explicit view(QWidget *parent = nullptr);  
   inline unsigned get_active_canvas () { return active_canvas;}
   void add_canvas_window (QPixmap& pixmap);
 public slots:
-  void on_window_set_active (unsigned ac);
+  void on_window_set_active (unsigned id);
+  void on_windows_close (unsigned id);
+signals:
+  void delete_image (unsigned);
 };
 
 #endif // VIEW_H

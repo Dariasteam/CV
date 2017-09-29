@@ -18,7 +18,8 @@ public:
   controller();
 public slots:
   void on_load_image (QString file_name);
-  void on_store_image (QString file_name);
+  void on_store_image (QString file_name, unsigned id);
+  void on_close_image (unsigned id);
 };
 
 #endif // CONTROLLER_H

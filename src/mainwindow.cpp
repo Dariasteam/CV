@@ -49,7 +49,7 @@ void MainWindow::on_bttn_load(bool) {
 
 void MainWindow::on_bttn_save(bool) {
   QString filename = QFileDialog::getSaveFileName(this, tr("Guardar imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
-  emit save_image(filename);
+  emit save_image(filename, window_content->get_active_canvas());
 }
 
 MainWindow::~MainWindow()
