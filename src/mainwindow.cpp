@@ -7,8 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  // Creación del main widget
   window_content = new view (this);
   setCentralWidget(window_content);
+  connect(window_content,SIGNAL(image_focused()),this,SLOT(on_image_focused()));
+  connect(window_content,SIGNAL(no_image_focused()),this,SLOT(on_no_focused_image()));
 
   // Creación de menús
   generate_menu();
@@ -35,12 +38,16 @@ void MainWindow::generate_menu() {
     }
   }
 
+  on_no_focused_image();
+
+  menu_bar->actions()[0]->menu()->actions()[0]->setShortcut(QKeySequence("Ctrl+O"));
+  menu_bar->actions()[0]->menu()->actions()[1]->setShortcut(QKeySequence("Ctrl+S"));
+
   connect(menu_bar->actions()[0]->menu()->actions()[0], SIGNAL(triggered(bool)), this, SLOT(on_bttn_load(bool)));
   connect(menu_bar->actions()[0]->menu()->actions()[1], SIGNAL(triggered(bool)), this, SLOT(on_bttn_save(bool)));
 
   setMenuBar(menu_bar);
 }
-
 
 void MainWindow::on_bttn_load(bool) {
   QString filename = QFileDialog::getOpenFileName(this, tr("Abrir imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
@@ -48,8 +55,20 @@ void MainWindow::on_bttn_load(bool) {
 }
 
 void MainWindow::on_bttn_save(bool) {
-  QString filename = QFileDialog::getSaveFileName(this, tr("Guardar imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
-  emit save_image(filename, window_content->get_active_canvas());
+  if (window_content->theres_active_window()) {
+    QString filename = QFileDialog::getSaveFileName(this, tr("Guardar imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
+    emit save_image(filename, window_content->get_active_canvas());
+  }
+}
+
+void MainWindow::on_image_focused() {
+  menu_bar->actions()[0]->menu()->actions()[1]->setEnabled(true);
+  menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(true);
+}
+
+void MainWindow::on_no_focused_image() {
+  menu_bar->actions()[0]->menu()->actions()[1]->setEnabled(false);
+  menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(false);
 }
 
 MainWindow::~MainWindow()

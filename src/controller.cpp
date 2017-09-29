@@ -8,8 +8,6 @@ controller::controller() {
   connect(main_window.get_view(), SIGNAL(delete_image(uint)), this, SLOT(on_close_image(uint)));
 }
 
-#include <QDebug>
-
 void controller::on_load_image(QString file_name) {
   mdl.load_image(file_name);
   main_window.get_view()->add_canvas_window(*mdl.get_pixmap_at(-1));

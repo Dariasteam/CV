@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QDockWidget>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QWidget>
 
 class options_dock : public QDockWidget {
 public:
