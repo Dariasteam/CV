@@ -28,17 +28,17 @@ SOURCES += \
         src/mainwindow.cpp \
     src/view.cpp \
     src/controller.cpp \
-    src/model.cpp \
-    src/canvas.cpp \
-    src/canvas_window.cpp
+    src/model.cpp \    
+    src/canvas_window.cpp \
+    src/options_dock.cpp
 
 HEADERS += \
         src/mainwindow.h \
     src/view.h \
     src/controller.h \
-    src/model.h \
-    src/canvas.h \
-    src/canvas_window.h
+    src/model.h \    
+    src/canvas_window.h \
+    src/options_dock.h
 
 FORMS += \
         src/mainwindow.ui

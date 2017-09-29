@@ -7,6 +7,9 @@
 #include <QAction>
 #include <QList>
 #include <QString>
+#include <QToolBar>
+#include <QFileDialog>
+#include <QPoint>
 
 #include <vector>
 
@@ -24,20 +27,31 @@ class MainWindow : public QMainWindow {
 private:
 
   vector <vector <QString>> menu_strings = { {"Archivo", "Editar", "Acerca de"},
-                                             {"a_op_1",  "e_op_1"},
-                                             {"a_op_2",  "e_op_2"},
-                                             {"a_op_3"}
-                                                                              };
-
+                                             {"Abrir archivo", "Guardar archivo" },
+                                             {},
+                                             {}
+                                           };
 
   view* window_content;
   QMenuBar* menu_bar;
+  options_dock* dock;
+  QToolBar* toolbar;  
 public:
   explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
+  ~MainWindow();  
+  inline view* get_view () { return window_content; }
 
 private:
   Ui::MainWindow *ui;
+  void generate_menu();
+
+private slots:
+  void on_bttn_load (bool);
+  void on_bttn_save (bool);
+
+signals:
+  void load_image(QString file_name);
+  void save_image(QString file_name);
 };
 
 #endif // MAINWINDOW_H

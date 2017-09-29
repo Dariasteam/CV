@@ -2,19 +2,28 @@
 #define CANVAS_WINDOWS_H
 
 #include <QMdiSubWindow>
+#include <QFocusEvent>
+#include <QWidget>
+#include <QImage>
+#include <QLabel>
 #include <QLayout>
+#include <QPixmap>
+#include <QSizePolicy>
 
-#include "canvas.h"
+#include "options_dock.h"
 
-
-class canvas_window : public QMdiSubWindow
-{
+class canvas_window : public QMdiSubWindow {
   Q_OBJECT
-private:
-  canvas* canv;
-
+private:  
+  unsigned ID;
 public:
-  canvas_window(QWidget* parent = nullptr);
+  canvas_window(unsigned id, QPixmap& pixmap, QWidget* parent = nullptr);
+signals:
+  void set_active (unsigned id);
+public slots:
+  void focusInEvent(QFocusEvent *focusInEvent);
+
+
 };
 
 #endif // CANVAS_WINDOWS_H
