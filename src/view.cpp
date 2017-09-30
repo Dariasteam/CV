@@ -4,6 +4,8 @@ view::view(QWidget *parent) : QWidget(parent) {
   active_canvas = -1;
 }
 
+#include <QDebug>
+
 void view::on_window_set_active(unsigned id) {
   emit image_focused();
   active_canvas = id;
@@ -24,6 +26,7 @@ void view::on_windows_close(unsigned id) {
 void view::add_canvas_window(QPixmap &pixmap) {
   canvas_window* aux_canvas = new canvas_window(canvas_list.size(), pixmap, this);
   canvas_list.push_back(aux_canvas);
+
   connect(aux_canvas,SIGNAL(set_active(unsigned)),this,SLOT(on_window_set_active(unsigned)));
   connect(aux_canvas,SIGNAL(close(uint)),this,SLOT(on_windows_close(uint)));
 

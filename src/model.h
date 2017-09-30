@@ -5,14 +5,18 @@
 #include <QPixmap>
 #include <QList>
 #include <QImageReader>
+
 #include <iostream>
+
+#include "picture.h"
 
 using namespace std;
 
 class model {
 private:
-  QList<QImage*> image_list;
-  QList<QPixmap*> pixmap_list;
+  QList<picture*> image_list;
+  //QList<QImage*> image_list;
+  //QList<QPixmap*> pixmap_list;
   unsigned active_window;
 public:
   model();

@@ -30,7 +30,8 @@ SOURCES += \
     src/controller.cpp \
     src/model.cpp \    
     src/canvas_window.cpp \
-    src/options_dock.cpp
+    src/options_dock.cpp \
+    src/picture.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     src/controller.h \
     src/model.h \    
     src/canvas_window.h \
-    src/options_dock.h
+    src/options_dock.h \
+    src/picture.h
 
 FORMS += \
         src/mainwindow.ui

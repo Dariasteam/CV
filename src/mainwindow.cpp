@@ -51,7 +51,8 @@ void MainWindow::generate_menu() {
 
 void MainWindow::on_bttn_load(bool) {
   QString filename = QFileDialog::getOpenFileName(this, tr("Abrir imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
-  emit load_image(filename);
+  if (!filename.isEmpty())
+    emit load_image(filename);
 }
 
 void MainWindow::on_bttn_save(bool) {
