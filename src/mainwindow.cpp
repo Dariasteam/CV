@@ -24,6 +24,12 @@ MainWindow::MainWindow(QWidget *parent) :
   // Creación del toolbar
   toolbar = new QToolBar (this);
   addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);  
+
+  // Creación del footer
+  foot = new footer(this);
+  setStatusBar(foot);
+
+
 }
 
 void MainWindow::generate_menu() {

@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "view.h"
+#include "footer.h"
 
 using namespace std;
 
@@ -37,7 +38,8 @@ private:
   view* window_content;
   QMenuBar* menu_bar;
   options_dock* dock;
-  QToolBar* toolbar;  
+  QToolBar* toolbar;
+  footer* foot;
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
@@ -46,6 +48,7 @@ public:
 private:
   Ui::MainWindow *ui;
   void generate_menu();
+
 
 private slots:
   void on_bttn_load (bool);
