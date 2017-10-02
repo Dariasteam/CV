@@ -22,11 +22,8 @@ private:
 public:
   explicit footer(QWidget *parent = nullptr);
 
-signals:
-
 public slots:
-  void on_update_x_label (unsigned);
-  void on_update_y_label (unsigned);
+  void on_update_coordinate_labels (short x, short y);
   void on_update_meta_data (QString format, short height, short width);
 };
 

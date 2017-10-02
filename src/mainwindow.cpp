@@ -7,8 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  // Creación del footer
+  foot = new footer(this);
+  setStatusBar(foot);
+
   // Creación del main widget
-  window_content = new view (this);
+  window_content = new view (foot, this);
   setCentralWidget(window_content);
   connect(window_content,SIGNAL(image_focused()),this,SLOT(on_image_focused()));
   connect(window_content,SIGNAL(no_image_focused()),this,SLOT(on_no_focused_image()));
@@ -23,12 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Creación del toolbar
   toolbar = new QToolBar (this);
-  addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);  
-
-  // Creación del footer
-  foot = new footer(this);
-  setStatusBar(foot);
-
+  addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);    
 
 }
 

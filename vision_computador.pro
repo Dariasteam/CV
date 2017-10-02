@@ -32,7 +32,8 @@ SOURCES += \
     src/canvas_window.cpp \
     src/options_dock.cpp \
     src/picture.cpp \
-    src/footer.cpp
+    src/footer.cpp \
+    src/canvas_image_label.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     src/canvas_window.h \
     src/options_dock.h \
     src/picture.h \
-    src/footer.h
+    src/footer.h \
+    src/canvas_image_label.h
 
 FORMS += \
         src/mainwindow.ui

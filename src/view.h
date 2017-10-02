@@ -6,7 +6,7 @@
 #include <QPixmap>
 
 #include "canvas_window.h"
-
+#include "footer.h"
 
 class view : public QWidget {
   Q_OBJECT
@@ -14,8 +14,9 @@ class view : public QWidget {
 private:
   QList <canvas_window*> canvas_list;
   short active_canvas;
+  footer* foot;
 public:
-  explicit view(QWidget *parent = nullptr);  
+  explicit view(footer* foot, QWidget *parent = nullptr);
   inline unsigned get_active_canvas () { return active_canvas;}
   void add_canvas_window (QPixmap& pixmap);
   bool theres_active_window () { return active_canvas != -1; }
