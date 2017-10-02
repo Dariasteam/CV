@@ -11,6 +11,7 @@
 #include <QSizePolicy>
 #include <QDebug>
 #include <QCloseEvent>
+#include <QString>
 
 #include "options_dock.h"
 #include "canvas_image_label.h"
@@ -27,7 +28,7 @@ private:
   unsigned ID;
   canvas_image_label* showed_image;
 public:
-  canvas_window(unsigned id, QPixmap& pixmap, footer* foot, QWidget* parent = nullptr);
+  canvas_window(unsigned id, QPixmap& pixmap, footer* foot, QString name, QWidget* parent = nullptr);
 signals:
   void set_active (unsigned id);
   void close (unsigned id);

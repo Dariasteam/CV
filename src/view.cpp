@@ -24,8 +24,8 @@ void view::on_windows_close(unsigned id) {
   emit delete_image(id);
 }
 
-void view::add_canvas_window(QPixmap &pixmap) {
-  canvas_window* aux_canvas = new canvas_window(canvas_list.size(), pixmap, foot, this);
+void view::add_canvas_window(QPixmap &pixmap, QString name) {
+  canvas_window* aux_canvas = new canvas_window(canvas_list.size(), pixmap, foot, name, this);
   canvas_list.push_back(aux_canvas);
 
   connect(aux_canvas,SIGNAL(set_active(unsigned)),this,SLOT(on_window_set_active(unsigned)));

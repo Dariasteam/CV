@@ -18,7 +18,7 @@ private:
 public:
   explicit view(footer* foot, QWidget *parent = nullptr);
   inline unsigned get_active_canvas () { return active_canvas;}
-  void add_canvas_window (QPixmap& pixmap);
+  void add_canvas_window (QPixmap& pixmap, QString name);
   bool theres_active_window () { return active_canvas != -1; }
 public slots:
   void on_window_set_active (unsigned id);
