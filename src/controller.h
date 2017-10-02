@@ -12,7 +12,6 @@ class controller : public QObject {
   Q_OBJECT
 private:
   MainWindow main_window;
-
   model mdl;
 public:
   controller();

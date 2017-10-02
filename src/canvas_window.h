@@ -16,6 +16,9 @@
 
 #define HEADER_BAR_SIZE 20
 
+/* Representa una ventana flotante que muestra
+ * una imagen abierta
+ * */
 class canvas_window : public QMdiSubWindow {
   Q_OBJECT
 private:  

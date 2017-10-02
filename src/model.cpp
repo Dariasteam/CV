@@ -5,8 +5,7 @@ model::model() {
 }
 
 void model::load_image(QString file_name) {
-  QImage* raw_image = new QImage();
-  raw_image->load(file_name);
+  QImage* raw_image = new QImage(file_name);
   image_list.push_back(new picture(raw_image));
 }
 
@@ -15,8 +14,8 @@ void model::store_image(QString file_name, unsigned i) {
 }
 
 void model::delete_imagepix_at(unsigned i) {
-  image_list.removeAt(i);  
-  cout << "Imagen eliminada" << std::endl;
+  image_list.removeAt(i);
+  cout << "Imagen eliminada\n";
 }
 
 QImage* model::get_image_at(int i) {

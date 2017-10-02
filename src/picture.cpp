@@ -5,4 +5,5 @@ picture::picture(QImage* image) :
 {
   pixmap = new QPixmap();
   pixmap->convertFromImage(*image);
+
 }
