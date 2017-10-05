@@ -13,11 +13,11 @@ footer::footer(QWidget *parent) : QStatusBar(parent) {
   addWidget(image_size);
 }
 
-void footer::on_update_coordinate_labels(short x, short y) {
-  x_pixel_label->setText(X_STRING + QString::number(x));
-  y_pixel_label->setText(Y_STRING + QString::number(y));
+void footer::on_update_coordinate_labels(QPoint point) {
+  x_pixel_label->setText(X_STRING + QString::number(point.x()));
+  y_pixel_label->setText(Y_STRING + QString::number(point.y()));
 }
 
-void footer::on_update_meta_data(QString format, short height, short width) {
+void footer::on_update_meta_data(QString format, QSize size) {
 
 }

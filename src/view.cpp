@@ -33,4 +33,3 @@ void view::add_canvas_window(QPixmap &pixmap, QString name) {
 
   aux_canvas->show();
 }
-

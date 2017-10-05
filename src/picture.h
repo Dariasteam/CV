@@ -17,11 +17,11 @@
 class picture {
 private:
   QImage* raw_image;
-  QPixmap* pixmap;  
+  QPixmap* pixmap;
 public:  
   picture (QImage* image);
   inline QImage*  get_image  () { return raw_image; }
-  inline QPixmap* get_pixmap () { return pixmap;    }
+  inline QPixmap* get_pixmap () { return pixmap;    }  
 };
 
 #endif // IMAGE_H

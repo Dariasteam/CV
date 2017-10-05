@@ -48,8 +48,6 @@ public:
 private:
   Ui::MainWindow *ui;
   void generate_menu();
-
-
 private slots:
   void on_bttn_load (bool);
   void on_bttn_save (bool);

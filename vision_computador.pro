@@ -33,7 +33,10 @@ SOURCES += \
     src/options_dock.cpp \
     src/picture.cpp \
     src/footer.cpp \
-    src/canvas_image_label.cpp
+    src/canvas_image_label.cpp \
+    src/ensure_close_dialog.cpp \
+    src/image_operation.cpp \
+    src/operation_color_to_black.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -44,7 +47,10 @@ HEADERS += \
     src/options_dock.h \
     src/picture.h \
     src/footer.h \
-    src/canvas_image_label.h
+    src/canvas_image_label.h \
+    src/ensure_close_dialog.h \
+    src/image_operation.h \
+    src/operation_color_to_black.h
 
 FORMS += \
         src/mainwindow.ui

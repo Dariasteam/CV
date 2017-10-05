@@ -9,7 +9,7 @@ canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
 
   setWindowTitle(name);
 
-  connect(showed_image,SIGNAL(update_coordinates(short,short)),foot,SLOT(on_update_coordinate_labels(short,short)));
+  connect(showed_image,SIGNAL(update_coordinates(QPoint)),foot,SLOT(on_update_coordinate_labels(QPoint)));
 
   layout()->addWidget(showed_image);
 
@@ -18,10 +18,10 @@ canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
 }
 
 void canvas_window::focusInEvent(QFocusEvent *focusInEvent) {
-  emit set_active(ID);
+  emit set_active(ID);  
 }
 
-void canvas_window::closeEvent(QCloseEvent *ev) {
+void canvas_window::closeEvent(QCloseEvent *ev) {  
   emit close(ID);
 }
 

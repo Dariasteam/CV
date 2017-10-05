@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <QMouseEvent>
+#include <QPoint>
 
 class canvas_image_label : public QLabel
 {
@@ -13,7 +14,7 @@ public:
 private:
   void mouseMoveEvent(QMouseEvent* ev);
 signals:
-  void update_coordinates (short x, short y);
+  void update_coordinates (QPoint);
 public slots:
 };
 

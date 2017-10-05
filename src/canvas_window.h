@@ -12,6 +12,8 @@
 #include <QDebug>
 #include <QCloseEvent>
 #include <QString>
+#include <QSize>
+#include <QDialog>
 
 #include "options_dock.h"
 #include "canvas_image_label.h"
@@ -31,7 +33,7 @@ public:
   canvas_window(unsigned id, QPixmap& pixmap, footer* foot, QString name, QWidget* parent = nullptr);
 signals:
   void set_active (unsigned id);
-  void close (unsigned id);
+  void close (unsigned id);  
 public slots:
   void focusInEvent(QFocusEvent *focusInEvent);
 private:
