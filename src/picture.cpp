@@ -8,15 +8,14 @@ picture::picture(QImage* image) :
 
   to_grayscale(PAL);
 
-  // Generar el histograma
   generate_histograms();
-
 }
 
 void picture::generate_histograms() {
   each_pixel_iterator([&](QColor pixel) -> bool{
     histograms.regular[pixel.red()]+= 1;
   });
+  histograms.generate_from_regular();
 }
 
 void picture::to_grayscale(const std::vector<double>& transform) {

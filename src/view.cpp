@@ -5,10 +5,8 @@ view::view(footer* fot, QWidget *parent) : QWidget(parent) {
   foot = fot;
 }
 
-#include <QDebug>
-
-void view::on_window_set_active(unsigned id) {
-  emit image_focused();
+void view::on_window_set_active(unsigned id) {  
+  emit image_focused(id);
   active_canvas = id;
 }
 
@@ -21,7 +19,7 @@ void view::on_windows_close(unsigned id) {
     emit no_image_focused();
     active_canvas = -1;
   }
-  emit delete_image(id);
+  emit delete_image();
 }
 
 void view::add_canvas_window(QPixmap &pixmap, QString name) {

@@ -4,10 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 TARGET = vision_computador
 TEMPLATE = app
 
@@ -37,7 +36,9 @@ SOURCES += \
     src/ensure_close_dialog.cpp \
     src/image_operation.cpp \
     src/operation_color_to_black.cpp \
-    src/histogram.cpp
+    src/histogram.cpp \
+    src/histogram_widget.cpp \
+    src/chart_representation.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -52,7 +53,9 @@ HEADERS += \
     src/ensure_close_dialog.h \
     src/image_operation.h \
     src/operation_color_to_black.h \
-    src/histogram.h
+    src/histogram.h \
+    src/histogram_widget.h \
+    src/chart_representation.h
 
 FORMS += \
         src/mainwindow.ui

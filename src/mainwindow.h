@@ -16,6 +16,7 @@
 
 #include "view.h"
 #include "footer.h"
+#include "options_dock.h"
 
 using namespace std;
 
@@ -37,13 +38,14 @@ private:
 
   view* window_content;
   QMenuBar* menu_bar;
-  options_dock* dock;
+  options_dock* op_dock;
   QToolBar* toolbar;
   footer* foot;
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
   inline view* get_view () { return window_content; }
+  inline options_dock* get_options_dock () { return op_dock; }
 
 private:
   Ui::MainWindow *ui;

@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
   generate_menu();
 
   // Creación del dock
-  dock = new options_dock (this);
-  dock->setFeatures(QDockWidget::DockWidgetMovable);
-  addDockWidget(Qt::RightDockWidgetArea, dock);
+  op_dock = new options_dock (this);
+  op_dock->setFeatures(QDockWidget::DockWidgetMovable);
+  addDockWidget(Qt::RightDockWidgetArea, op_dock);
 
   // Creación del toolbar
   toolbar = new QToolBar (this);

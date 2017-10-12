@@ -24,10 +24,9 @@ public slots:
   void on_window_set_active (unsigned id);
   void on_windows_close (unsigned id);
 signals:
-  void delete_image (unsigned);
-
+  void delete_image ();
   void no_image_focused();
-  void image_focused();
+  void image_focused(unsigned);
 };
 
 #endif // VIEW_H

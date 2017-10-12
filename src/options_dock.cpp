@@ -11,4 +11,6 @@ options_dock::options_dock(QWidget* parent) : QDockWidget(parent) {
   QLabel* title_label = new QLabel (tr("Propiedades"), base_widget);
   setTitleBarWidget(title_label);
 
+  histogram_wid = new histogram_widget (base_widget);
+  layout->addWidget(histogram_wid);
 }

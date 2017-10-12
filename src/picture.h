@@ -36,6 +36,7 @@ public:
   inline QImage*  get_image  () { return raw_image; }
   inline QPixmap* get_pixmap () { return pixmap;    }  
   inline void update_pixmap () { pixmap->convertFromImage(*raw_image); }
+  inline histogram get_histograms () { return histograms; }
 };
 
 #endif // IMAGE_H

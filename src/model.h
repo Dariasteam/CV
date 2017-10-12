@@ -9,14 +9,13 @@
 #include <iostream>
 
 #include "picture.h"
+#include "histogram.h"
 
 using namespace std;
 
 class model {
 private:
-  QList<picture*> image_list;
-  //QList<QImage*> image_list;
-  //QList<QPixmap*> pixmap_list;
+  QList<picture*> image_list;  
   unsigned active_window;
 public:
   model();
@@ -25,10 +24,7 @@ public:
   void store_image (QString file_name, unsigned i);
   void delete_imagepix_at (unsigned i);
 
-  QImage* get_image_at (int i);
-  QPixmap* get_pixmap_at (int i);
-
-
+  picture* get_picture_at (int i);
 };
 
 #endif // MODEL_H

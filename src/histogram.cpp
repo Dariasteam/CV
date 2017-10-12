@@ -17,6 +17,4 @@ void histogram::generate_from_regular() {
     normalized_regular[i]    = float(regular[i])    / DEPTH;
     normalized_acumulated[i] = float(acumulated[i]) / DEPTH;
   }
-
-
 }
