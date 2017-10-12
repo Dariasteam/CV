@@ -9,7 +9,7 @@ controller::controller() {
 }
 
 void controller::on_load_image(QString file_name) {
-  mdl.load_image(file_name);
+  mdl.load_image(file_name);  
   main_window.get_view()->add_canvas_window(*mdl.get_pixmap_at(-1), file_name);
 }
 

@@ -5,7 +5,7 @@ model::model() {
 }
 
 void model::load_image(QString file_name) {
-  QImage* raw_image = new QImage(file_name);
+  QImage* raw_image = new QImage(file_name);  
   image_list.push_back(new picture(raw_image));
 }
 
