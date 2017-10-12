@@ -4,17 +4,17 @@
 #include <vector>
 #include <QImage>
 
-#define CHANEL_DEPTH 8
-#define N_CHANELS 3
+#define DEPTH 255
 
-class histogram {
-private:
+struct histogram {
   std::vector <unsigned> regular;                // histograma
   std::vector <unsigned> acumulated;             // histograma acumulado
   std::vector <unsigned> normalized_regular;     // histograma normal normalizado
   std::vector <unsigned> normalized_acumulated;  // histograma acumulado normalizado
-public:
-  histogram(QImage* img);
+
+  histogram();
+
+  void generate_from_regular ();
 };
 
 #endif // HISTOGRAM_H

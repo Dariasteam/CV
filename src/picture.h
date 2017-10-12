@@ -23,13 +23,14 @@ private:
 
   QImage* raw_image;
   QPixmap* pixmap;
-  histogram* histograms;
+  histogram histograms;
   unsigned average;           // media
   double mediana;             // esto en inglés
 public:
   bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
+  void generate_histograms ();
   void to_grayscale (const std::vector<double>&  transform);
   picture (QImage* image);
   inline QImage*  get_image  () { return raw_image; }
