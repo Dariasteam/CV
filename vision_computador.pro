@@ -36,7 +36,8 @@ SOURCES += \
     src/canvas_image_label.cpp \
     src/ensure_close_dialog.cpp \
     src/image_operation.cpp \
-    src/operation_color_to_black.cpp
+    src/operation_color_to_black.cpp \
+    src/histogram.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     src/canvas_image_label.h \
     src/ensure_close_dialog.h \
     src/image_operation.h \
-    src/operation_color_to_black.h
+    src/operation_color_to_black.h \
+    src/histogram.h
 
 FORMS += \
         src/mainwindow.ui
