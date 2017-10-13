@@ -3,7 +3,10 @@
 chart_representation::chart_representation(QWidget* parent) : QChartView(parent),
   red (Qt::red),
   green (Qt::green),
-  blue (Qt::blue)
+  blue (Qt::blue),
+  r (true),
+  g (true),
+  b (true)
 {
 
   chart.legend()->setVisible(false);
@@ -16,14 +19,13 @@ chart_representation::chart_representation(QWidget* parent) : QChartView(parent)
 
 
   setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-  setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+  setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
 
-  red.setAlpha(100);
-  green.setAlpha(100);
-  blue.setAlpha(80);
+  red.setAlpha(REGULAR_ALPHA);
+  green.setAlpha(REGULAR_ALPHA);
+  blue.setAlpha(REGULAR_ALPHA);
 
   setChart(&chart);
-
 }
 
 QAreaSeries* chart_representation::represent (const std::vector<unsigned>& h) {
@@ -38,9 +40,24 @@ QAreaSeries* chart_representation::represent (const std::vector<unsigned>& h) {
   return new QAreaSeries(serie1, serie2);
 }
 
-void chart_representation::update(const std::vector<unsigned> &hr,
-                                  const std::vector<unsigned> &hg,
-                                  const std::vector<unsigned> &hb) {
+void chart_representation::toggle_r (bool r){
+  red.setAlpha( r ? REGULAR_ALPHA + 50 : 0);
+  update_view();
+}
+
+void chart_representation::toggle_g (bool g){
+  green.setAlpha( g ? REGULAR_ALPHA : 0);
+  update_view();
+}
+
+void chart_representation::toggle_b (bool b){
+  blue.setAlpha( b ? REGULAR_ALPHA : 0);
+  update_view();
+}
+
+void chart_representation::update_values(const std::vector<unsigned> &hr,
+                                         const std::vector<unsigned> &hg,
+                                         const std::vector<unsigned> &hb) {
   chart.removeSeries(area_series_r);
   chart.removeSeries(area_series_g);
   chart.removeSeries(area_series_b);
@@ -49,12 +66,19 @@ void chart_representation::update(const std::vector<unsigned> &hr,
   area_series_g = represent(hg);
   area_series_b = represent(hb);
 
-  area_series_r->setColor(red);
-  area_series_g->setColor(green);
-  area_series_b->setColor(blue);
-
-  chart.addSeries(area_series_r);
-  chart.addSeries(area_series_g);
-  chart.addSeries(area_series_b);
+  update_view();
 }
 
+void chart_representation::update_view () {
+  chart.removeSeries(area_series_r);
+  chart.removeSeries(area_series_g);
+  chart.removeSeries(area_series_b);
+
+  area_series_b->setColor(blue);
+  area_series_g->setColor(green);
+  area_series_r->setColor(red);
+
+  chart.addSeries(area_series_r);  
+  chart.addSeries(area_series_g);  
+  chart.addSeries(area_series_b);
+}
