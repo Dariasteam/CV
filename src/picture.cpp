@@ -6,14 +6,16 @@ picture::picture(QImage* image) :
   pixmap = new QPixmap();
   pixmap->convertFromImage(*image);   
 
-  to_grayscale(PAL);
+  //to_grayscale(PAL);
 
   generate_histograms();
 }
 
 void picture::generate_histograms() {
   each_pixel_iterator([&](QColor pixel) -> bool{
-    histograms.regular[pixel.red()]+= 1;
+    histograms.regular_r[pixel.red()  ]+= 1;
+    histograms.regular_g[pixel.green()]+= 1;
+    histograms.regular_b[pixel.blue() ]+= 1;
   });
   histograms.generate_from_regular();
 }
