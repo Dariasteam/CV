@@ -11,7 +11,7 @@ chart_representation::chart_representation(QWidget* parent) : QChartView(parent)
 
   chart.legend()->setVisible(false);
   chart.setMargins(QMargins(0,0,0,0));  
-  chart.setAnimationOptions(QChart::AllAnimations);
+  chart.setAnimationOptions(QChart::GridAxisAnimations);
 
   setRenderHint(QPainter::Antialiasing);
 
@@ -74,11 +74,17 @@ void chart_representation::update_view () {
   chart.removeSeries(area_series_g);
   chart.removeSeries(area_series_b);
 
-  area_series_b->setColor(blue);
-  area_series_g->setColor(green);
   area_series_r->setColor(red);
+  area_series_r->setBorderColor(red);
+
+  area_series_g->setColor(green);
+  area_series_g->setBorderColor(green);
+
+  area_series_b->setColor(blue);
+  area_series_b->setBorderColor(blue);
 
   chart.addSeries(area_series_r);  
   chart.addSeries(area_series_g);  
   chart.addSeries(area_series_b);
 }
+
