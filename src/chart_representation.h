@@ -6,18 +6,19 @@
 #include <QWidget>
 #include <QtCharts>
 #include <QChart>
+#include <QBoxLayout>
 
-#define MAX_WIDTH 300
-#define MAX_HEIGHT 300
+#define MIN_HEIGHT 300
 
 #define REGULAR_ALPHA 100
 
-class chart_representation : public QChartView {
+class chart_representation : public QWidget {
 private:
+  QChartView view;
   QChart chart;  
   QAreaSeries* area_series_r;
   QAreaSeries* area_series_g;
-  QAreaSeries* area_series_b;
+  QAreaSeries* area_series_b;  
 
   bool r;
   bool g;

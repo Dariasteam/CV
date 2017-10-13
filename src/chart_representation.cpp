@@ -1,31 +1,35 @@
 #include "chart_representation.h"
 
-chart_representation::chart_representation(QWidget* parent) : QChartView(parent),
+chart_representation::chart_representation(QWidget* parent) : QWidget(parent),
   red (Qt::red),
   green (Qt::green),
   blue (Qt::blue),
   r (true),
   g (true),
-  b (true)
+  b (true),
+  view (this)
 {
 
+
   chart.legend()->setVisible(false);
-  chart.setMargins(QMargins(0,0,0,0));  
+  //chart.setMargins(QMargins(0,0,0,0));
   chart.setAnimationOptions(QChart::GridAxisAnimations);
 
-  setRenderHint(QPainter::Antialiasing);
-
-  setMaximumHeight(MAX_HEIGHT);
-
-
-  setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-  setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+  setMinimumHeight(MIN_HEIGHT);
+  setMinimumWidth (MIN_HEIGHT);
 
   red.setAlpha(REGULAR_ALPHA);
   green.setAlpha(REGULAR_ALPHA);
   blue.setAlpha(REGULAR_ALPHA);
 
-  setChart(&chart);
+  setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+  view.setRenderHint(QPainter::Antialiasing);
+  view.setChart(&chart);
+
+  QBoxLayout* layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
+  setLayout(layout);
+  layout->addWidget(&view);
 }
 
 QAreaSeries* chart_representation::represent (const std::vector<unsigned>& h) {

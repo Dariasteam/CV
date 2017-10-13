@@ -4,10 +4,17 @@ histogram_widget::histogram_widget(QWidget *parent) :
   QWidget(parent)
 {
   tabs = new QTabWidget (this);
+
+  tabs->setMovable(false);
+  tabs->setTabsClosable(false);
+
   layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
+
   tabs->addTab(&chart_histogram, TAB1_NAME);
   tabs->addTab(&chart_ac_histogram, TAB2_NAME);
   layout->addWidget(tabs);
+
+
 
   QWidget* check_box_widget = new QWidget(this);
   QBoxLayout* check_box_layout = new QBoxLayout(QBoxLayout::LeftToRight);
