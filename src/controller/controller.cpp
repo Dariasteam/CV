@@ -34,20 +34,21 @@ void controller::on_set_active_image (unsigned id) {
 
 bool controller::load_all_plugins (const QString& path) {
   QDir pluginsDir(qApp->applicationDirPath());
-  pluginsDir.cd(path);
-  std::cout << pluginsDir.path().toStdString() << std::endl;
+  pluginsDir.cd(path);  
   bool result = true;
   foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-    std::cout << "Tratando de cargar " << fileName.toStdString() << "... ";
+    std::cout << "Tratando de cargar " << fileName.toStdString() << " | ";
     QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
     QObject *plugin = pluginLoader.instance();
     if (plugin) {
       std::cout << "plugin cargado correctamente";
       PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
       mdl.add_plugin(aux);
+    } else {
+      std::cout << "No se ha podido cargar" << std::endl;
+      result = false;
     }
     std::cout << "\n";
-    result = false;
   }
   return result;
 }
