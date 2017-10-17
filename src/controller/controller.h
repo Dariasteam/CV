@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QFile>
 
-#define DEFAULT_PLUGINS_LOCATION "../compiled_plugins/"
+#define DEFAULT_PLUGINS_LOCATION "../build/compiled_plugins/"
 
 #include "../view/mainwindow.h"
 #include "../view/view.h"

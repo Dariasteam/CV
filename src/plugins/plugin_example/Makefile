@@ -349,7 +349,7 @@ first: all
 $(TARGET):  $(OBJECTS) $(SUBLIBS) $(OBJCOMP)  
 	-$(DEL_FILE) $(TARGET)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS) $(OBJCOMP)
-	mv libplugin.so ../../../compiled_plugins/plugin_example
+	mv libplugin.so ../../../build/compiled_plugins/plugin_example
 
 
 

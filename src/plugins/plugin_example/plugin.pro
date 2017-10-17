@@ -12,7 +12,7 @@ SOURCES         = connector_plugin.cpp \
 
 LIB_NAME = $$system(basename $(pwd))
 
-COMMAND = "mv libplugin.so ../../../compiled_plugins/"
+COMMAND = "mv libplugin.so ../../../build/compiled_plugins/"
 
 FINAL_PATH = $$join(COMMAND,"","",$$LIB_NAME)  
 

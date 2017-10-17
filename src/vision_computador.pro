@@ -59,3 +59,7 @@ HEADERS += \
 
 FORMS += \
         view/mainwindow.ui
+        
+COMMAND = "mv vision_computador ../build/"
+              
+QMAKE_POST_LINK += $$COMMAND
