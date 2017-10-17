@@ -1,7 +1,8 @@
 #include "picture.h"
 
 picture::picture(QImage* image) :
-  raw_image (image)
+  raw_image (image),
+  black_and_white (false)
 {
   pixmap = new QPixmap();
   pixmap->convertFromImage(*image);   
@@ -32,6 +33,7 @@ void picture::to_grayscale(const std::vector<double>& transform) {
 
     return QColor(gray, gray, gray);
   });
+  set_black_and_white(true);
 }
 
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {

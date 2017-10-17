@@ -20,6 +20,7 @@ class picture {
 private:
   const std::vector<double> NTSC = { 0.299, 0.587, 0.114 };
   const std::vector<double> PAL  = { 0.222, 0.707, 0.071 };  
+  bool black_and_white;
 
   QImage* raw_image;
   QPixmap* pixmap;
@@ -37,6 +38,8 @@ public:
   inline QPixmap* get_pixmap () { return pixmap;    }  
   inline void update_pixmap () { pixmap->convertFromImage(*raw_image); }
   inline histogram get_histograms () { return histograms; }
+  inline void set_black_and_white (bool b) { black_and_white = true; }
+  inline bool get_black_and_white () { return black_and_white; }
 };
 
 #endif // IMAGE_H

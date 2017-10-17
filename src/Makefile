@@ -1074,6 +1074,7 @@ moc_controller.cpp: view/mainwindow.h \
 		view/footer.h \
 		model/model.h \
 		model/picture.h \
+		controller/plugin_connector.h \
 		controller/controller.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1142,7 +1143,8 @@ main.o: main.cpp controller/controller.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		model/model.h \
-		model/picture.h
+		model/picture.h \
+		controller/plugin_connector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: view/mainwindow.cpp view/mainwindow.h \
@@ -1178,12 +1180,14 @@ controller.o: controller/controller.cpp controller/controller.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		model/model.h \
-		model/picture.h
+		model/picture.h \
+		controller/plugin_connector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller/controller.cpp
 
 model.o: model/model.cpp model/model.h \
 		model/picture.h \
-		model/histogram.h
+		model/histogram.h \
+		controller/plugin_connector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model/model.cpp
 
 canvas_window.o: view/canvas_window.cpp view/canvas_window.h \

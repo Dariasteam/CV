@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_controller_t {
-    QByteArrayData data[12];
-    char stringdata0[128];
+    QByteArrayData data[16];
+    char stringdata0[174];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,13 +42,18 @@ QT_MOC_LITERAL(7, 69, 14), // "on_store_image"
 QT_MOC_LITERAL(8, 84, 2), // "id"
 QT_MOC_LITERAL(9, 87, 14), // "on_close_image"
 QT_MOC_LITERAL(10, 102, 19), // "on_set_active_image"
-QT_MOC_LITERAL(11, 122, 5) // "image"
+QT_MOC_LITERAL(11, 122, 5), // "image"
+QT_MOC_LITERAL(12, 128, 16), // "load_all_plugins"
+QT_MOC_LITERAL(13, 145, 4), // "path"
+QT_MOC_LITERAL(14, 150, 11), // "load_plugin"
+QT_MOC_LITERAL(15, 162, 11) // "plugin_name"
 
     },
     "controller\0update_histograms\0\0histogram\0"
     "hist\0on_load_image\0file_name\0"
     "on_store_image\0id\0on_close_image\0"
-    "on_set_active_image\0image"
+    "on_set_active_image\0image\0load_all_plugins\0"
+    "path\0load_plugin\0plugin_name"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +63,7 @@ static const uint qt_meta_data_controller[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,13 +71,15 @@ static const uint qt_meta_data_controller[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    1,   42,    2, 0x0a /* Public */,
-       7,    2,   45,    2, 0x0a /* Public */,
-       9,    0,   50,    2, 0x0a /* Public */,
-      10,    1,   51,    2, 0x0a /* Public */,
+       5,    1,   52,    2, 0x0a /* Public */,
+       7,    2,   55,    2, 0x0a /* Public */,
+       9,    0,   60,    2, 0x0a /* Public */,
+      10,    1,   61,    2, 0x0a /* Public */,
+      12,    1,   64,    2, 0x0a /* Public */,
+      14,    1,   67,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -82,6 +89,8 @@ static const uint qt_meta_data_controller[] = {
     QMetaType::Void, QMetaType::QString, QMetaType::UInt,    6,    8,
     QMetaType::Void,
     QMetaType::Void, QMetaType::UInt,   11,
+    QMetaType::Bool, QMetaType::QString,   13,
+    QMetaType::Bool, QMetaType::QString,   15,
 
        0        // eod
 };
@@ -93,10 +102,14 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->update_histograms((*reinterpret_cast< histogram(*)>(_a[1]))); break;
-        case 1: _t->on_load_image((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: _t->on_store_image((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< uint(*)>(_a[2]))); break;
+        case 1: _t->on_load_image((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: _t->on_store_image((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< uint(*)>(_a[2]))); break;
         case 3: _t->on_close_image(); break;
         case 4: _t->on_set_active_image((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 5: { bool _r = _t->load_all_plugins((*reinterpret_cast< const QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 6: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -137,13 +150,13 @@ int controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }
