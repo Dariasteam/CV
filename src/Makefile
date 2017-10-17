@@ -391,7 +391,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		view/histogram_widget.h \
 		view/chart_representation.h \
 		view/canvas_image_label.h \
-		controller/plugin_connector.h main.cpp \
+		controller/plugin_interface.h main.cpp \
 		view/mainwindow.cpp \
 		view/view.cpp \
 		controller/controller.cpp \
@@ -1002,7 +1002,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents view/mainwindow.h view/view.h controller/controller.h model/model.h view/canvas_window.h view/options_dock.h model/picture.h view/footer.h ensure_close_dialog.h image_operation.h operation_color_to_black.h model/histogram.h view/histogram_widget.h view/chart_representation.h view/canvas_image_label.h controller/plugin_connector.h $(DISTDIR)/
+	$(COPY_FILE) --parents view/mainwindow.h view/view.h controller/controller.h model/model.h view/canvas_window.h view/options_dock.h model/picture.h view/footer.h ensure_close_dialog.h image_operation.h operation_color_to_black.h model/histogram.h view/histogram_widget.h view/chart_representation.h view/canvas_image_label.h controller/plugin_interface.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp view/mainwindow.cpp view/view.cpp controller/controller.cpp model/model.cpp view/canvas_window.cpp view/options_dock.cpp model/picture.cpp view/footer.cpp ensure_close_dialog.cpp image_operation.cpp operation_color_to_black.cpp model/histogram.cpp view/histogram_widget.cpp view/chart_representation.cpp view/canvas_image_label.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents view/mainwindow.ui $(DISTDIR)/
 
@@ -1074,7 +1074,7 @@ moc_controller.cpp: view/mainwindow.h \
 		view/footer.h \
 		model/model.h \
 		model/picture.h \
-		controller/plugin_connector.h \
+		controller/plugin_interface.h \
 		controller/controller.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1144,7 +1144,7 @@ main.o: main.cpp controller/controller.h \
 		view/footer.h \
 		model/model.h \
 		model/picture.h \
-		controller/plugin_connector.h
+		controller/plugin_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: view/mainwindow.cpp view/mainwindow.h \
@@ -1181,13 +1181,13 @@ controller.o: controller/controller.cpp controller/controller.h \
 		view/footer.h \
 		model/model.h \
 		model/picture.h \
-		controller/plugin_connector.h
+		controller/plugin_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller/controller.cpp
 
 model.o: model/model.cpp model/model.h \
 		model/picture.h \
 		model/histogram.h \
-		controller/plugin_connector.h
+		controller/plugin_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model/model.cpp
 
 canvas_window.o: view/canvas_window.cpp view/canvas_window.h \

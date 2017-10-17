@@ -10,7 +10,7 @@
 #include "../view/view.h"
 #include "../model/model.h"
 #include "../model/histogram.h"
-#include "plugin_connector.h"
+#include "plugin_interface.h"
 
 class controller : public QObject {
   Q_OBJECT

@@ -11,7 +11,7 @@
 
 #include "picture.h"
 #include "histogram.h"
-#include "../controller/plugin_connector.h"
+#include "../controller/plugin_interface.h"
 
 using namespace std;
 

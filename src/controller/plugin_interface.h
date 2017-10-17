@@ -9,23 +9,23 @@ struct plugin_metainfo {
   QString category = "default plugin category";
 };
 
-class plugin {
+class abstract_plugin {
 protected:
   // Información para los menús
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
-public:
+public:  
   const plugin_metainfo& get_meta_info () { return meta_info; }
   QWidget* get_view ()                    { return view;      }
 };
 
 class PluginInterface {
 protected:
-  plugin* content;
+  abstract_plugin* content;
 public:
   virtual ~PluginInterface() {}
-  plugin* get_plugin () { return content; }
+  abstract_plugin* get_plugin () { return content; }
 };
 
 #define PluginInterface_iid "P"

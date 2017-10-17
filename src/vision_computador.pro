@@ -55,7 +55,7 @@ HEADERS += \
         view/histogram_widget.h \
         view/chart_representation.h \
         view/canvas_image_label.h \
-        controller/plugin_connector.h
+    controller/plugin_interface.h
 
 FORMS += \
         view/mainwindow.ui

@@ -50,10 +50,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = plugin_template.cpp \
-		connector_plugin.cpp moc_connector_plugin.cpp
-OBJECTS       = plugin_template.o \
-		connector_plugin.o \
+SOURCES       = connector_plugin.cpp \
+		plugin_template.cpp moc_connector_plugin.cpp
+OBJECTS       = connector_plugin.o \
+		plugin_template.o \
 		moc_connector_plugin.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -335,8 +335,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		plugin.pro connector_plugin.h \
-		plugin_template.h plugin_template.cpp \
-		connector_plugin.cpp
+		plugin_template.h connector_plugin.cpp \
+		plugin_template.cpp
 QMAKE_TARGET  = plugin
 DESTDIR       = 
 TARGET        = libplugin.so
@@ -936,7 +936,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents connector_plugin.h plugin_template.h $(DISTDIR)/
-	$(COPY_FILE) --parents plugin_template.cpp connector_plugin.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents connector_plugin.cpp plugin_template.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -970,7 +970,8 @@ moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_connector_plugin.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_connector_plugin.cpp
-moc_connector_plugin.cpp: ../../controller/plugin_connector.h \
+moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
+		plugin_template.h \
 		connector_plugin.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -990,13 +991,14 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-plugin_template.o: plugin_template.cpp plugin_template.h \
-		../../controller/plugin_connector.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plugin_template.o plugin_template.cpp
-
 connector_plugin.o: connector_plugin.cpp connector_plugin.h \
-		../../controller/plugin_connector.h
+		../../controller/plugin_interface.h \
+		plugin_template.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
+
+plugin_template.o: plugin_template.cpp plugin_template.h \
+		../../controller/plugin_interface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plugin_template.o plugin_template.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connector_plugin.o moc_connector_plugin.cpp
