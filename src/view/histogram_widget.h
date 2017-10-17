@@ -10,7 +10,7 @@
 #include <QCheckBox>
 
 #include "chart_representation.h"
-#include "histogram.h"
+#include "../model/histogram.h"
 
 #define TAB1_NAME "Histograma normal"
 #define TAB2_NAME "Histograma acumulado"

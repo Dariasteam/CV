@@ -9,7 +9,6 @@
 #include <QBoxLayout>
 
 #define MIN_HEIGHT 300
-
 #define REGULAR_ALPHA 100
 
 class chart_representation : public QWidget {

@@ -5,10 +5,10 @@
 #include <QFile>
 
 
-#include "mainwindow.h"
-#include "view.h"
-#include "model.h"
-#include "histogram.h"
+#include "../view/mainwindow.h"
+#include "../view/view.h"
+#include "../model/model.h"
+#include "../model/histogram.h"
 
 class controller : public QObject {
   Q_OBJECT

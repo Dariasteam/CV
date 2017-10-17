@@ -9,10 +9,8 @@ chart_representation::chart_representation(QWidget* parent) : QWidget(parent),
   b (true),
   view (this)
 {
-
-
   chart.legend()->setVisible(false);
-  //chart.setMargins(QMargins(0,0,0,0));
+  chart.setMargins(QMargins(5,5,5,5));
   chart.setAnimationOptions(QChart::GridAxisAnimations);
 
   setMinimumHeight(MIN_HEIGHT);

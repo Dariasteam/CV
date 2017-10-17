@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Creación del toolbar
   toolbar = new QToolBar (this);
-  addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);    
+  addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);
 
 }
 

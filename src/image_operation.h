@@ -1,11 +1,11 @@
 #ifndef IMAGE_OPERATION_H
 #define IMAGE_OPERATION_H
 
-#include <QImage>
+#include <QColor>
 
 class Image_operation {
-public:
-  Image_operation(QImage* image);
+
+  virtual QColor operator () (QColor pix);
 };
 
 #endif // IMAGE_OPERATION_H

@@ -25,10 +25,7 @@ void controller::on_close_image() {
   mdl.delete_imagepix_at(active_image);
 }
 
-#include <iostream>
-
 void controller::on_set_active_image (unsigned id) {  
   active_image = id;
-
   emit update_histograms(mdl.get_picture_at(id)->get_histograms());
 }

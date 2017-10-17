@@ -4,8 +4,7 @@
 #include "image_operation.h"
 
 class operation_color_to_black : public Image_operation {
-public:
-  operation_color_to_black(QImage* image);
+public:  
 
 
 

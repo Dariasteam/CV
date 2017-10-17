@@ -9,6 +9,10 @@ picture::picture(QImage* image) :
   //to_grayscale(PAL);
 
   generate_histograms();
+
+  std::function<QColor (QColor as)> {
+
+  };
 }
 
 void picture::generate_histograms() {

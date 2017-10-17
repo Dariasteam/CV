@@ -24,38 +24,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/mainwindow.cpp \
-    src/view.cpp \
-    src/controller.cpp \
-    src/model.cpp \    
-    src/canvas_window.cpp \
-    src/options_dock.cpp \
-    src/picture.cpp \
-    src/footer.cpp \
-    src/canvas_image_label.cpp \
-    src/ensure_close_dialog.cpp \
-    src/image_operation.cpp \
-    src/operation_color_to_black.cpp \
-    src/histogram.cpp \
-    src/histogram_widget.cpp \
-    src/chart_representation.cpp
+        src/view/mainwindow.cpp \
+        src/view/view.cpp \
+        src/controller/controller.cpp \
+        src/model/model.cpp \
+        src/view/canvas_window.cpp \
+        src/view/options_dock.cpp \
+        src/model/picture.cpp \
+        src/view/footer.cpp \
+        src/ensure_close_dialog.cpp \
+        src/image_operation.cpp \
+        src/operation_color_to_black.cpp \
+        src/model/histogram.cpp \
+        src/view/histogram_widget.cpp \
+        src/view/chart_representation.cpp \
+        src/view/canvas_image_label.cpp
 
 HEADERS += \
-        src/mainwindow.h \
-    src/view.h \
-    src/controller.h \
-    src/model.h \    
-    src/canvas_window.h \
-    src/options_dock.h \
-    src/picture.h \
-    src/footer.h \
-    src/canvas_image_label.h \
-    src/ensure_close_dialog.h \
-    src/image_operation.h \
-    src/operation_color_to_black.h \
-    src/histogram.h \
-    src/histogram_widget.h \
-    src/chart_representation.h
+        src/view/mainwindow.h \
+        src/view/view.h \
+        src/controller/controller.h \
+        src/model/model.h \
+        src/view/canvas_window.h \
+        src/view/options_dock.h \
+        src/model/picture.h \
+        src/view/footer.h \
+        src/ensure_close_dialog.h \
+        src/image_operation.h \
+        src/operation_color_to_black.h \
+        src/model/histogram.h \
+        src/view/histogram_widget.h \
+        src/view/chart_representation.h \
+        src/view/canvas_image_label.h
 
 FORMS += \
-        src/mainwindow.ui
+        src/view/mainwindow.ui
