@@ -12,15 +12,9 @@ SOURCES         = plugin_template.cpp \
 
 LIB_NAME = $$system(basename $(pwd))
 
-COMMAND_A = "mv lib"
+COMMAND = "mv libplugin.so ../../../compiled_plugins/"
 
-FIRST_PATH = $$join(COMMAND_A,"","",$$LIB_NAME)  
-
-COMMAND_B = ".so ../../../compiled_plugins/"
-
-SECOND_PATH = $$join(COMMAND_B,"","",$$LIB_NAME)  
-
-FINAL_PATH = $$join(FIRST_PATH,"","",$$SECOND_PATH)
+FINAL_PATH = $$join(COMMAND,"","",$$LIB_NAME)  
 
 #system(echo $$FINAL_PATH)
 

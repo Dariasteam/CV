@@ -10,7 +10,11 @@
 #include <iostream>
 
 #include "../../controller/plugin_connector.h"
-#include "plugin_template.h"
+
+class plugin_template : public plugin {
+public:
+  plugin_template ();
+};
 
 class conector_plugin : public QObject, PluginInterface {
     Q_OBJECT
