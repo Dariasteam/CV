@@ -77,30 +77,33 @@ void MainWindow::on_no_focused_image() {
   menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(false);
 }
 
+#include <iostream>
+
 QAction* MainWindow::on_add_plugin(QString category, QString name) {
   QMenu* menu;
   QList<QMenu*> menus = menu_bar->findChildren<QMenu*>();
+
+  //std::cout << "sz " << menus.size() << std::endl;
+
   int index = -1;
 
-  for (auto m : menus) {
+  for (auto m : menus.at(3)->findChildren<QMenu*>()) {
     index++;
     if (m->title() == category)
       break;
   }
 
+
   if (index == -1) {
-    menu = new QMenu (category, this);
+    menu = menus.at(3)->addMenu(category);
   } else {
-    menu = menus.at(3);
+    menu = menus.at(3)->findChildren<QMenu*>().at(index);
   }
 
-  QMenu* aux_menu = new QMenu(category,menu);
-
-  menu->addMenu(aux_menu);
-
-  QAction* action = new QAction (name,aux_menu);
-  aux_menu->addAction(action);
+  QAction* action = new QAction (name,menu);
+  menu->addAction(action);
   return action;
+
 }
 
 MainWindow::~MainWindow()
