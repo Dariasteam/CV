@@ -77,6 +77,32 @@ void MainWindow::on_no_focused_image() {
   menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(false);
 }
 
+QAction* MainWindow::on_add_plugin(QString category, QString name) {
+  QMenu* menu;
+  QList<QMenu*> menus = menu_bar->findChildren<QMenu*>();
+  int index = -1;
+
+  for (auto m : menus) {
+    index++;
+    if (m->title() == category)
+      break;
+  }
+
+  if (index == -1) {
+    menu = new QMenu (category, this);
+  } else {
+    menu = menus.at(3);
+  }
+
+  QMenu* aux_menu = new QMenu(category,menu);
+
+  menu->addMenu(aux_menu);
+
+  QAction* action = new QAction (name,aux_menu);
+  aux_menu->addAction(action);
+  return action;
+}
+
 MainWindow::~MainWindow()
 {
   delete ui;

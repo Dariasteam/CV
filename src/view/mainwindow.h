@@ -29,8 +29,9 @@ class MainWindow : public QMainWindow {
 
 private:
 
-  vector <vector <QString>> menu_strings =  { {"Archivo", "Editar", "Acerca de"},
+  vector <vector <QString>> menu_strings =  { {"Archivo", "Editar", "Filtro", "Acerca de"},
                                               {"Abrir", "Guardar", "Guardar como" },
+                                              {},
                                               {},
                                               {}
                                             };
@@ -40,21 +41,22 @@ private:
   QMenuBar* menu_bar;
   options_dock* op_dock;
   QToolBar* toolbar;
-  footer* foot;
+  footer* foot;  
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
   inline view* get_view () { return window_content; }
-  inline options_dock* get_options_dock () { return op_dock; }
-
+  inline options_dock* get_options_dock () { return op_dock; }  
 private:
   Ui::MainWindow *ui;
   void generate_menu();
-private slots:
+private slots:  
   void on_bttn_load (bool);
   void on_bttn_save (bool);
   void on_image_focused();
-  void on_no_focused_image ();
+  void on_no_focused_image ();  
+public slots:
+  QAction* on_add_plugin (QString category, QString name);
 signals:
   void load_image(QString file_name);
   void save_image(QString file_name, unsigned i);

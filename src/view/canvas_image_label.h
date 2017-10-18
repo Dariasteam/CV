@@ -6,8 +6,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 
-class canvas_image_label : public QLabel
-{
+class canvas_image_label : public QLabel {
   Q_OBJECT
 public:
   explicit canvas_image_label(QPixmap& pixmap, QWidget *parent = nullptr);

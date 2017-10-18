@@ -44,6 +44,8 @@ bool controller::load_all_plugins (const QString& path) {
       std::cout << "plugin cargado correctamente";
       PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
       mdl.add_plugin(aux);
+      plugin_metainfo info = aux->get_plugin()->get_meta_info();
+      main_window.on_add_plugin(info.category, info.name);
     } else {
       std::cout << "No se ha podido cargar" << std::endl;
       result = false;

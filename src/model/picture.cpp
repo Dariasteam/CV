@@ -16,6 +16,13 @@ picture::picture(QImage* image) :
   };
 }
 
+picture::picture(const picture& P) :
+  raw_image (new QImage(*P.get_image())),
+  pixmap (new QPixmap (*P.get_pixmap())),
+  black_and_white (P.get_black_and_white()),
+  histograms (P.get_histograms())
+{}
+
 void picture::generate_histograms() {
   each_pixel_iterator([&](QColor pixel) -> bool{
     histograms.regular_r[pixel.red()  ]+= 1;

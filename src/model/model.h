@@ -19,6 +19,7 @@ class model {
 private:
   QList<picture*> image_list;  
   QList<PluginInterface*> plugin_list;
+  QList<image_operation*> operations;
   unsigned active_window;
 public:
   model();

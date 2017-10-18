@@ -2,10 +2,8 @@
 #define IMAGE_OPERATION_H
 
 #include <QColor>
+#include <QImage>
 
-class Image_operation {
 
-  virtual QColor operator () (QColor pix);
-};
 
 #endif // IMAGE_OPERATION_H

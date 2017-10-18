@@ -14,8 +14,6 @@ histogram_widget::histogram_widget(QWidget *parent) :
   tabs->addTab(&chart_ac_histogram, TAB2_NAME);
   layout->addWidget(tabs);
 
-
-
   QWidget* check_box_widget = new QWidget(this);
   QBoxLayout* check_box_layout = new QBoxLayout(QBoxLayout::LeftToRight);
 
@@ -37,6 +35,12 @@ histogram_widget::histogram_widget(QWidget *parent) :
 
   layout->addWidget(check_box_widget);
 
+  check_box_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+
+  layout->addStretch(0);
+}
+
+void histogram_widget::update_charts(histogram hist) {  
   connect(red_chkbox,&QAbstractButton::clicked,&chart_histogram,&chart_representation::toggle_r);
   connect(red_chkbox,&QAbstractButton::clicked,&chart_ac_histogram,&chart_representation::toggle_r);
 
@@ -46,12 +50,7 @@ histogram_widget::histogram_widget(QWidget *parent) :
   connect(blue_chkbox,&QAbstractButton::clicked,&chart_histogram,&chart_representation::toggle_b);
   connect(blue_chkbox,&QAbstractButton::clicked,&chart_ac_histogram,&chart_representation::toggle_b);
 
-  check_box_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
-  layout->addStretch(0);
-}
-
-void histogram_widget::update_charts(histogram hist) {  
   chart_histogram.update_values(hist.regular_r, hist.regular_g, hist.regular_b);
   chart_ac_histogram.update_values(hist.acumulated_r, hist.acumulated_g, hist.acumulated_b);
 }

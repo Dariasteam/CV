@@ -28,18 +28,21 @@ private:
   unsigned average;           // media
   double mediana;             // esto en inglés
 public:
+  picture (QImage* image);
+  picture (const picture& P);
+
   bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
   void generate_histograms ();
   void to_grayscale (const std::vector<double>&  transform);
-  picture (QImage* image);
-  inline QImage*  get_image  () { return raw_image; }
-  inline QPixmap* get_pixmap () { return pixmap;    }  
+
+  inline QImage*  get_image  () const { return raw_image; }
+  inline QPixmap* get_pixmap () const { return pixmap;    }
   inline void update_pixmap () { pixmap->convertFromImage(*raw_image); }
-  inline histogram get_histograms () { return histograms; }
+  inline histogram get_histograms () const { return histograms; }
   inline void set_black_and_white (bool b) { black_and_white = true; }
-  inline bool get_black_and_white () { return black_and_white; }
+  inline bool get_black_and_white () const { return black_and_white; }
 };
 
 #endif // IMAGE_H

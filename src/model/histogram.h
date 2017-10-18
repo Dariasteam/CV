@@ -7,9 +7,9 @@
 #define DEPTH 255
 
 struct histogram {
-  std::vector <unsigned> regular_r;              // histograma
-  std::vector <unsigned> regular_g;              // histograma
-  std::vector <unsigned> regular_b;              // histograma
+  std::vector <unsigned> regular_r;                // histograma
+  std::vector <unsigned> regular_g;                // histograma
+  std::vector <unsigned> regular_b;                // histograma
 
   std::vector <unsigned> acumulated_r;             // histograma acumulado
   std::vector <unsigned> acumulated_g;             // histograma acumulado
