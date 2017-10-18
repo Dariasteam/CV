@@ -37,7 +37,8 @@ SOURCES += \
         model/histogram.cpp \
         view/histogram_widget.cpp \
         view/chart_representation.cpp \
-        view/canvas_image_label.cpp
+        view/canvas_image_label.cpp \
+    controller/indexed_action.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -55,7 +56,8 @@ HEADERS += \
         view/histogram_widget.h \
         view/chart_representation.h \
         view/canvas_image_label.h \
-    controller/plugin_interface.h
+    controller/plugin_interface.h \
+    controller/indexed_action.h
 
 FORMS += \
         view/mainwindow.ui

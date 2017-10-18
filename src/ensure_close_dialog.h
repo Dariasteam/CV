@@ -5,8 +5,7 @@
 #include <QAction>
 #include <QWidget>
 
-class ensure_close_dialog : public QWidget
-{
+class ensure_close_dialog : public QWidget {
   Q_OBJECT
 public:
   explicit ensure_close_dialog(QWidget *parent = nullptr);

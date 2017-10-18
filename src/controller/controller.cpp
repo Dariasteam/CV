@@ -43,9 +43,13 @@ bool controller::load_all_plugins (const QString& path) {
     if (plugin) {
       std::cout << "plugin cargado correctamente";
       PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
-      mdl.add_plugin(aux);
+
+      unsigned index = mdl.add_plugin(aux);
+
       plugin_metainfo info = aux->get_plugin()->get_meta_info();
-      main_window.on_add_plugin(info.category, info.name);
+      indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
+
+      connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(apply_image_operation(uint)));
     } else {
       std::cout << "No se ha podido cargar" << std::endl;
       result = false;
@@ -53,6 +57,13 @@ bool controller::load_all_plugins (const QString& path) {
     std::cout << "\n";
   }
   return result;
+}
+
+
+#include <iostream>
+
+void controller::apply_image_operation(unsigned index) {
+  std::cout << "Hay que aplicar el filtro " << index << std::endl;
 }
 
 bool controller::load_plugin (const QString& path) {

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_controller_t {
-    QByteArrayData data[16];
-    char stringdata0[174];
+    QByteArrayData data[18];
+    char stringdata0[202];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,14 +46,17 @@ QT_MOC_LITERAL(11, 122, 5), // "image"
 QT_MOC_LITERAL(12, 128, 16), // "load_all_plugins"
 QT_MOC_LITERAL(13, 145, 4), // "path"
 QT_MOC_LITERAL(14, 150, 11), // "load_plugin"
-QT_MOC_LITERAL(15, 162, 11) // "plugin_name"
+QT_MOC_LITERAL(15, 162, 11), // "plugin_name"
+QT_MOC_LITERAL(16, 174, 21), // "apply_image_operation"
+QT_MOC_LITERAL(17, 196, 5) // "index"
 
     },
     "controller\0update_histograms\0\0histogram\0"
     "hist\0on_load_image\0file_name\0"
     "on_store_image\0id\0on_close_image\0"
     "on_set_active_image\0image\0load_all_plugins\0"
-    "path\0load_plugin\0plugin_name"
+    "path\0load_plugin\0plugin_name\0"
+    "apply_image_operation\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,7 +66,7 @@ static const uint qt_meta_data_controller[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,15 +74,16 @@ static const uint qt_meta_data_controller[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    1,   52,    2, 0x0a /* Public */,
-       7,    2,   55,    2, 0x0a /* Public */,
-       9,    0,   60,    2, 0x0a /* Public */,
-      10,    1,   61,    2, 0x0a /* Public */,
-      12,    1,   64,    2, 0x0a /* Public */,
-      14,    1,   67,    2, 0x0a /* Public */,
+       5,    1,   57,    2, 0x0a /* Public */,
+       7,    2,   60,    2, 0x0a /* Public */,
+       9,    0,   65,    2, 0x0a /* Public */,
+      10,    1,   66,    2, 0x0a /* Public */,
+      12,    1,   69,    2, 0x0a /* Public */,
+      14,    1,   72,    2, 0x0a /* Public */,
+      16,    1,   75,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -91,6 +95,7 @@ static const uint qt_meta_data_controller[] = {
     QMetaType::Void, QMetaType::UInt,   11,
     QMetaType::Bool, QMetaType::QString,   13,
     QMetaType::Bool, QMetaType::QString,   15,
+    QMetaType::Void, QMetaType::UInt,   17,
 
        0        // eod
 };
@@ -110,6 +115,7 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 6: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 7: _t->apply_image_operation((*reinterpret_cast< uint(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -150,13 +156,13 @@ int controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

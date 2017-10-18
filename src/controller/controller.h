@@ -11,6 +11,7 @@
 #include "../model/model.h"
 #include "../model/histogram.h"
 #include "plugin_interface.h"
+#include "indexed_action.h"
 
 class controller : public QObject {
   Q_OBJECT
@@ -28,6 +29,8 @@ public slots:
 
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name);
+private slots:
+  void apply_image_operation (unsigned index);
 signals:
   void update_histograms (histogram hist);
 };

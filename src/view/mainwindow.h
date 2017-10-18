@@ -17,6 +17,7 @@
 #include "view.h"
 #include "footer.h"
 #include "options_dock.h"
+#include "../controller/indexed_action.h"
 
 using namespace std;
 
@@ -42,6 +43,7 @@ private:
   options_dock* op_dock;
   QToolBar* toolbar;
   footer* foot;  
+  QMenu* plugin_menu;
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
@@ -56,7 +58,7 @@ private slots:
   void on_image_focused();
   void on_no_focused_image ();  
 public slots:
-  QAction* on_add_plugin (QString category, QString name);
+  indexed_action* on_add_plugin (QString category, QString name, unsigned index);
 signals:
   void load_image(QString file_name);
   void save_image(QString file_name, unsigned i);

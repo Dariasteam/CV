@@ -51,6 +51,8 @@ void MainWindow::generate_menu() {
   connect(menu_bar->actions()[0]->menu()->actions()[0], SIGNAL(triggered(bool)), this, SLOT(on_bttn_load(bool)));
   connect(menu_bar->actions()[0]->menu()->actions()[1], SIGNAL(triggered(bool)), this, SLOT(on_bttn_save(bool)));
 
+  plugin_menu = menu_bar->findChildren<QMenu*>().at(3);
+
   setMenuBar(menu_bar);
 }
 
@@ -79,31 +81,26 @@ void MainWindow::on_no_focused_image() {
 
 #include <iostream>
 
-QAction* MainWindow::on_add_plugin(QString category, QString name) {
-  QMenu* menu;
-  QList<QMenu*> menus = menu_bar->findChildren<QMenu*>();
-
-  //std::cout << "sz " << menus.size() << std::endl;
-
+indexed_action* MainWindow::on_add_plugin(QString category, QString name, unsigned i) {
   int index = -1;
-
-  for (auto m : menus.at(3)->findChildren<QMenu*>()) {
+  for (auto m : plugin_menu->findChildren<QMenu*>()) {
     index++;
     if (m->title() == category)
       break;
   }
 
+  QMenu* menu;
 
   if (index == -1) {
-    menu = menus.at(3)->addMenu(category);
+    menu = plugin_menu->addMenu(category);
   } else {
-    menu = menus.at(3)->findChildren<QMenu*>().at(index);
+    menu = plugin_menu->findChildren<QMenu*>().at(index);
   }
 
-  QAction* action = new QAction (name,menu);
+  indexed_action* action = new indexed_action (name, i, menu);
+
   menu->addAction(action);
   return action;
-
 }
 
 MainWindow::~MainWindow()

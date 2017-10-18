@@ -28,7 +28,12 @@ public:
   void store_image (const QString&, unsigned i);
   void delete_imagepix_at (unsigned i);
 
-  void add_plugin (PluginInterface* plugin) { plugin_list.push_back(plugin); }
+  inline unsigned add_plugin (PluginInterface* plugin) {
+    plugin_list.push_back(plugin);
+    return plugin_list.size();
+  }
+
+  inline const QList<PluginInterface*>& get_plugins () { return plugin_list; }
 
   picture* get_picture_at (int i);
 };
