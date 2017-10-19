@@ -18,7 +18,7 @@ class conector_plugin : public QObject, PluginInterface {
   Q_PLUGIN_METADATA(IID "P")
   Q_INTERFACES(PluginInterface)
 public:
-  conector_plugin ();  
+  conector_plugin ();
 };
 
 #endif

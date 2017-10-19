@@ -30,7 +30,8 @@ private:
   unsigned ID;
   canvas_image_label* showed_image;
 public:
-  canvas_window(unsigned id, QPixmap& pixmap, footer* foot, QString name, QWidget* parent = nullptr);
+  canvas_window(unsigned id, QPixmap& pixmap, footer* foot,
+                QString name, QWidget* parent = nullptr);
 signals:
   void set_active (unsigned id);
   void close (unsigned id);  
