@@ -28,11 +28,12 @@ public slots:
   void on_set_active_image (unsigned image);
 
   bool load_all_plugins (const QString& path);
-  bool load_plugin (const QString& plugin_name);
+  bool load_plugin (const QString& plugin_name, const QDir& dir);
 private slots:
   void apply_image_operation (unsigned index);
 signals:
   void update_histograms (histogram hist);
+  void update_operation_option (QWidget* wid);
 };
 
 #endif // CONTROLLER_H

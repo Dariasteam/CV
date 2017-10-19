@@ -53,7 +53,7 @@ histogram_widget::histogram_widget(QWidget *parent) :
   connect(blue_chkbox,&QAbstractButton::clicked,chart_ac_histogram,&chart_representation::toggle_b);  
 }
 
-void histogram_widget::update_charts(const histogram& hist) {
+void histogram_widget::on_update_charts(const histogram& hist) {
   chart_histogram->update_values(hist.regular_r, hist.regular_g, hist.regular_b);
   chart_ac_histogram->update_values(hist.acumulated_r, hist.acumulated_g, hist.acumulated_b);
 }

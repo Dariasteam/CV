@@ -40,7 +40,7 @@ public:
   const chart_representation* get_ac_histogram () { return chart_ac_histogram; }
 
 public slots:
-  void update_charts (const histogram& hist);
+  void on_update_charts (const histogram& hist);
 };
 
 #endif // HISTOGRAM_WIDGET_H

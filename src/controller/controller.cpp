@@ -11,6 +11,9 @@ controller::controller() {
   connect(this, SIGNAL(update_histograms(histogram)),
           main_window.get_options_dock()->get_histogram_wid(),SLOT(update_charts(histogram)));
 
+  connect(this, SIGNAL(update_operation_option(QWidget*)),
+          main_window.get_options_dock()->get_operation_wid(), SLOT(on_set_widget(QWidget*)));
+
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
 }
 
@@ -37,15 +40,14 @@ bool controller::load_all_plugins (const QString& path) {
   pluginsDir.cd(path);
   bool result = true;
   foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-    load_plugin(fileName);
+    load_plugin(fileName, pluginsDir);
     std::cout << "\n";
   }
   return result;
 }
 
-bool controller::load_plugin (const QString& path) {
-  QDir pluginsDir;
-  QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(path));
+bool controller::load_plugin (const QString& path, const QDir& dir) {
+  QPluginLoader pluginLoader(dir.absoluteFilePath(path));
   QObject *plugin = pluginLoader.instance();
   std::cout << "Tratando de cargar " << path.toStdString() << " | ";
   if (!plugin) {
@@ -55,14 +57,18 @@ bool controller::load_plugin (const QString& path) {
     std::cout << "plugin cargado correctamente";
 
     PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
-    unsigned index = mdl.add_plugin(aux);
-    plugin_metainfo info = aux->get_plugin()->get_meta_info();
+    abstract_plugin* plugin = aux->get_plugin();
+
+    unsigned index = mdl.add_plugin(plugin);
+
+    plugin_metainfo info = plugin->get_meta_info();
     indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
 
     connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(apply_image_operation(uint)));
   }
 }
 
-void controller::apply_image_operation(unsigned index) {
-  std::cout << "Hay que aplicar el filtro " << index << std::endl;
+void controller::apply_image_operation(unsigned index) {    
+  if (index < mdl.get_plugins().size())
+    emit update_operation_option(mdl.get_plugins().at(index)->get_view());
 }

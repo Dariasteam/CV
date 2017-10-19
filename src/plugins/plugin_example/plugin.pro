@@ -4,10 +4,12 @@ QT             += widgets
 #INCLUDEPATH    += ../echowindow
 
 HEADERS         = connector_plugin.h \
-		  plugin_template.h
+		  plugin_template.h \
+    menu.h
 
 SOURCES         = connector_plugin.cpp \
-		  plugin_template.cpp
+		  plugin_template.cpp \
+    menu.cpp
                   
 
 LIB_NAME = $$system(basename $(pwd))

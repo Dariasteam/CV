@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_histogram_widget_t {
     QByteArrayData data[5];
-    char stringdata0[47];
+    char stringdata0[50];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,13 +32,13 @@ struct qt_meta_stringdata_histogram_widget_t {
 static const qt_meta_stringdata_histogram_widget_t qt_meta_stringdata_histogram_widget = {
     {
 QT_MOC_LITERAL(0, 0, 16), // "histogram_widget"
-QT_MOC_LITERAL(1, 17, 13), // "update_charts"
-QT_MOC_LITERAL(2, 31, 0), // ""
-QT_MOC_LITERAL(3, 32, 9), // "histogram"
-QT_MOC_LITERAL(4, 42, 4) // "hist"
+QT_MOC_LITERAL(1, 17, 16), // "on_update_charts"
+QT_MOC_LITERAL(2, 34, 0), // ""
+QT_MOC_LITERAL(3, 35, 9), // "histogram"
+QT_MOC_LITERAL(4, 45, 4) // "hist"
 
     },
-    "histogram_widget\0update_charts\0\0"
+    "histogram_widget\0on_update_charts\0\0"
     "histogram\0hist"
 };
 #undef QT_MOC_LITERAL
@@ -71,7 +71,7 @@ void histogram_widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         histogram_widget *_t = static_cast<histogram_widget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->update_charts((*reinterpret_cast< const histogram(*)>(_a[1]))); break;
+        case 0: _t->on_update_charts((*reinterpret_cast< const histogram(*)>(_a[1]))); break;
         default: ;
         }
     }

@@ -4,8 +4,6 @@
 #include <QString>
 #include <QWidget>
 
-
-
 struct plugin_metainfo {
   QString name     = "default plugin name";
   QString category = "default plugin category";
@@ -19,7 +17,7 @@ class image_operation {
 
 class abstract_plugin {
 protected:
-  // Información para los menúsr
+  // Información para los menús
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
