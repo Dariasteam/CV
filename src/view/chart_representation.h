@@ -19,7 +19,6 @@ private:
   QAreaSeries* area_series_g;
   QAreaSeries* area_series_b;  
 
-  bool usable;
   bool r;
   bool g;
   bool b;
@@ -40,9 +39,7 @@ public slots:
   void toggle_g (bool g);
   void toggle_b (bool b);
 
-  void update_view ();
-
-  inline void set_usable (bool b) { usable = b; }
+  void update_view ();  
 };
 
 #endif // CHART_REPRESENTATION_H

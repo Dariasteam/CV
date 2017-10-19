@@ -32,7 +32,7 @@ struct qt_meta_stringdata_footer_t {
 static const qt_meta_stringdata_footer_t qt_meta_stringdata_footer = {
     {
 QT_MOC_LITERAL(0, 0, 6), // "footer"
-QT_MOC_LITERAL(1, 7, 27), // "on_update_coordinate_labels"
+QT_MOC_LITERAL(1, 7, 27), // "on_update_coordenate_labels"
 QT_MOC_LITERAL(2, 35, 0), // ""
 QT_MOC_LITERAL(3, 36, 5), // "point"
 QT_MOC_LITERAL(4, 42, 19), // "on_update_meta_data"
@@ -40,7 +40,7 @@ QT_MOC_LITERAL(5, 62, 6), // "format"
 QT_MOC_LITERAL(6, 69, 4) // "size"
 
     },
-    "footer\0on_update_coordinate_labels\0\0"
+    "footer\0on_update_coordenate_labels\0\0"
     "point\0on_update_meta_data\0format\0size"
 };
 #undef QT_MOC_LITERAL
@@ -75,7 +75,7 @@ void footer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         footer *_t = static_cast<footer *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_update_coordinate_labels((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 0: _t->on_update_coordenate_labels((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         case 1: _t->on_update_meta_data((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QSize(*)>(_a[2]))); break;
         default: ;
         }

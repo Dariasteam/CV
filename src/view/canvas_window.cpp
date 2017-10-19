@@ -9,7 +9,7 @@ canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
 
   setWindowTitle(name);
 
-  connect(showed_image,SIGNAL(update_coordinates(QPoint)),foot,SLOT(on_update_coordinate_labels(QPoint)));
+  connect(showed_image,SIGNAL(update_coordinates(QPoint)),foot,SLOT(on_update_coordenate_labels(QPoint)));
 
   layout()->addWidget(showed_image);
 

@@ -23,7 +23,7 @@ public:
   explicit footer(QWidget *parent = nullptr);
 
 public slots:
-  void on_update_coordinate_labels (QPoint point);
+  void on_update_coordenate_labels (QPoint point);
   void on_update_meta_data (QString format, QSize size);
 };
 

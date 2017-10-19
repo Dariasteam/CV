@@ -4,6 +4,8 @@ options_dock::options_dock(QWidget* parent) : QDockWidget(parent) {
   QWidget* base_widget = new QWidget (this);
   setWidget(base_widget);
 
+  setDisabled(true);
+
   QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom,base_widget);
 
   base_widget->setLayout(layout);

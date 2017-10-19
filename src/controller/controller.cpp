@@ -9,7 +9,7 @@ controller::controller() {
   connect(main_window.get_view(), SIGNAL(image_focused(uint)), this, SLOT(on_set_active_image(uint)));
 
   connect(this, SIGNAL(update_histograms(histogram)),
-          main_window.get_options_dock()->get_histogram_wid(),SLOT(update_charts(histogram)));
+          main_window.get_options_dock()->get_histogram_wid(),SLOT(on_update_charts(histogram)));
 
   connect(this, SIGNAL(update_operation_option(QWidget*)),
           main_window.get_options_dock()->get_operation_wid(), SLOT(on_set_widget(QWidget*)));
@@ -18,7 +18,9 @@ controller::controller() {
 }
 
 void controller::on_load_image(const QString& file_name) {
-  mdl.load_image(file_name);  
+  main_window.get_options_dock()->setEnabled(true);
+
+  mdl.load_image(file_name);
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), file_name);
 }
 
@@ -28,11 +30,15 @@ void controller::on_store_image(const QString& file_name, unsigned id) {
 
 void controller::on_close_image() {
   mdl.delete_imagepix_at(active_image);
+
+  if (mdl.get_pictures().size() == 0)
+    main_window.get_options_dock()->setDisabled(true);
 }
 
-void controller::on_set_active_image (unsigned id) {  
-  active_image = id;
-  emit update_histograms(mdl.get_picture_at(id)->get_histograms());
+void controller::on_set_active_image (unsigned id) {
+  active_image = id;   
+
+  emit update_histograms(mdl.get_pictures().at(id)->get_histograms());
 }
 
 bool controller::load_all_plugins (const QString& path) {

@@ -30,7 +30,6 @@ void operation_options_widget::on_set_widget(QWidget *wid) {
     delete content;
   content = wid;
   layout->addWidget(content,1,0,1,0);
-
   bttn_apply_operation->setEnabled(true);
 }
 

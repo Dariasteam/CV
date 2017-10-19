@@ -7,8 +7,7 @@ chart_representation::chart_representation(QWidget* parent) : QWidget(parent),
   r (true),
   g (true),
   b (true),
-  view (this),
-  usable (false)
+  view (this)
 {
   chart.legend()->setVisible(false);
   chart.setMargins(QMargins(5,5,5,5));
@@ -61,9 +60,6 @@ void chart_representation::toggle_b (bool b){
 void chart_representation::update_values(const std::vector<unsigned> &hr,
                                          const std::vector<unsigned> &hg,
                                          const std::vector<unsigned> &hb) {
-  usable = true;
-
-
   chart.removeSeries(area_series_r);
   chart.removeSeries(area_series_g);
   chart.removeSeries(area_series_b);
@@ -76,23 +72,23 @@ void chart_representation::update_values(const std::vector<unsigned> &hr,
 }
 
 void chart_representation::update_view () {
-  if (usable) {
-    area_series_r->setColor(red);
-    area_series_r->setBorderColor(red);
 
-    area_series_g->setColor(green);
-    area_series_g->setBorderColor(green);
+  area_series_r->setColor(red);
+  area_series_r->setBorderColor(red);
 
-    area_series_b->setColor(blue);
-    area_series_b->setBorderColor(blue);
+  area_series_g->setColor(green);
+  area_series_g->setBorderColor(green);
 
-    chart.removeSeries(area_series_r);
-    chart.removeSeries(area_series_g);
-    chart.removeSeries(area_series_b);
+  area_series_b->setColor(blue);
+  area_series_b->setBorderColor(blue);
 
-    chart.addSeries(area_series_r);
-    chart.addSeries(area_series_g);
-    chart.addSeries(area_series_b);
-  }
+  chart.removeSeries(area_series_r);
+  chart.removeSeries(area_series_g);
+  chart.removeSeries(area_series_b);
+
+  chart.addSeries(area_series_r);
+  chart.addSeries(area_series_g);
+  chart.addSeries(area_series_b);
+
 }
 
