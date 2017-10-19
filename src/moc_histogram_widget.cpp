@@ -71,7 +71,7 @@ void histogram_widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         histogram_widget *_t = static_cast<histogram_widget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->update_charts((*reinterpret_cast< histogram(*)>(_a[1]))); break;
+        case 0: _t->update_charts((*reinterpret_cast< const histogram(*)>(_a[1]))); break;
         default: ;
         }
     }

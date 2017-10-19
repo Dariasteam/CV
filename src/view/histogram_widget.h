@@ -23,8 +23,8 @@ class histogram_widget : public QWidget
 {
   Q_OBJECT
 private:
-  chart_representation chart_histogram;
-  chart_representation chart_ac_histogram;
+  chart_representation* chart_histogram;
+  chart_representation* chart_ac_histogram;
   QTabWidget* tabs;
   QBoxLayout* layout;
 
@@ -34,11 +34,11 @@ private:
 public:
   explicit histogram_widget(QWidget *parent = nullptr);
 
-  const chart_representation& get_histogram () { return chart_histogram; }
-  const chart_representation& get_ac_histogram () { return chart_ac_histogram; }  
+  const chart_representation* get_histogram () { return chart_histogram; }
+  const chart_representation* get_ac_histogram () { return chart_ac_histogram; }
 
 public slots:
-  void update_charts (histogram hist);
+  void update_charts (const histogram& hist);
 };
 
 #endif // HISTOGRAM_WIDGET_H
