@@ -30,10 +30,13 @@ class MainWindow : public QMainWindow {
 
 private:
 
-  vector <vector <QString>> menu_strings =  { {"Archivo", "Editar", "Filtro", "Acerca de"},
+  vector <vector <QString>> menu_strings =  { {"Archivo", "Editar", "Filtro", "Operaciones lineales", "Operaciones no lineales", "Acerca de"},
                                               {"Abrir", "Guardar", "Guardar como" },
                                               {},
                                               {},
+                                              {},
+                                              {"Basadas en histograma", "Otras"}, // Otras = transformación gamma
+                                              // Basadas en hsitograma -> especialización del hist y ecualización del hist
                                               {}
                                             };
 

@@ -19,6 +19,8 @@
 #define G_CHK_NAME "Verde"
 #define B_CHK_NAME "Azul"
 
+#define TITLE "Histogramas"
+
 class histogram_widget : public QWidget
 {
   Q_OBJECT

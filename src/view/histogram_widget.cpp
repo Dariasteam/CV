@@ -4,7 +4,7 @@ histogram_widget::histogram_widget(QWidget *parent) :
   QWidget(parent)
 {
   chart_histogram    = new chart_representation (this);
-  chart_ac_histogram = new chart_representation (this);
+  chart_ac_histogram = new chart_representation (this);  
 
   tabs = new QTabWidget (this);
 
@@ -12,6 +12,9 @@ histogram_widget::histogram_widget(QWidget *parent) :
   tabs->setTabsClosable(false);
 
   layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
+
+  QLabel* title_label = new QLabel (TITLE,this);
+  layout->addWidget(title_label);
 
   tabs->addTab(chart_histogram, TAB1_NAME);
   tabs->addTab(chart_ac_histogram, TAB2_NAME);
@@ -47,9 +50,7 @@ histogram_widget::histogram_widget(QWidget *parent) :
   connect(green_chkbox,&QAbstractButton::clicked,chart_ac_histogram,&chart_representation::toggle_g);
 
   connect(blue_chkbox,&QAbstractButton::clicked,chart_histogram,&chart_representation::toggle_b);
-  connect(blue_chkbox,&QAbstractButton::clicked,chart_ac_histogram,&chart_representation::toggle_b);
-
-  layout->addStretch(0);
+  connect(blue_chkbox,&QAbstractButton::clicked,chart_ac_histogram,&chart_representation::toggle_b);  
 }
 
 void histogram_widget::update_charts(const histogram& hist) {

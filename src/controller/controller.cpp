@@ -34,38 +34,35 @@ void controller::on_set_active_image (unsigned id) {
 
 bool controller::load_all_plugins (const QString& path) {
   QDir pluginsDir(qApp->applicationDirPath());
-  pluginsDir.cd(path);  
+  pluginsDir.cd(path);
   bool result = true;
   foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-    std::cout << "Tratando de cargar " << fileName.toStdString() << " | ";
-    QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
-    QObject *plugin = pluginLoader.instance();
-    if (plugin) {
-      std::cout << "plugin cargado correctamente";
-      PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
-
-      unsigned index = mdl.add_plugin(aux);
-
-      plugin_metainfo info = aux->get_plugin()->get_meta_info();
-      indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
-
-      connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(apply_image_operation(uint)));
-    } else {
-      std::cout << "No se ha podido cargar" << std::endl;
-      result = false;
-    }
+    load_plugin(fileName);
     std::cout << "\n";
   }
   return result;
 }
 
+bool controller::load_plugin (const QString& path) {
+  QDir pluginsDir;
+  QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(path));
+  QObject *plugin = pluginLoader.instance();
+  std::cout << "Tratando de cargar " << path.toStdString() << " | ";
+  if (!plugin) {
+    std::cout << "No se ha podido cargar" << std::endl;
+      return false;
+  } else {
+    std::cout << "plugin cargado correctamente";
 
-#include <iostream>
+    PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
+    unsigned index = mdl.add_plugin(aux);
+    plugin_metainfo info = aux->get_plugin()->get_meta_info();
+    indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
+
+    connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(apply_image_operation(uint)));
+  }
+}
 
 void controller::apply_image_operation(unsigned index) {
   std::cout << "Hay que aplicar el filtro " << index << std::endl;
-}
-
-bool controller::load_plugin (const QString& path) {
-
 }

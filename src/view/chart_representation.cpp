@@ -63,6 +63,7 @@ void chart_representation::update_values(const std::vector<unsigned> &hr,
                                          const std::vector<unsigned> &hb) {
   usable = true;
 
+
   chart.removeSeries(area_series_r);
   chart.removeSeries(area_series_g);
   chart.removeSeries(area_series_b);
