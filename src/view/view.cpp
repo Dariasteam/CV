@@ -15,7 +15,7 @@ void view::on_windows_close(unsigned id) {
   if (canvas_list.size() > 0) {
     active_canvas = 0;
     canvas_list[0]->setFocus();
-  } else {
+  } else {    
     emit no_image_focused();
     active_canvas = -1;
   }

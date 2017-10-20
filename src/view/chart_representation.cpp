@@ -60,15 +60,22 @@ void chart_representation::toggle_b (bool b){
 void chart_representation::update_values(const std::vector<unsigned> &hr,
                                          const std::vector<unsigned> &hg,
                                          const std::vector<unsigned> &hb) {
-  chart.removeSeries(area_series_r);
-  chart.removeSeries(area_series_g);
-  chart.removeSeries(area_series_b);    
+
+  clear();
 
   area_series_r = represent(hr);
   area_series_g = represent(hg);
   area_series_b = represent(hb);
 
   update_view();
+}
+
+void chart_representation::clear () {
+  if (chart.series().size() > 0) {
+    chart.removeSeries(area_series_r);
+    chart.removeSeries(area_series_g);
+    chart.removeSeries(area_series_b);
+  }
 }
 
 void chart_representation::update_view () {    

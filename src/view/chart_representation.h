@@ -40,6 +40,8 @@ public slots:
   void toggle_b (bool b);
 
   void update_view ();  
+
+  void clear();
 };
 
 #endif // CHART_REPRESENTATION_H

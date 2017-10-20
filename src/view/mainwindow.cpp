@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
   // Creación del main widget
   window_content = new view (foot, this);
   setCentralWidget(window_content);
-  connect(window_content,SIGNAL(image_focused()),this,SLOT(on_image_focused()));
-  connect(window_content,SIGNAL(no_image_focused()),this,SLOT(on_no_focused_image()));
+  connect(window_content,&view::image_focused,this,&MainWindow::on_image_focused);
+  connect(window_content,&view::no_image_focused,this,&MainWindow::on_no_focused_image);
 
   // Creación de menús
   generate_menu();
@@ -43,13 +43,18 @@ void MainWindow::generate_menu() {
     }
   }
 
-  on_no_focused_image();
+  QAction* load = menu_bar->actions()[0]->menu()->actions()[0];
+  QAction* save = menu_bar->actions()[0]->menu()->actions()[1];
+  QAction* save_as = menu_bar->actions()[0]->menu()->actions()[2];
 
-  menu_bar->actions()[0]->menu()->actions()[0]->setShortcut(QKeySequence("Ctrl+O"));
-  menu_bar->actions()[0]->menu()->actions()[1]->setShortcut(QKeySequence("Ctrl+S"));
+  load->setShortcut(QKeySequence("Ctrl+O"));
+  save->setShortcut(QKeySequence("Ctrl+S"));
 
-  connect(menu_bar->actions()[0]->menu()->actions()[0], SIGNAL(triggered(bool)), this, SLOT(on_bttn_load(bool)));
-  connect(menu_bar->actions()[0]->menu()->actions()[1], SIGNAL(triggered(bool)), this, SLOT(on_bttn_save(bool)));
+  save_as->setEnabled(false);
+  save->setEnabled(false);
+
+  connect(load, &QAction::triggered, this, &MainWindow::on_bttn_load);
+  connect(save, &QAction::triggered, this, &MainWindow::on_bttn_save);
 
   plugin_menu = menu_bar->findChildren<QMenu*>().at(3);
 
@@ -77,9 +82,9 @@ void MainWindow::on_image_focused() {
 void MainWindow::on_no_focused_image() {
   menu_bar->actions()[0]->menu()->actions()[1]->setEnabled(false);
   menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(false);
-}
 
-#include <iostream>
+  op_dock->get_histogram_wid()->on_clear_charts();
+}
 
 indexed_action* MainWindow::on_add_plugin(QString category, QString name, unsigned i) {
   int index = -1;

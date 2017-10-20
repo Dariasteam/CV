@@ -12,9 +12,6 @@ bool operation::operator () (picture* image) {
   else
     transform = NTSC;
 
-  QImage* img = image->get_image();
-  QSize size = img->size();
-
   image->each_pixel_modificator([&](QColor pixel) -> QColor {
     unsigned gray = pixel.red()   * transform[0] +
                     pixel.green() * transform[1] +

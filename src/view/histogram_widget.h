@@ -41,6 +41,7 @@ public:
 
 public slots:
   void on_update_charts (const histogram& hist);
+  void on_clear_charts ();
 };
 
 #endif // HISTOGRAM_WIDGET_H

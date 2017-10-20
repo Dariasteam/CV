@@ -57,3 +57,9 @@ void histogram_widget::on_update_charts(const histogram& hist) {
   chart_histogram->update_values(hist.regular_r, hist.regular_g, hist.regular_b);
   chart_ac_histogram->update_values(hist.acumulated_r, hist.acumulated_g, hist.acumulated_b);
 }
+
+void histogram_widget::on_clear_charts() {
+  chart_ac_histogram->clear();
+  chart_histogram->clear();
+}
+
