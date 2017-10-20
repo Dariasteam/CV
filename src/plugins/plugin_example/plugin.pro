@@ -5,11 +5,13 @@ QT             += widgets
 
 HEADERS         = connector_plugin.h \
 		  plugin_template.h \
-    menu.h
+		  menu.h \
+		  operation.h
 
 SOURCES         = connector_plugin.cpp \
 		  plugin_template.cpp \
-    menu.cpp
+		  menu.cpp \
+		  operation.cpp
                   
 
 LIB_NAME = $$system(basename $(pwd))

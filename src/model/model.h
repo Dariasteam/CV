@@ -27,6 +27,7 @@ public:
   void load_image (const QString&);
   void store_image (const QString&, unsigned i);
   void delete_imagepix_at (unsigned i);
+  void add_image (picture* pic);
 
   inline unsigned add_plugin (abstract_plugin* plugin) {
     plugin_list.push_back(plugin);

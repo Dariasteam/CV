@@ -3,13 +3,9 @@
 
 #include <QObject>
 #include <QtPlugin>
-#include <QPushButton>
-#include <QWidget>
-#include <QBoxLayout>
-
-#include <iostream>
 
 #include "../../controller/plugin_interface.h"
+#include "../../model/picture.h"
 
 #include "plugin_template.h"
 

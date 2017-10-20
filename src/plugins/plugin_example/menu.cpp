@@ -2,6 +2,7 @@
 
 menu::menu(QWidget *parent) : QWidget(parent)
 {
+
   QBoxLayout* layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
   setLayout(layout);
 
@@ -16,15 +17,15 @@ menu::menu(QWidget *parent) : QWidget(parent)
   layout->addWidget(bttn_NTSC);
   layout->addWidget(bttn_PAL);
 
-  connect (bttn_PAL,SIGNAL(clicked(bool)), this, SLOT(set_pal_checked(bool)));
-  connect (bttn_NTSC,SIGNAL(clicked(bool)), this, SLOT(set_ntsc_checked(bool)));
+  connect (bttn_PAL,&QPushButton::clicked,this,&menu::set_pal_checked);
+  connect (bttn_NTSC,&QPushButton::clicked,this,&menu::set_ntsc_checked);
 }
 
 
 void menu::set_ntsc_checked(bool) {
-  bttn_PAL->setChecked(false);
+  bttn_PAL->setChecked(false);  
 }
 
 void menu::set_pal_checked(bool) {
-  bttn_NTSC->setChecked(false);
+  bttn_NTSC->setChecked(false);  
 }

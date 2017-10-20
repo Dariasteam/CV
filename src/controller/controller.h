@@ -27,6 +27,8 @@ public slots:
   void on_close_image ();
   void on_set_active_image (unsigned image);
 
+  void on_create_image (picture* pic);
+
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);
 private slots:

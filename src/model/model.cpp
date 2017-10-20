@@ -9,6 +9,10 @@ void model::load_image(const QString& file_name) {
   picture_list.push_back(new picture(raw_image));
 }
 
+void model::add_image(picture *pic) {
+   picture_list.push_back(pic);
+}
+
 void model::store_image(const QString& file_name, unsigned i) {
   picture_list[i]->get_image()->save(file_name);
 }
@@ -25,4 +29,3 @@ picture* model::get_picture_at(int i) {
   else
     return picture_list[i];
 }
-

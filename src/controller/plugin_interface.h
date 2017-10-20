@@ -4,6 +4,8 @@
 #include <QString>
 #include <QWidget>
 
+#include "../model/picture.h"
+
 struct plugin_metainfo {
   QString name     = "default plugin name";
   QString category = "default plugin category";
@@ -11,20 +13,22 @@ struct plugin_metainfo {
   bool no_gui = false;
 };
 
-class image_operation {
-  virtual bool operator () (QImage* image) = 0;
+class image_operation : public QObject {
+public:
+  virtual bool operator () (picture* image) = 0;
 };
 
-class abstract_plugin {
+class abstract_plugin : public QObject {
 protected:
   // Información para los menús
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
-  image_operation* operation;
+  image_operation* op;
 public:  
   const plugin_metainfo& get_meta_info () { return meta_info; }
   QWidget* get_view ()                    { return view;      }
+  image_operation* get_operation ()       { return op;        }
 };
 
 class PluginInterface {

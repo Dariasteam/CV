@@ -45,3 +45,13 @@ void histogram::generate_from_regular() {
     normalized_acumulated_b[i] = float(acumulated_b[i]) / DEPTH;
   }
 }
+
+void histogram::clear() {
+  regular_r.clear();
+  regular_g.clear();
+  regular_b.clear();
+
+  regular_r.resize(DEPTH);
+  regular_g.resize(DEPTH);
+  regular_b.resize(DEPTH);
+}

@@ -26,6 +26,7 @@ struct histogram {
   histogram();
 
   void generate_from_regular ();
+  void clear ();
 };
 
 #endif // HISTOGRAM_H

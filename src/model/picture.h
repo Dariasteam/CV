@@ -17,9 +17,7 @@
  * QPixmap: clase optimizada para la representación
  * */
 class picture {
-private:
-  const std::vector<double> NTSC = { 0.299, 0.587, 0.114 };
-  const std::vector<double> PAL  = { 0.222, 0.707, 0.071 };  
+private:  
   bool black_and_white;
 
   QImage* raw_image;
@@ -27,22 +25,26 @@ private:
   histogram histograms;
   unsigned average;           // media
   double mediana;             // esto en inglés
+
 public:
   picture (QImage* image);
   picture (const picture& P);
+  picture (const picture* P);
 
   bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
-  void generate_histograms ();
-  void to_grayscale (const std::vector<double>&  transform);
+  void generate_histograms ();  
 
   inline QImage*  get_image  () const { return raw_image; }
   inline QPixmap* get_pixmap () const { return pixmap;    }
-  inline void update_pixmap () { pixmap->convertFromImage(*raw_image); }
+  inline void update_pixmap () {
+    generate_histograms();
+    pixmap->convertFromImage(*raw_image);    
+  }
   inline histogram get_histograms () const { return histograms; }
   inline void set_black_and_white (bool b) { black_and_white = true; }
-  inline bool get_black_and_white () const { return black_and_white; }
+  inline bool is_black_and_white () const { return black_and_white; }
 };
 
 #endif // IMAGE_H

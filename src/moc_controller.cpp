@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_controller_t {
-    QByteArrayData data[23];
-    char stringdata0[248];
+    QByteArrayData data[26];
+    char stringdata0[277];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,21 +46,25 @@ QT_MOC_LITERAL(11, 121, 2), // "id"
 QT_MOC_LITERAL(12, 124, 14), // "on_close_image"
 QT_MOC_LITERAL(13, 139, 19), // "on_set_active_image"
 QT_MOC_LITERAL(14, 159, 5), // "image"
-QT_MOC_LITERAL(15, 165, 16), // "load_all_plugins"
-QT_MOC_LITERAL(16, 182, 4), // "path"
-QT_MOC_LITERAL(17, 187, 11), // "load_plugin"
-QT_MOC_LITERAL(18, 199, 11), // "plugin_name"
-QT_MOC_LITERAL(19, 211, 4), // "QDir"
-QT_MOC_LITERAL(20, 216, 3), // "dir"
-QT_MOC_LITERAL(21, 220, 21), // "apply_image_operation"
-QT_MOC_LITERAL(22, 242, 5) // "index"
+QT_MOC_LITERAL(15, 165, 15), // "on_create_image"
+QT_MOC_LITERAL(16, 181, 8), // "picture*"
+QT_MOC_LITERAL(17, 190, 3), // "pic"
+QT_MOC_LITERAL(18, 194, 16), // "load_all_plugins"
+QT_MOC_LITERAL(19, 211, 4), // "path"
+QT_MOC_LITERAL(20, 216, 11), // "load_plugin"
+QT_MOC_LITERAL(21, 228, 11), // "plugin_name"
+QT_MOC_LITERAL(22, 240, 4), // "QDir"
+QT_MOC_LITERAL(23, 245, 3), // "dir"
+QT_MOC_LITERAL(24, 249, 21), // "apply_image_operation"
+QT_MOC_LITERAL(25, 271, 5) // "index"
 
     },
     "controller\0update_histograms\0\0histogram\0"
     "hist\0update_operation_option\0QWidget*\0"
     "wid\0on_load_image\0file_name\0on_store_image\0"
     "id\0on_close_image\0on_set_active_image\0"
-    "image\0load_all_plugins\0path\0load_plugin\0"
+    "image\0on_create_image\0picture*\0pic\0"
+    "load_all_plugins\0path\0load_plugin\0"
     "plugin_name\0QDir\0dir\0apply_image_operation\0"
     "index"
 };
@@ -72,7 +76,7 @@ static const uint qt_meta_data_controller[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -80,17 +84,18 @@ static const uint qt_meta_data_controller[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
-       5,    1,   62,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
+       5,    1,   67,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    1,   65,    2, 0x0a /* Public */,
-      10,    2,   68,    2, 0x0a /* Public */,
-      12,    0,   73,    2, 0x0a /* Public */,
-      13,    1,   74,    2, 0x0a /* Public */,
-      15,    1,   77,    2, 0x0a /* Public */,
-      17,    2,   80,    2, 0x0a /* Public */,
-      21,    1,   85,    2, 0x08 /* Private */,
+       8,    1,   70,    2, 0x0a /* Public */,
+      10,    2,   73,    2, 0x0a /* Public */,
+      12,    0,   78,    2, 0x0a /* Public */,
+      13,    1,   79,    2, 0x0a /* Public */,
+      15,    1,   82,    2, 0x0a /* Public */,
+      18,    1,   85,    2, 0x0a /* Public */,
+      20,    2,   88,    2, 0x0a /* Public */,
+      24,    1,   93,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -101,9 +106,10 @@ static const uint qt_meta_data_controller[] = {
     QMetaType::Void, QMetaType::QString, QMetaType::UInt,    9,   11,
     QMetaType::Void,
     QMetaType::Void, QMetaType::UInt,   14,
-    QMetaType::Bool, QMetaType::QString,   16,
-    QMetaType::Bool, QMetaType::QString, 0x80000000 | 19,   18,   20,
-    QMetaType::Void, QMetaType::UInt,   22,
+    QMetaType::Void, 0x80000000 | 16,   17,
+    QMetaType::Bool, QMetaType::QString,   19,
+    QMetaType::Bool, QMetaType::QString, 0x80000000 | 22,   21,   23,
+    QMetaType::Void, QMetaType::UInt,   25,
 
        0        // eod
 };
@@ -120,11 +126,12 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->on_store_image((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< uint(*)>(_a[2]))); break;
         case 4: _t->on_close_image(); break;
         case 5: _t->on_set_active_image((*reinterpret_cast< uint(*)>(_a[1]))); break;
-        case 6: { bool _r = _t->load_all_plugins((*reinterpret_cast< const QString(*)>(_a[1])));
+        case 6: _t->on_create_image((*reinterpret_cast< picture*(*)>(_a[1]))); break;
+        case 7: { bool _r = _t->load_all_plugins((*reinterpret_cast< const QString(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 7: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QDir(*)>(_a[2])));
+        case 8: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QDir(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 8: _t->apply_image_operation((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 9: _t->apply_image_operation((*reinterpret_cast< uint(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -183,13 +190,13 @@ int controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

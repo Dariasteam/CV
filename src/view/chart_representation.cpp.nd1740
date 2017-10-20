@@ -37,7 +37,7 @@ QAreaSeries* chart_representation::represent (const std::vector<unsigned>& h) {
   for (unsigned i = 0; i < h.size(); i++) {
     *serie1 << QPoint(i, h[i]);
   }
-  *serie2 << QPoint(0,0) << QPoint(255,0);
+  *serie2 << QPoint(0,1) << QPoint(255,1);
 
   return new QAreaSeries(serie1, serie2);
 }
@@ -62,7 +62,9 @@ void chart_representation::update_values(const std::vector<unsigned> &hr,
                                          const std::vector<unsigned> &hb) {
   chart.removeSeries(area_series_r);
   chart.removeSeries(area_series_g);
-  chart.removeSeries(area_series_b);    
+  chart.removeSeries(area_series_b);
+
+  delete area_series_r;
 
   area_series_r = represent(hr);
   area_series_g = represent(hg);
@@ -71,7 +73,8 @@ void chart_representation::update_values(const std::vector<unsigned> &hr,
   update_view();
 }
 
-void chart_representation::update_view () {    
+void chart_representation::update_view () {
+
   area_series_r->setColor(red);
   area_series_r->setBorderColor(red);
 
@@ -79,10 +82,15 @@ void chart_representation::update_view () {
   area_series_g->setBorderColor(green);
 
   area_series_b->setColor(blue);
-  area_series_b->setBorderColor(blue);  
+  area_series_b->setBorderColor(blue);
+
+  chart.removeSeries(area_series_r);
+  chart.removeSeries(area_series_g);
+  chart.removeSeries(area_series_b);
 
   chart.addSeries(area_series_r);
   chart.addSeries(area_series_g);
   chart.addSeries(area_series_b);
+
 }
 

@@ -20,7 +20,8 @@ controller::controller() {
 void controller::on_load_image(const QString& file_name) {
   main_window.get_options_dock()->setEnabled(true);
 
-  mdl.load_image(file_name);
+  mdl.load_image(file_name);    
+
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), file_name);
 }
 
@@ -32,7 +33,7 @@ void controller::on_close_image() {
   mdl.delete_imagepix_at(active_image);
 
   if (mdl.get_pictures().size() == 0)
-    main_window.get_options_dock()->setDisabled(true);
+    main_window.get_options_dock()->setEnabled(false);
 }
 
 void controller::on_set_active_image (unsigned id) {
@@ -74,7 +75,25 @@ bool controller::load_plugin (const QString& path, const QDir& dir) {
   }
 }
 
-void controller::apply_image_operation(unsigned index) {    
-  if (index < mdl.get_plugins().size())
-    emit update_operation_option(mdl.get_plugins().at(index)->get_view());
+void controller::on_create_image(picture *pic) {
+  mdl.add_image(pic);
+  main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), "file_name");
+}
+
+void controller::apply_image_operation(unsigned index) {        
+  if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
+    abstract_plugin* aux_plugin = mdl.get_plugins().at(index);
+    emit update_operation_option(aux_plugin->get_view());
+    picture* aux_pic = new picture (mdl.get_picture_at(index));
+    //picture* aux_pic = mdl.get_picture_at(index);
+
+    aux_plugin->get_operation()->operator ()(aux_pic);
+    on_create_image(aux_pic);    
+
+    aux_pic->update_pixmap();
+    emit update_histograms(aux_pic->get_histograms());
+
+    //aux_pic->update_pixmap();
+
+  }
 }
