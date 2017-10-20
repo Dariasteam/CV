@@ -37,7 +37,7 @@ bool conector_plugin::operator ()() {
   pic->set_black_and_white(true);
   return true;
 
-  emit image_updated();
+  //emit image_updated();
 }
 
 void conector_plugin::on_change_pal(bool p) {

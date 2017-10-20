@@ -3,7 +3,7 @@
 plugin_controller::plugin_controller(operation_options_widget* op_wid) :
   op_widget (op_wid)
 {
-  /*
+
   connect (op_widget->get_apply(),&QPushButton::clicked,
            this, &plugin_controller::on_apply);
 
@@ -15,41 +15,45 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid) :
 
   connect (op_widget->get_preview(),&QCheckBox::toggled,
            this, &plugin_controller::on_preview_toggled);
-           */
+
 }
-/*
+
 bool plugin_controller::operator ()(canvas_window* canvas,
                                     PluginInterface* op,
                                     picture* pic) {
   current_operation = op;
   current_canvas = canvas;
-  current_pic = pic;
+  current_pic = pic;  
 
+  connect (((menu*)op->get_view()),SIGNAL(pal(bool)),this,SLOT(update_view()));
 
-  //connect (op,SIGNAL(image_updated()),this,SLOT(update_view()));
-
-//  connect(op,&PluginInterface::image_updated,this,
-             //&plugin_controller::update_view);
+  connect(((menu*)op->get_view()),&menu::pal,this,&plugin_controller::update_view);
 
   old_pixmap = new QPixmap(*pic->get_pixmap());
 
   if (!op->operator ()(pic)) return false;
-
+/*
   result_pixmap = pic->get_pixmap();
 
   preview = op_widget->get_preview()->isChecked();
   overwrite = op_widget->get_overwrite()->isChecked();
 
-  update_view();
+  update_view(true);
+  */
 }
 
-void plugin_controller::update_view() {
+#include <iostream>
+
+void plugin_controller::update_view(bool) {
+  std::cout << "UPDATE" << std::endl;
+  /*
   if (preview) {
     current_canvas->set_pixmap(result_pixmap);
   } else {
     current_canvas->set_pixmap(old_pixmap);
   }
   current_canvas->update();
+  */
 }
 
 void plugin_controller::on_apply(bool b) {
@@ -61,11 +65,11 @@ void plugin_controller::on_cancel(bool b) {
 
 void plugin_controller::on_overwrite_toggled(bool b) {
   overwrite = b;
-  update_view();
+  update_view(true);
 }
 
 void plugin_controller::on_preview_toggled(bool b) {
   preview = b;
-  update_view();
+  update_view(true);
 }
-*/
+

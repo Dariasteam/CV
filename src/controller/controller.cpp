@@ -65,13 +65,13 @@ bool controller::load_plugin (const QString& path, const QDir& dir) {
     PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
 
     unsigned index = mdl.add_plugin(aux);
-/*
+
     plugin_metainfo info = aux->get_meta_info();
 
     indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
 
     connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(use_plugin(uint)));
-*/
+
   }
 
 
@@ -85,16 +85,14 @@ void controller::on_create_image(picture *pic) {
 void controller::use_plugin(unsigned index) {
   if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
     PluginInterface* aux_plugin = mdl.get_plugins().at(index);
-    //emit update_operation_option(aux_plugin->get_view());
+    emit update_operation_option(aux_plugin->get_view());
 
-    //picture* aux_pic = new picture (mdl.get_picture_at(index));
+    picture* aux_pic = new picture (mdl.get_picture_at(index));
 
-    //canvas_window* aux_canvas = main_window.get_view()->get_active_canvas();
-/*
-    plugin_ctrller->operator ()(aux_canvas,
-                                aux_plugin,
-                                aux_pic);
-*/
+    canvas_window* aux_canvas = main_window.get_view()->get_active_canvas();
+
+    plugin_ctrller->operator ()(aux_canvas, aux_plugin, aux_pic);
+
     //aux_canvas->set_pixmap(aux_pic->get_pixmap());
 
     //emit update_histograms(aux_pic->get_histograms());

@@ -9,7 +9,7 @@
 #include "../../model/picture.h"
 #include "menu.h"
 
-class conector_plugin : public PluginInterface {
+class conector_plugin : public QObject, PluginInterface {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "P")
   Q_INTERFACES(PluginInterface)  

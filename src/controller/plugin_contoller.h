@@ -9,6 +9,7 @@
 #include "../view/operation_options_widget.h"
 #include "../model/picture.h"
 #include "plugin_interface.h"
+#include "../plugins/plugin_example/menu.h"
 
 
 class plugin_controller : public QObject {
@@ -26,21 +27,21 @@ private:
   QPixmap* old_pixmap;
 public:
   plugin_controller(operation_options_widget* op_wid);
-  /*
+
   bool operator()(canvas_window* canvas,
                   PluginInterface* op,
                   picture* pic);
-                  */
+
 public slots:
-  /*
+
   void on_preview_toggled (bool);
   void on_overwrite_toggled (bool);
   void on_apply (bool);
   void on_cancel (bool);
-  */
+
 signals:
 private slots:
-  //void update_view ();
+  void update_view (bool);
 };
 
 #endif // PLUGIN_CONTOLLER_H

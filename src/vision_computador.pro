@@ -40,7 +40,8 @@ SOURCES += \
         view/canvas_image_label.cpp \
     controller/indexed_action.cpp \
     view/operation_options_widget.cpp \
-    controller/plugin_contoller.cpp
+    controller/plugin_contoller.cpp \
+    plugins/plugin_example/menu.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -61,7 +62,8 @@ HEADERS += \
     controller/plugin_interface.h \
     controller/indexed_action.h \
     view/operation_options_widget.h \
-    controller/plugin_contoller.h
+    controller/plugin_contoller.h \
+    plugins/plugin_example/menu.h
 
 FORMS += \
         view/mainwindow.ui

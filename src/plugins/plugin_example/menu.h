@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QBoxLayout>
+#include "../../controller/plugin_interface.h"
 
 #define PAL_TXT "PAL"
 #define NTSC_TXT "NTSC"
