@@ -17,21 +17,22 @@ menu::menu(QWidget *parent) : view_interface(parent)
   layout->addWidget(bttn_NTSC);
   layout->addWidget(bttn_PAL);
 
-  connect (bttn_PAL,&QPushButton::clicked,this,&menu::set_pal_checked);
-  connect (bttn_NTSC,&QPushButton::clicked,this,&menu::set_ntsc_checked);
+  connect (bttn_PAL,&QPushButton::toggled,this,&menu::set_pal_checked);
+  connect (bttn_NTSC,&QPushButton::toggled,this,&menu::set_ntsc_checked);
 
   emit update_inform();
 }
 
 
 void menu::set_ntsc_checked(bool) {
-  bttn_PAL->setChecked(false);  
-  emit update_inform();
+  bttn_PAL->setChecked(false);
   emit pal (false);
+  emit update_inform();
+
 }
 
 void menu::set_pal_checked(bool) {
-  bttn_NTSC->setChecked(false);  
-  emit update_inform();
+  bttn_NTSC->setChecked(false);
   emit pal (true);
+  emit update_inform();
 }

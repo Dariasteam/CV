@@ -34,13 +34,13 @@ bool conector_plugin::operator ()() {
     return QColor(gray, gray, gray);
   });
 
-  pic->set_black_and_white(true);
-  return true;
+  pic->set_black_and_white(true);  
 
-  //emit image_updated();
+  return true;  
 }
 
 void conector_plugin::on_change_pal(bool p) {
   pal = p;
+  operator ()();
 }
 

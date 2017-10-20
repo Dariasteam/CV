@@ -21,7 +21,7 @@ public:
   bool operator () (picture* image);
   bool operator () ();
 public slots:
-  void on_change_pal (bool p);
+  void on_change_pal (bool p);  
 };
 
 #endif
