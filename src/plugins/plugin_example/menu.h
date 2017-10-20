@@ -9,7 +9,15 @@
 #define PAL_TXT "PAL"
 #define NTSC_TXT "NTSC"
 
-class menu : public QWidget {
+class M : public QWidget {
+  Q_OBJECT
+public:
+  M (QWidget* parent) : QWidget (parent) {}
+signals:
+  virtual void update_inform () = 0;
+};
+
+class menu : public M {
   Q_OBJECT
 private:
   QPushButton* bttn_PAL;
@@ -23,6 +31,7 @@ private slots:
   void set_pal_checked (bool);
 signals:
   void pal (bool);
+  void update_inform ();
 };
 
 #endif // MENU_H

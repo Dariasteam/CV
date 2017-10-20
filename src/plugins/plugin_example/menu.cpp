@@ -1,6 +1,6 @@
 #include "menu.h"
 
-menu::menu(QWidget *parent) : QWidget(parent)
+menu::menu(QWidget *parent) : M(parent)
 {
 
   QBoxLayout* layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
@@ -19,15 +19,19 @@ menu::menu(QWidget *parent) : QWidget(parent)
 
   connect (bttn_PAL,&QPushButton::clicked,this,&menu::set_pal_checked);
   connect (bttn_NTSC,&QPushButton::clicked,this,&menu::set_ntsc_checked);
+
+  emit update_inform();
 }
 
 
 void menu::set_ntsc_checked(bool) {
   bttn_PAL->setChecked(false);  
+  emit update_inform();
   emit pal (false);
 }
 
 void menu::set_pal_checked(bool) {
   bttn_NTSC->setChecked(false);  
+  emit update_inform();
   emit pal (true);
 }
