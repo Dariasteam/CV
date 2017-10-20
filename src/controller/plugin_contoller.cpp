@@ -3,6 +3,7 @@
 plugin_controller::plugin_controller(operation_options_widget* op_wid) :
   op_widget (op_wid)
 {
+  /*
   connect (op_widget->get_apply(),&QPushButton::clicked,
            this, &plugin_controller::on_apply);
 
@@ -14,14 +15,21 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid) :
 
   connect (op_widget->get_preview(),&QCheckBox::toggled,
            this, &plugin_controller::on_preview_toggled);
+           */
 }
-
+/*
 bool plugin_controller::operator ()(canvas_window* canvas,
                                     PluginInterface* op,
                                     picture* pic) {
   current_operation = op;
   current_canvas = canvas;
   current_pic = pic;
+
+
+  //connect (op,SIGNAL(image_updated()),this,SLOT(update_view()));
+
+//  connect(op,&PluginInterface::image_updated,this,
+             //&plugin_controller::update_view);
 
   old_pixmap = new QPixmap(*pic->get_pixmap());
 
@@ -60,3 +68,4 @@ void plugin_controller::on_preview_toggled(bool b) {
   preview = b;
   update_view();
 }
+*/

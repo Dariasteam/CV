@@ -51,10 +51,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = connector_plugin.cpp \
-		menu.cpp moc_connector_plugin.cpp
+		menu.cpp moc_connector_plugin.cpp \
+		moc_menu.cpp
 OBJECTS       = connector_plugin.o \
 		menu.o \
-		moc_connector_plugin.o
+		moc_connector_plugin.o \
+		moc_menu.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -967,9 +969,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_connector_plugin.cpp
+compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_connector_plugin.cpp
+	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
@@ -978,6 +980,11 @@ moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include connector_plugin.h -o moc_connector_plugin.cpp
+
+moc_menu.cpp: menu.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1005,6 +1012,9 @@ menu.o: menu.cpp menu.h
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connector_plugin.o moc_connector_plugin.cpp
+
+moc_menu.o: moc_menu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_menu.o moc_menu.cpp
 
 ####### Install
 

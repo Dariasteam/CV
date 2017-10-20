@@ -20,11 +20,14 @@ protected:
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
+  picture* pic;
 public:
-  virtual ~PluginInterface() {}
+  PluginInterface () : pic (nullptr) {}
   const plugin_metainfo& get_meta_info () { return meta_info; }
   QWidget* get_view ()                    { return view;      }
-  virtual bool operator () (picture* image) = 0;
+  bool operator () (picture* image) {}
+  bool operator () () {}
+  void set_picture (picture* image) { pic = image; }
 };
 
 #define PluginInterface_iid "P"
