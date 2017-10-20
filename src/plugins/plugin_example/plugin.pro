@@ -1,6 +1,6 @@
 TEMPLATE        = lib
 CONFIG         += plugin
-QT             += widgets
+QT             += widgets charts
 #INCLUDEPATH    += ../echowindow
 
 HEADERS         = connector_plugin.h \                  

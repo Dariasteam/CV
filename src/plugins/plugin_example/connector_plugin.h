@@ -4,11 +4,12 @@
 #include <QObject>
 #include <QtPlugin>
 
+#include "../../controller/plugin_contoller.h"
 #include "../../controller/plugin_interface.h"
 #include "../../model/picture.h"
 #include "menu.h"
 
-class conector_plugin : public QObject, PluginInterface {
+class conector_plugin : public PluginInterface {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "P")
   Q_INTERFACES(PluginInterface)  

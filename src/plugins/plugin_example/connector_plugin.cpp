@@ -38,7 +38,6 @@ bool conector_plugin::operator ()() {
   return true;
 
   emit image_updated();
-
 }
 
 void conector_plugin::on_change_pal(bool p) {
