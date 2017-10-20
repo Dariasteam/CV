@@ -14,6 +14,14 @@ struct plugin_metainfo {
   bool can_preview = false;
 };
 
+class M : public QWidget {
+  Q_OBJECT
+public:
+  M (QWidget* parent) : QWidget (parent) {}
+signals:
+  virtual void update_inform () = 0;
+};
+
 class PluginInterface {
 protected:
   // Información para los menús

@@ -25,9 +25,9 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   current_canvas = canvas;
   current_pic = pic;  
 
-  connect (((menu*)op->get_view()),SIGNAL(pal(bool)),this,SLOT(update_view()));
+  connect (((M*)op->get_view()),SIGNAL(update_inform()),this,SLOT(update_view()));
 
-  connect(((menu*)op->get_view()),&menu::pal,this,&plugin_controller::update_view);
+  connect(((M*)op->get_view()),&M::update_inform,this,&plugin_controller::update_view);
 
   old_pixmap = new QPixmap(*pic->get_pixmap());
 
@@ -44,7 +44,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
 
 #include <iostream>
 
-void plugin_controller::update_view(bool) {
+void plugin_controller::update_view() {
   std::cout << "UPDATE" << std::endl;
   /*
   if (preview) {
@@ -65,11 +65,11 @@ void plugin_controller::on_cancel(bool b) {
 
 void plugin_controller::on_overwrite_toggled(bool b) {
   overwrite = b;
-  update_view(true);
+  update_view();
 }
 
 void plugin_controller::on_preview_toggled(bool b) {
   preview = b;
-  update_view(true);
+  update_view();
 }
 
