@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QtPlugin>
 
-//#include "../../controller/plugin_contoller.h"
 #include "../../controller/plugin_interface.h"
 #include "../../model/picture.h"
 #include "menu.h"

@@ -12,7 +12,7 @@ conector_plugin::conector_plugin () :
   view->connect ((menu*)view,&menu::pal,this,&conector_plugin::on_change_pal);
 }
 
-bool conector_plugin::operator ()(picture* image) {
+bool conector_plugin::operator ()(picture* image) {  
   pic = image;
   return operator ()();
 }
