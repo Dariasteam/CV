@@ -3,15 +3,12 @@ CONFIG         += plugin
 QT             += widgets
 #INCLUDEPATH    += ../echowindow
 
-HEADERS         = connector_plugin.h \
-		  plugin_template.h \
-		  menu.h \
-		  operation.h
+HEADERS         = connector_plugin.h \                  
+                  menu.h
 
-SOURCES         = connector_plugin.cpp \
-		  plugin_template.cpp \
-		  menu.cpp \
-		  operation.cpp
+
+SOURCES         = connector_plugin.cpp \                  
+                  menu.cpp
                   
 
 LIB_NAME = $$system(basename $(pwd))

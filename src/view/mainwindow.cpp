@@ -43,9 +43,9 @@ void MainWindow::generate_menu() {
     }
   }
 
-  QAction* load = menu_bar->actions()[0]->menu()->actions()[0];
-  QAction* save = menu_bar->actions()[0]->menu()->actions()[1];
-  QAction* save_as = menu_bar->actions()[0]->menu()->actions()[2];
+  load = menu_bar->actions()[0]->menu()->actions()[0];
+  save = menu_bar->actions()[0]->menu()->actions()[1];
+  save_as = menu_bar->actions()[0]->menu()->actions()[2];
 
   load->setShortcut(QKeySequence("Ctrl+O"));
   save->setShortcut(QKeySequence("Ctrl+S"));
@@ -70,19 +70,24 @@ void MainWindow::on_bttn_load(bool) {
 void MainWindow::on_bttn_save(bool) {
   if (window_content->theres_active_window()) {
     QString filename = QFileDialog::getSaveFileName(this, tr("Guardar imagen"), ".", tr("Imagen (*.png *.jpg *.tiff)"));
-    emit save_image(filename, window_content->get_active_canvas());
+    emit save_image(filename, window_content->get_active_picture_id());
   }
 }
 
 void MainWindow::on_image_focused() {
-  menu_bar->actions()[0]->menu()->actions()[1]->setEnabled(true);
-  menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(true);
+  save->setEnabled(true);
+  save_as->setEnabled(true);
+
+  plugin_menu->setEnabled(true);
+  op_dock->setEnabled(true);
 }
 
 void MainWindow::on_no_focused_image() {
-  menu_bar->actions()[0]->menu()->actions()[1]->setEnabled(false);
-  menu_bar->actions()[0]->menu()->actions()[2]->setEnabled(false);
+  save->setEnabled(false);
+  save_as->setEnabled(false);
 
+  plugin_menu->setEnabled(false);
+  op_dock->setEnabled(false);
   op_dock->get_histogram_wid()->on_clear_charts();
 }
 

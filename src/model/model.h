@@ -17,9 +17,8 @@ using namespace std;
 
 class model {
 private:
-  QList<picture*> picture_list;
-  QList<abstract_plugin*> plugin_list;
-  QList<image_operation*> operations;
+  QList<picture*> picture_list;  
+  QList<PluginInterface*> plugin_list;
   unsigned active_window;
 public:
   model();
@@ -29,13 +28,13 @@ public:
   void delete_imagepix_at (unsigned i);
   void add_image (picture* pic);
 
-  inline unsigned add_plugin (abstract_plugin* plugin) {
+  inline unsigned add_plugin (PluginInterface* plugin) {
     plugin_list.push_back(plugin);
     return plugin_list.size() - 1;
   }
 
   inline const QList<picture*>& get_pictures () { return picture_list; }
-  inline const QList<abstract_plugin*>& get_plugins () { return plugin_list; }
+  inline const QList<PluginInterface*>& get_plugins () { return plugin_list; }
 
   picture* get_picture_at (int i);
 };

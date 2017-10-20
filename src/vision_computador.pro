@@ -39,7 +39,8 @@ SOURCES += \
         view/chart_representation.cpp \
         view/canvas_image_label.cpp \
     controller/indexed_action.cpp \
-    view/operation_options_widget.cpp
+    view/operation_options_widget.cpp \
+    controller/plugin_contoller.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -59,7 +60,8 @@ HEADERS += \
         view/canvas_image_label.h \
     controller/plugin_interface.h \
     controller/indexed_action.h \
-    view/operation_options_widget.h
+    view/operation_options_widget.h \
+    controller/plugin_contoller.h
 
 FORMS += \
         view/mainwindow.ui

@@ -14,14 +14,14 @@ controller::controller() {
   connect(this, SIGNAL(update_operation_option(QWidget*)),
           main_window.get_options_dock()->get_operation_wid(), SLOT(on_set_widget(QWidget*)));
 
+  plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
+
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
 }
 
 void controller::on_load_image(const QString& file_name) {
   main_window.get_options_dock()->setEnabled(true);
-
   mdl.load_image(file_name);    
-
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), file_name);
 }
 
@@ -31,9 +31,6 @@ void controller::on_store_image(const QString& file_name, unsigned id) {
 
 void controller::on_close_image() {
   mdl.delete_imagepix_at(active_image);
-
-  if (mdl.get_pictures().size() == 0)
-    main_window.get_options_dock()->setEnabled(false);
 }
 
 void controller::on_set_active_image (unsigned id) {
@@ -54,25 +51,28 @@ bool controller::load_all_plugins (const QString& path) {
 }
 
 bool controller::load_plugin (const QString& path, const QDir& dir) {
+
   QPluginLoader pluginLoader(dir.absoluteFilePath(path));
   QObject *plugin = pluginLoader.instance();
   std::cout << "Tratando de cargar " << path.toStdString() << " | ";
+
   if (!plugin) {
     std::cout << "No se ha podido cargar" << std::endl;
       return false;
   } else {
     std::cout << "plugin cargado correctamente";
 
-    PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);
-    abstract_plugin* plugin = aux->get_plugin();
+    PluginInterface* aux = qobject_cast<PluginInterface *>(plugin);    
 
-    unsigned index = mdl.add_plugin(plugin);
+    unsigned index = mdl.add_plugin(aux);
 
-    plugin_metainfo info = plugin->get_meta_info();
+    plugin_metainfo info = aux->get_meta_info();
+
     indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
 
-    connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(apply_image_operation(uint)));
+    connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(use_plugin(uint)));
   }
+
 }
 
 void controller::on_create_image(picture *pic) {
@@ -80,20 +80,21 @@ void controller::on_create_image(picture *pic) {
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), "file_name");
 }
 
-void controller::apply_image_operation(unsigned index) {        
+void controller::use_plugin(unsigned index) {
   if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
-    abstract_plugin* aux_plugin = mdl.get_plugins().at(index);
-    emit update_operation_option(aux_plugin->get_view());
-    picture* aux_pic = new picture (mdl.get_picture_at(index));
-    //picture* aux_pic = mdl.get_picture_at(index);
+    PluginInterface* aux_plugin = mdl.get_plugins().at(index);
+    emit update_operation_option(aux_plugin->get_view());    
 
-    aux_plugin->get_operation()->operator ()(aux_pic);
-    on_create_image(aux_pic);    
+    picture* aux_pic = new picture (mdl.get_picture_at(index));    
 
-    aux_pic->update_pixmap();
-    emit update_histograms(aux_pic->get_histograms());
+    canvas_window* aux_canvas = main_window.get_view()->get_active_canvas();
 
-    //aux_pic->update_pixmap();
+    plugin_ctrller->operator ()(aux_canvas,
+                                aux_plugin,
+                                aux_pic);
 
+    //aux_canvas->set_pixmap(aux_pic->get_pixmap());
+
+    //emit update_histograms(aux_pic->get_histograms());
   }
 }

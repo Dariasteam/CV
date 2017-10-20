@@ -12,6 +12,7 @@
 #include "../model/histogram.h"
 #include "plugin_interface.h"
 #include "indexed_action.h"
+#include "plugin_contoller.h"
 
 class controller : public QObject {
   Q_OBJECT
@@ -19,6 +20,7 @@ private:
   MainWindow main_window;
   model mdl;
   short active_image;
+  plugin_controller* plugin_ctrller;
 public:
   controller();
 public slots:
@@ -32,7 +34,7 @@ public slots:
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);
 private slots:
-  void apply_image_operation (unsigned index);
+  void use_plugin (unsigned index);
 signals:
   void update_histograms (histogram hist);
   void update_operation_option (QWidget* wid);

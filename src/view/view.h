@@ -17,7 +17,8 @@ private:
   footer* foot;
 public:
   explicit view(footer* foot, QWidget *parent = nullptr);
-  inline unsigned get_active_canvas () { return active_canvas;}
+  inline unsigned get_active_picture_id () { return active_canvas;}
+  canvas_window* get_active_canvas ();
   void add_canvas_window (QPixmap& pixmap, QString name);
   bool theres_active_window () { return active_canvas != -1; }
 public slots:

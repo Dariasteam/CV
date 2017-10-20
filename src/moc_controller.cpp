@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_controller_t {
     QByteArrayData data[26];
-    char stringdata0[277];
+    char stringdata0[266];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,8 +55,8 @@ QT_MOC_LITERAL(20, 216, 11), // "load_plugin"
 QT_MOC_LITERAL(21, 228, 11), // "plugin_name"
 QT_MOC_LITERAL(22, 240, 4), // "QDir"
 QT_MOC_LITERAL(23, 245, 3), // "dir"
-QT_MOC_LITERAL(24, 249, 21), // "apply_image_operation"
-QT_MOC_LITERAL(25, 271, 5) // "index"
+QT_MOC_LITERAL(24, 249, 10), // "use_plugin"
+QT_MOC_LITERAL(25, 260, 5) // "index"
 
     },
     "controller\0update_histograms\0\0histogram\0"
@@ -65,8 +65,7 @@ QT_MOC_LITERAL(25, 271, 5) // "index"
     "id\0on_close_image\0on_set_active_image\0"
     "image\0on_create_image\0picture*\0pic\0"
     "load_all_plugins\0path\0load_plugin\0"
-    "plugin_name\0QDir\0dir\0apply_image_operation\0"
-    "index"
+    "plugin_name\0QDir\0dir\0use_plugin\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -131,7 +130,7 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 8: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QDir(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 9: _t->apply_image_operation((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 9: _t->use_plugin((*reinterpret_cast< uint(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {

@@ -47,6 +47,10 @@ private:
   QToolBar* toolbar;
   footer* foot;  
   QMenu* plugin_menu;
+
+  QAction* load;
+  QAction* save;
+  QAction* save_as;
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();

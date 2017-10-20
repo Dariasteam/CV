@@ -11,32 +11,20 @@ struct plugin_metainfo {
   QString category = "default plugin category";
   bool can_work_without_gui = false;
   bool no_gui = false;
+  bool can_preview = false;
 };
 
-class image_operation : public QObject {
-public:
-  virtual bool operator () (picture* image) = 0;
-};
-
-class abstract_plugin : public QObject {
+class PluginInterface {
 protected:
   // Información para los menús
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
-  image_operation* op;
-public:  
-  const plugin_metainfo& get_meta_info () { return meta_info; }
-  QWidget* get_view ()                    { return view;      }
-  image_operation* get_operation ()       { return op;        }
-};
-
-class PluginInterface {
-protected:
-  abstract_plugin* content;
 public:
   virtual ~PluginInterface() {}
-  abstract_plugin* get_plugin () { return content; }
+  const plugin_metainfo& get_meta_info () { return meta_info; }
+  QWidget* get_view ()                    { return view;      }
+  virtual bool operator () (picture* image) = 0;
 };
 
 #define PluginInterface_iid "P"

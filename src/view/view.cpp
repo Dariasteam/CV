@@ -31,3 +31,10 @@ void view::add_canvas_window(QPixmap &pixmap, QString name) {
 
   aux_canvas->show();
 }
+
+canvas_window* view::get_active_canvas() {
+  if (active_canvas > -1 )
+    return canvas_list.at(active_canvas);
+  else
+    return nullptr;
+}

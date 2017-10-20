@@ -51,13 +51,9 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = connector_plugin.cpp \
-		plugin_template.cpp \
-		menu.cpp \
-		operation.cpp moc_connector_plugin.cpp
+		menu.cpp moc_connector_plugin.cpp
 OBJECTS       = connector_plugin.o \
-		plugin_template.o \
 		menu.o \
-		operation.o \
 		moc_connector_plugin.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -339,12 +335,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		plugin.pro connector_plugin.h \
-		plugin_template.h \
-		menu.h \
-		operation.h connector_plugin.cpp \
-		plugin_template.cpp \
-		menu.cpp \
-		operation.cpp
+		menu.h connector_plugin.cpp \
+		menu.cpp
 QMAKE_TARGET  = plugin
 DESTDIR       = 
 TARGET        = libplugin.so
@@ -943,8 +935,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents connector_plugin.h plugin_template.h menu.h operation.h $(DISTDIR)/
-	$(COPY_FILE) --parents connector_plugin.cpp plugin_template.cpp menu.cpp operation.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents connector_plugin.h menu.h $(DISTDIR)/
+	$(COPY_FILE) --parents connector_plugin.cpp menu.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -981,9 +973,7 @@ compiler_moc_header_clean:
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
-		plugin_template.h \
 		menu.h \
-		operation.h \
 		connector_plugin.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1007,27 +997,11 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
-		plugin_template.h \
-		menu.h \
-		operation.h
+		menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
-
-plugin_template.o: plugin_template.cpp plugin_template.h \
-		../../controller/plugin_interface.h \
-		../../model/picture.h \
-		../../model/histogram.h \
-		menu.h \
-		operation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plugin_template.o plugin_template.cpp
 
 menu.o: menu.cpp menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o menu.cpp
-
-operation.o: operation.cpp operation.h \
-		../../controller/plugin_interface.h \
-		../../model/picture.h \
-		../../model/histogram.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o operation.o operation.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connector_plugin.o moc_connector_plugin.cpp
