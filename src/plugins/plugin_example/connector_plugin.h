@@ -21,8 +21,6 @@ public:
   conector_plugin ();
   bool operator () (picture* image);
   bool operator () ();
-signals:
-  void image_updated ();
 public slots:
   void on_change_pal (bool p);
 };
