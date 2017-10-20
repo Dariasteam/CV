@@ -16,7 +16,7 @@
  * QImage: clase optimizada para la manipulación a nivel de pixel
  * QPixmap: clase optimizada para la representación
  * */
-class picture {
+class picture : public QObject {
 private:  
   bool black_and_white;
 
@@ -31,8 +31,8 @@ public:
   picture (const picture& P);
   picture (const picture* P);
 
-  bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
-  bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
+  virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
+  virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
   void generate_histograms ();  
 

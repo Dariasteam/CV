@@ -15,19 +15,14 @@ bool operation::operator () (picture* image) {
   QImage* img = image->get_image();
   QSize size = img->size();
 
-  for (unsigned i = 0; i < size.width(); i++) {
-    for (unsigned j = 0; j < size.height(); j++) {
+  image->each_pixel_modificator([&](QColor pixel) -> QColor {
+    unsigned gray = pixel.red()   * transform[0] +
+                    pixel.green() * transform[1] +
+                    pixel.blue()  * transform[2];
 
-      QColor pixel = img->pixel(i,j);
-      unsigned gray = pixel.red()   * transform[0] +
-                      pixel.green() * transform[1] +
-                      pixel.blue()  * transform[2];
-
-      img->setPixelColor(i,j, QColor(gray, gray, gray));
-    }
-  }
+    return QColor(gray, gray, gray);
+  });
   image->set_black_and_white(true);
-
   return true;
 }
 
