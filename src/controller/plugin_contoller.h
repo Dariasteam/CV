@@ -9,8 +9,7 @@
 #include "../view/operation_options_widget.h"
 #include "../model/picture.h"
 #include "plugin_interface.h"
-//#include "../plugins/plugin_example/menu.h"
-
+#include "view_interface.h"
 
 class plugin_controller : public QObject {
   Q_OBJECT

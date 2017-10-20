@@ -25,9 +25,9 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   current_canvas = canvas;
   current_pic = pic;  
 
-  connect (((M*)op->get_view()),SIGNAL(update_inform()),this,SLOT(update_view()));
+  connect (((view_interface*)op->get_view()),SIGNAL(update_inform()),this,SLOT(update_view()));
 
-  connect(((M*)op->get_view()),&M::update_inform,this,&plugin_controller::update_view);
+  connect(((view_interface*)op->get_view()),&view_interface::update_inform,this,&plugin_controller::update_view);
 
   old_pixmap = new QPixmap(*pic->get_pixmap());
 

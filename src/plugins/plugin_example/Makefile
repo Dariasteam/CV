@@ -985,16 +985,14 @@ moc_connector_plugin.cpp: ../../controller/plugin_contoller.h \
 		../../model/picture.h \
 		../../view/canvas_image_label.h \
 		../../view/footer.h \
+		../../controller/view_interface.h \
 		menu.h \
 		connector_plugin.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include connector_plugin.h -o moc_connector_plugin.cpp
 
-moc_menu.cpp: ../../controller/plugin_interface.h \
-		../../model/picture.h \
-		../../model/histogram.h \
-		menu.h \
+moc_menu.cpp: menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
@@ -1025,13 +1023,11 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		../../model/picture.h \
 		../../view/canvas_image_label.h \
 		../../view/footer.h \
+		../../controller/view_interface.h \
 		menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
 
-menu.o: menu.cpp menu.h \
-		../../controller/plugin_interface.h \
-		../../model/picture.h \
-		../../model/histogram.h
+menu.o: menu.cpp menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o menu.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 

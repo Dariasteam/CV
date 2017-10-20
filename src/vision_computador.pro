@@ -61,7 +61,8 @@ HEADERS += \
     controller/plugin_interface.h \
     controller/indexed_action.h \
     view/operation_options_widget.h \
-    controller/plugin_contoller.h
+    controller/plugin_contoller.h \
+    controller/view_interface.h
 
 FORMS += \
         view/mainwindow.ui

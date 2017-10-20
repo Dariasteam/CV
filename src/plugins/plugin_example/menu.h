@@ -4,20 +4,22 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QBoxLayout>
-#include "../../controller/plugin_interface.h"
+//#include "../../controller/plugin_interface.h"
 
 #define PAL_TXT "PAL"
 #define NTSC_TXT "NTSC"
 
-class M : public QWidget {
+class view_interface : public QWidget
+{
   Q_OBJECT
 public:
-  M (QWidget* parent) : QWidget (parent) {}
+  view_interface (QWidget* parent) : QWidget (parent) {}
 signals:
   virtual void update_inform () = 0;
+public slots:
 };
 
-class menu : public M {
+class menu : public view_interface {
   Q_OBJECT
 private:
   QPushButton* bttn_PAL;
