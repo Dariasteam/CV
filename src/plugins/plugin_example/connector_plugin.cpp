@@ -44,6 +44,12 @@ bool conector_plugin::operator ()() {
   return true;  
 }
 
+void conector_plugin::close() {
+  delete backup_image;
+  original_image = nullptr;
+  backup_image = nullptr;
+}
+
 void conector_plugin::on_change_pal(bool p) {
   pal = p;
   operator ()();
