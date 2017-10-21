@@ -55,7 +55,9 @@ void plugin_controller::on_apply(bool b) {
     current_canvas->set_pixmap(modified_pic->get_pixmap());
   } else {
     current_canvas->set_pixmap(backup_pic->get_pixmap());
-    emit generate_image(modified_pic);
+    picture* aux_pic = modified_pic->make_copy();
+    modified_pic->copy_from(backup_pic);
+    emit generate_image(aux_pic);
   }
   on_end();
 }
