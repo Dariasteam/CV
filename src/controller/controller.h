@@ -23,6 +23,7 @@ private:
   plugin_controller* plugin_ctrller;
 public:
   controller();
+
 public slots:
   void on_load_image (const QString& file_name);
   void on_store_image (const QString& file_name, unsigned id);
@@ -30,11 +31,12 @@ public slots:
   void on_set_active_image (unsigned image);
 
   void on_create_image (picture* pic);
+  void on_overwrite_image (picture* pic);
 
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);
 private slots:
-  void use_plugin (unsigned index);
+  void use_plugin (unsigned index);  
 signals:
   void update_histograms (histogram hist);
   void update_operation_option (QWidget* wid);

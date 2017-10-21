@@ -34,12 +34,24 @@ void picture::generate_histograms() {
   histograms.generate_from_regular();
 }
 
+picture* picture::make_copy() {
+  return new picture (this);
+}
+
+void picture::copy_from(picture *pic) {
+  (*pixmap)    = (*pic->get_pixmap());
+  (*raw_image) = (*pic->get_raw_image());
+  black_and_white = pic->is_black_and_white();
+  histograms = pic->get_histograms();
+}
+
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
   for (unsigned i = 0; i < raw_image->width(); i++) {
     for (unsigned j = 0; j < raw_image->height(); j++){
       raw_image->setPixelColor(i, j, lambda (raw_image->pixelColor(i, j)));
     }
   }
+  generate_histograms();
   update_pixmap();
 }
 
@@ -49,4 +61,11 @@ bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {
       lambda (raw_image->pixelColor(i, j));
     }
   }
+}
+
+void picture::operator = (const picture& pic) {
+  pixmap = pic.get_pixmap();
+  raw_image = pic.get_raw_image();
+  black_and_white = pic.is_black_and_white();
+  histograms = pic.get_histograms();
 }

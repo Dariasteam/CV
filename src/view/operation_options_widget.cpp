@@ -35,7 +35,13 @@ void operation_options_widget::set_plugin_information(plugin_metainfo info) {
 void operation_options_widget::on_set_widget(QWidget *wid) {
   if (content != nullptr)
     delete content;
+  wid->setVisible(true);
   content = wid;
   layout->addWidget(content,1,0,1,0);
   setEnabled(true);
+}
+
+void operation_options_widget::on_clear_widget() {
+  layout->removeWidget(content);
+  content->setVisible(false);
 }

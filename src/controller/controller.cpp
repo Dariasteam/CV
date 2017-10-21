@@ -16,6 +16,10 @@ controller::controller() {
 
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 
+  connect(plugin_ctrller,&plugin_controller::generate_image,this,&controller::on_create_image);
+  connect(plugin_ctrller,&plugin_controller::overwrite_image,this,&controller::on_overwrite_image);
+  connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);
+
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
 }
 
@@ -71,9 +75,7 @@ bool controller::load_plugin (const QString& path, const QDir& dir) {
     indexed_action* plugin_action = main_window.on_add_plugin(info.category, info.name, index);
 
     connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(use_plugin(uint)));
-
   }
-
 
 }
 
@@ -82,20 +84,20 @@ void controller::on_create_image(picture *pic) {
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), "file_name");
 }
 
+void controller::on_overwrite_image(picture *pic) {
+  //mdl.replace_image(pic);
+}
+
 void controller::use_plugin(unsigned index) {
   if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
     PluginInterface* aux_plugin = mdl.get_plugins().at(index);
     emit update_operation_option(aux_plugin->get_view());
 
-    picture* aux_pic = new picture (mdl.get_picture_at(index));
+    picture* aux_pic = mdl.get_picture_at(index);
 
     canvas_window* aux_canvas = main_window.get_view()->get_active_canvas();
 
     plugin_ctrller->operator ()(aux_canvas, aux_plugin, aux_pic);
-
-    //aux_canvas->set_pixmap(aux_pic->get_pixmap());
-
-    //emit update_histograms(aux_pic->get_histograms());
   }
 
 }

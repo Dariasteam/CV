@@ -22,6 +22,12 @@ void model::delete_imagepix_at(unsigned i) {
   cout << "Imagen eliminada\n";
 }
 
+bool model::replace_image(picture *pic) {
+  picture* aux = picture_list.at(active_picture);
+  picture_list.replace(active_picture, pic);
+  delete aux;
+}
+
 picture* model::get_picture_at(int i) {
   if (i >= picture_list.size() || i < -1) return nullptr;
   if (i == -1)

@@ -21,9 +21,8 @@ private:
   operation_options_widget* op_widget;
   PluginInterface* current_operation;
   canvas_window* current_canvas;
-  picture* current_pic;
-  QPixmap* result_pixmap;
-  QPixmap* old_pixmap;
+  picture* backup_pic;
+  picture* modified_pic;  
 public:
   plugin_controller(operation_options_widget* op_wid);
 
@@ -31,16 +30,22 @@ public:
                   PluginInterface* op,
                   picture* pic);
 
+
+
 public slots:
 
   void on_preview_toggled (bool);
   void on_overwrite_toggled (bool);
   void on_apply (bool);
   void on_cancel (bool);
+  void on_end ();
 
 signals:
+  void update_histogram(histogram);
+  void overwrite_image(picture*);
+  void generate_image(picture*);
 private slots:
-  void update_view ();
+  void update_view ();  
 };
 
 #endif // PLUGIN_CONTOLLER_H

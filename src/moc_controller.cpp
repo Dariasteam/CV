@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_controller_t {
-    QByteArrayData data[26];
-    char stringdata0[266];
+    QByteArrayData data[27];
+    char stringdata0[285];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,14 +49,15 @@ QT_MOC_LITERAL(14, 159, 5), // "image"
 QT_MOC_LITERAL(15, 165, 15), // "on_create_image"
 QT_MOC_LITERAL(16, 181, 8), // "picture*"
 QT_MOC_LITERAL(17, 190, 3), // "pic"
-QT_MOC_LITERAL(18, 194, 16), // "load_all_plugins"
-QT_MOC_LITERAL(19, 211, 4), // "path"
-QT_MOC_LITERAL(20, 216, 11), // "load_plugin"
-QT_MOC_LITERAL(21, 228, 11), // "plugin_name"
-QT_MOC_LITERAL(22, 240, 4), // "QDir"
-QT_MOC_LITERAL(23, 245, 3), // "dir"
-QT_MOC_LITERAL(24, 249, 10), // "use_plugin"
-QT_MOC_LITERAL(25, 260, 5) // "index"
+QT_MOC_LITERAL(18, 194, 18), // "on_overwrite_image"
+QT_MOC_LITERAL(19, 213, 16), // "load_all_plugins"
+QT_MOC_LITERAL(20, 230, 4), // "path"
+QT_MOC_LITERAL(21, 235, 11), // "load_plugin"
+QT_MOC_LITERAL(22, 247, 11), // "plugin_name"
+QT_MOC_LITERAL(23, 259, 4), // "QDir"
+QT_MOC_LITERAL(24, 264, 3), // "dir"
+QT_MOC_LITERAL(25, 268, 10), // "use_plugin"
+QT_MOC_LITERAL(26, 279, 5) // "index"
 
     },
     "controller\0update_histograms\0\0histogram\0"
@@ -64,8 +65,9 @@ QT_MOC_LITERAL(25, 260, 5) // "index"
     "wid\0on_load_image\0file_name\0on_store_image\0"
     "id\0on_close_image\0on_set_active_image\0"
     "image\0on_create_image\0picture*\0pic\0"
-    "load_all_plugins\0path\0load_plugin\0"
-    "plugin_name\0QDir\0dir\0use_plugin\0index"
+    "on_overwrite_image\0load_all_plugins\0"
+    "path\0load_plugin\0plugin_name\0QDir\0dir\0"
+    "use_plugin\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +77,7 @@ static const uint qt_meta_data_controller[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,18 +85,19 @@ static const uint qt_meta_data_controller[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   64,    2, 0x06 /* Public */,
-       5,    1,   67,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
+       5,    1,   72,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    1,   70,    2, 0x0a /* Public */,
-      10,    2,   73,    2, 0x0a /* Public */,
-      12,    0,   78,    2, 0x0a /* Public */,
-      13,    1,   79,    2, 0x0a /* Public */,
-      15,    1,   82,    2, 0x0a /* Public */,
-      18,    1,   85,    2, 0x0a /* Public */,
-      20,    2,   88,    2, 0x0a /* Public */,
-      24,    1,   93,    2, 0x08 /* Private */,
+       8,    1,   75,    2, 0x0a /* Public */,
+      10,    2,   78,    2, 0x0a /* Public */,
+      12,    0,   83,    2, 0x0a /* Public */,
+      13,    1,   84,    2, 0x0a /* Public */,
+      15,    1,   87,    2, 0x0a /* Public */,
+      18,    1,   90,    2, 0x0a /* Public */,
+      19,    1,   93,    2, 0x0a /* Public */,
+      21,    2,   96,    2, 0x0a /* Public */,
+      25,    1,  101,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -106,9 +109,10 @@ static const uint qt_meta_data_controller[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::UInt,   14,
     QMetaType::Void, 0x80000000 | 16,   17,
-    QMetaType::Bool, QMetaType::QString,   19,
-    QMetaType::Bool, QMetaType::QString, 0x80000000 | 22,   21,   23,
-    QMetaType::Void, QMetaType::UInt,   25,
+    QMetaType::Void, 0x80000000 | 16,   17,
+    QMetaType::Bool, QMetaType::QString,   20,
+    QMetaType::Bool, QMetaType::QString, 0x80000000 | 23,   22,   24,
+    QMetaType::Void, QMetaType::UInt,   26,
 
        0        // eod
 };
@@ -126,11 +130,12 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_close_image(); break;
         case 5: _t->on_set_active_image((*reinterpret_cast< uint(*)>(_a[1]))); break;
         case 6: _t->on_create_image((*reinterpret_cast< picture*(*)>(_a[1]))); break;
-        case 7: { bool _r = _t->load_all_plugins((*reinterpret_cast< const QString(*)>(_a[1])));
+        case 7: _t->on_overwrite_image((*reinterpret_cast< picture*(*)>(_a[1]))); break;
+        case 8: { bool _r = _t->load_all_plugins((*reinterpret_cast< const QString(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 8: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QDir(*)>(_a[2])));
+        case 9: { bool _r = _t->load_plugin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QDir(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 9: _t->use_plugin((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 10: _t->use_plugin((*reinterpret_cast< uint(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -189,13 +194,13 @@ int controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }

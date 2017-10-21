@@ -19,7 +19,7 @@ class model {
 private:
   QList<picture*> picture_list;  
   QList<PluginInterface*> plugin_list;
-  unsigned active_window;
+  unsigned active_picture;
 public:
   model();
 
@@ -27,6 +27,7 @@ public:
   void store_image (const QString&, unsigned i);
   void delete_imagepix_at (unsigned i);
   void add_image (picture* pic);
+  bool replace_image (picture* pic);
 
   inline unsigned add_plugin (PluginInterface* plugin) {
     plugin_list.push_back(plugin);

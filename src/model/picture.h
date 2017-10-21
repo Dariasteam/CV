@@ -31,6 +31,11 @@ public:
   picture (const picture& P);
   picture (const picture* P);
 
+  virtual picture* make_copy ();
+  virtual void copy_from (picture* pic);
+
+  void operator =(const picture& pic);
+
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
@@ -42,6 +47,9 @@ public:
     generate_histograms();
     pixmap->convertFromImage(*raw_image);    
   }
+
+  inline QImage* get_raw_image () const { return raw_image; }
+
   inline histogram get_histograms () const { return histograms; }
   inline void set_black_and_white (bool b) { black_and_white = true; }
   inline bool is_black_and_white () const { return black_and_white; }

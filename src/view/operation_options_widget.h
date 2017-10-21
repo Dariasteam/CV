@@ -33,11 +33,12 @@ public:
   inline QPushButton* get_apply     () { return bttn_apply_operation;  }
   inline QPushButton* get_cancel    () { return bttn_cancel_operation; }
 
-  void set_plugin_information (plugin_metainfo info);
+  void set_plugin_information (plugin_metainfo info);  
 signals:
 
 public slots:
   void on_set_widget (QWidget* wid);
+  void on_clear_widget ();
 };
 
 #endif // OPERATION_OPTIONS_WIDGET_H
