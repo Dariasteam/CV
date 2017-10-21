@@ -34,6 +34,8 @@ private slots:
 signals:
   void pal (bool);
   void update_inform ();
+public slots:
+  void op_finished();
 };
 
 #endif // MENU_H

@@ -974,18 +974,9 @@ moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp
-moc_connector_plugin.cpp: ../../controller/plugin_contoller.h \
-		../../view/canvas_window.h \
-		../../view/options_dock.h \
-		../../view/histogram_widget.h \
-		../../view/chart_representation.h \
-		../../model/histogram.h \
-		../../view/operation_options_widget.h \
-		../../controller/plugin_interface.h \
+moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
-		../../view/canvas_image_label.h \
-		../../view/footer.h \
-		../../controller/view_interface.h \
+		../../model/histogram.h \
 		menu.h \
 		connector_plugin.h \
 		moc_predefs.h \
@@ -1012,18 +1003,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 connector_plugin.o: connector_plugin.cpp connector_plugin.h \
-		../../controller/plugin_contoller.h \
-		../../view/canvas_window.h \
-		../../view/options_dock.h \
-		../../view/histogram_widget.h \
-		../../view/chart_representation.h \
-		../../model/histogram.h \
-		../../view/operation_options_widget.h \
 		../../controller/plugin_interface.h \
 		../../model/picture.h \
-		../../view/canvas_image_label.h \
-		../../view/footer.h \
-		../../controller/view_interface.h \
+		../../model/histogram.h \
 		menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
 

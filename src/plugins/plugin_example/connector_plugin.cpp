@@ -7,19 +7,23 @@ conector_plugin::conector_plugin () :
 {
   meta_info = {"Blanco y negro", "core", false, false, true};
   view = new menu();
+  connect ((menu*)view,SIGNAL(pal(bool)),(conector_plugin*)this,SLOT(on_change_pal(bool)));
+  connect (this,SIGNAL(operation_finished()),(menu*)view,SLOT(op_finished()));
 
-  view->connect ((menu*)view,SIGNAL(pal(bool)),(conector_plugin*)this,SLOT(on_change_pal(bool)));
-  view->connect ((menu*)view,&menu::pal,this,&conector_plugin::on_change_pal);
+  //view->connect ((menu*)view,&menu::pal,this,&conector_plugin::on_change_pal);
 }
 
 bool conector_plugin::operator ()(picture* image) {  
-  pic = image;
+  backup_image = image->make_copy();
+  original_image = image;
   return operator ()();
 }
 
 bool conector_plugin::operator ()() {
 
-  if (pic == nullptr) return false;
+  original_image->copy_from(backup_image);
+
+  if (original_image == nullptr) return false;
   std::vector<double> transform;
 
   if (pal)
@@ -27,14 +31,15 @@ bool conector_plugin::operator ()() {
   else
     transform = NTSC;
 
-  pic->each_pixel_modificator([&](QColor pixel) -> QColor {
+  original_image->each_pixel_modificator([&](QColor pixel) -> QColor {
     unsigned gray = pixel.red()   * transform[0] +
                     pixel.green() * transform[1] +
                     pixel.blue()  * transform[2];
     return QColor(gray, gray, gray);
   });
 
-  pic->set_black_and_white(true);  
+  original_image->set_black_and_white(true);
+  emit operation_finished();
 
   return true;  
 }
