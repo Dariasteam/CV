@@ -39,6 +39,7 @@ public slots:
   void on_apply (bool);
   void on_cancel (bool);
   void on_end ();
+  void on_clear ();
 
 signals:
   void update_histogram(histogram);

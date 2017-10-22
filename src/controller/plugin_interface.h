@@ -29,12 +29,14 @@ protected:
   // Contenido
   QWidget* view;
   picture* backup_image;
+  picture* original_image;
 public:
   PluginInterface () : backup_image (nullptr) {}
   const plugin_metainfo& get_meta_info () { return meta_info; }
   QWidget* get_view ()                    { return view;      }
   virtual bool operator () (picture* image) = 0;
   virtual bool operator () () = 0;
+  virtual void close () = 0;
   void set_picture (picture* image) { backup_image = image; }
 };
 

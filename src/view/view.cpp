@@ -7,6 +7,7 @@ view::view(footer* fot, QWidget *parent) : QWidget(parent) {
 
 void view::on_window_set_active(unsigned id) {  
   emit image_focused(id);
+  canvas_list.at(id)->raise();
   active_canvas = id;
 }
 
@@ -24,7 +25,7 @@ void view::on_windows_close(unsigned id) {
 
 void view::add_canvas_window(QPixmap &pixmap, QString name) {
   canvas_window* aux_canvas = new canvas_window(canvas_list.size(), pixmap, foot, name, this);
-  canvas_list.push_back(aux_canvas);
+  canvas_list.push_back(aux_canvas);  
 
   connect(aux_canvas,SIGNAL(set_active(unsigned)),this,SLOT(on_window_set_active(unsigned)));
   connect(aux_canvas,SIGNAL(close(uint)),this,SLOT(on_windows_close(uint)));
