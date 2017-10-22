@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QList>
 #include <QPixmap>
+#include <QHash>
 
 #include "canvas_window.h"
 #include "footer.h"
@@ -12,7 +13,7 @@ class view : public QWidget {
   Q_OBJECT
 
 private:
-  QList <canvas_window*> canvas_list;
+  QHash <unsigned, canvas_window*> canvas_list;
   short active_canvas;
   footer* foot;
 public:
@@ -22,8 +23,8 @@ public:
   void add_canvas_window (QPixmap& pixmap, QString name);
   bool theres_active_window () { return active_canvas != -1; }
 public slots:
-  void on_window_set_active (unsigned id);
-  void on_windows_close (unsigned id);
+  void on_window_set_active (unsigned key);
+  void on_windows_close (unsigned key);
 signals:
   void delete_image ();
   void no_image_focused();

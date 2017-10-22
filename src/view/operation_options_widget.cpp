@@ -44,5 +44,6 @@ void operation_options_widget::on_clear_widget() {
     layout->removeWidget(content);
     content->setVisible(false);
   }
+  setEnabled(false);
   content = nullptr;
 }

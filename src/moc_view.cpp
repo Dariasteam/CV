@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_view_t {
     QByteArrayData data[8];
-    char stringdata0[91];
+    char stringdata0[92];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,13 +37,13 @@ QT_MOC_LITERAL(2, 18, 0), // ""
 QT_MOC_LITERAL(3, 19, 16), // "no_image_focused"
 QT_MOC_LITERAL(4, 36, 13), // "image_focused"
 QT_MOC_LITERAL(5, 50, 20), // "on_window_set_active"
-QT_MOC_LITERAL(6, 71, 2), // "id"
-QT_MOC_LITERAL(7, 74, 16) // "on_windows_close"
+QT_MOC_LITERAL(6, 71, 3), // "key"
+QT_MOC_LITERAL(7, 75, 16) // "on_windows_close"
 
     },
     "view\0delete_image\0\0no_image_focused\0"
     "image_focused\0on_window_set_active\0"
-    "id\0on_windows_close"
+    "key\0on_windows_close"
 };
 #undef QT_MOC_LITERAL
 
