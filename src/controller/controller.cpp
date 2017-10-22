@@ -16,8 +16,7 @@ controller::controller() {
 
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 
-  connect(plugin_ctrller,&plugin_controller::generate_image,this,&controller::on_create_image);
-  connect(plugin_ctrller,&plugin_controller::overwrite_image,this,&controller::on_overwrite_image);
+  connect(plugin_ctrller,&plugin_controller::generate_image,this,&controller::on_create_image);  
   connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);
 
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
@@ -37,10 +36,9 @@ void controller::on_close_image() {
   mdl.delete_imagepix_at(active_image);
 }
 
-void controller::on_set_active_image (unsigned id) {
-  active_image = id;   
-
-  emit update_histograms(mdl.get_pictures().at(id)->get_histograms());
+void controller::on_set_active_image (unsigned key) {
+  active_image = key;
+  emit update_histograms(mdl.get_pictures().find(key).value()->get_histograms());
 }
 
 bool controller::load_all_plugins (const QString& path) {
@@ -83,10 +81,6 @@ void controller::on_create_image(picture *pic) {
 
   mdl.add_image(pic);
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), "file_name");
-}
-
-void controller::on_overwrite_image(picture *pic) {
-  //mdl.replace_image(pic);
 }
 
 void controller::use_plugin(unsigned index) {

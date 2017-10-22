@@ -28,10 +28,9 @@ public slots:
   void on_load_image (const QString& file_name);
   void on_store_image (const QString& file_name, unsigned id);
   void on_close_image ();
-  void on_set_active_image (unsigned image);  
+  void on_set_active_image (unsigned key);
 
-  void on_create_image (picture* pic);
-  void on_overwrite_image (picture* pic);
+  void on_create_image (picture* pic);  
 
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);

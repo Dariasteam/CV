@@ -17,7 +17,7 @@ void view::on_windows_close(unsigned key) {
 
   canvas_window* aux = it.value();
   canvas_list.remove(key);
-  delete aux;
+  //delete aux;
   if (canvas_list.size() > 0) {
     active_canvas = canvas_list.begin().key();
     canvas_list.begin().value()->setFocus();
