@@ -19,7 +19,7 @@ class controller : public QObject {
 private:
   MainWindow main_window;
   model mdl;
-  short active_image;
+  unsigned active_image;
   plugin_controller* plugin_ctrller;
 public:
   controller();

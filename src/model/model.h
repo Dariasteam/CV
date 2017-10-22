@@ -33,6 +33,8 @@ public:
     return plugin_list.size() - 1;
   }
 
+  inline picture* get_current_picture () { return picture_list[active_picture]; }
+
   inline const QHash<unsigned, picture*>& get_pictures () { return picture_list; }
   inline const QList<PluginInterface*>& get_plugins () { return plugin_list; }
 

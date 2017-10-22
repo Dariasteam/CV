@@ -25,7 +25,7 @@ void model::delete_imagepix_at(unsigned key) {
 
   picture* aux = it.value();
   picture_list.remove(key);
-  //delete aux;
+  delete aux;
 
   active_picture = picture_list.begin().key();
 
