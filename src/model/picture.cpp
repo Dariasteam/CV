@@ -16,14 +16,16 @@ picture::picture(const picture& P) :
   raw_image (new QImage(*P.get_image())),
   pixmap (new QPixmap (*P.get_pixmap())),
   black_and_white (P.is_black_and_white()),
-  histograms (P.get_histograms())
+  histograms (P.get_histograms()),
+  basic_info (P.get_basic_info())
 {}
 
 picture::picture(const picture* P) :
   raw_image (new QImage(*P->get_image())),
   pixmap (new QPixmap (*P->get_pixmap())),
   black_and_white (P->is_black_and_white()),
-  histograms (P->get_histograms())
+  histograms (P->get_histograms()),
+  basic_info (P->get_basic_info())
 {}
 
 void picture::generate_histograms() {
