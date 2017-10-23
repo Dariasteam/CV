@@ -68,7 +68,8 @@ SOURCES       = main.cpp \
 		view/canvas_image_label.cpp \
 		controller/indexed_action.cpp \
 		view/operation_options_widget.cpp \
-		controller/plugin_contoller.cpp moc_mainwindow.cpp \
+		controller/plugin_contoller.cpp \
+		view/image_info_widget.cpp moc_mainwindow.cpp \
 		moc_view.cpp \
 		moc_controller.cpp \
 		moc_canvas_window.cpp \
@@ -80,7 +81,8 @@ SOURCES       = main.cpp \
 		moc_indexed_action.cpp \
 		moc_operation_options_widget.cpp \
 		moc_plugin_contoller.cpp \
-		moc_view_interface.cpp
+		moc_view_interface.cpp \
+		moc_image_info_widget.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		view.o \
@@ -100,6 +102,7 @@ OBJECTS       = main.o \
 		indexed_action.o \
 		operation_options_widget.o \
 		plugin_contoller.o \
+		image_info_widget.o \
 		moc_mainwindow.o \
 		moc_view.o \
 		moc_controller.o \
@@ -112,7 +115,8 @@ OBJECTS       = main.o \
 		moc_indexed_action.o \
 		moc_operation_options_widget.o \
 		moc_plugin_contoller.o \
-		moc_view_interface.o
+		moc_view_interface.o \
+		moc_image_info_widget.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -411,7 +415,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		controller/indexed_action.h \
 		view/operation_options_widget.h \
 		controller/plugin_contoller.h \
-		controller/view_interface.h main.cpp \
+		controller/view_interface.h \
+		view/image_info_widget.h main.cpp \
 		view/mainwindow.cpp \
 		view/view.cpp \
 		controller/controller.cpp \
@@ -429,7 +434,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		view/canvas_image_label.cpp \
 		controller/indexed_action.cpp \
 		view/operation_options_widget.cpp \
-		controller/plugin_contoller.cpp
+		controller/plugin_contoller.cpp \
+		view/image_info_widget.cpp
 QMAKE_TARGET  = vision_computador
 DESTDIR       = 
 TARGET        = vision_computador
@@ -1025,8 +1031,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents view/mainwindow.h view/view.h controller/controller.h model/model.h view/canvas_window.h view/options_dock.h model/picture.h view/footer.h ensure_close_dialog.h image_operation.h operation_color_to_black.h model/histogram.h view/histogram_widget.h view/chart_representation.h view/canvas_image_label.h controller/plugin_interface.h controller/indexed_action.h view/operation_options_widget.h controller/plugin_contoller.h controller/view_interface.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp view/mainwindow.cpp view/view.cpp controller/controller.cpp model/model.cpp view/canvas_window.cpp view/options_dock.cpp model/picture.cpp view/footer.cpp ensure_close_dialog.cpp image_operation.cpp operation_color_to_black.cpp model/histogram.cpp view/histogram_widget.cpp view/chart_representation.cpp view/canvas_image_label.cpp controller/indexed_action.cpp view/operation_options_widget.cpp controller/plugin_contoller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents view/mainwindow.h view/view.h controller/controller.h model/model.h view/canvas_window.h view/options_dock.h model/picture.h view/footer.h ensure_close_dialog.h image_operation.h operation_color_to_black.h model/histogram.h view/histogram_widget.h view/chart_representation.h view/canvas_image_label.h controller/plugin_interface.h controller/indexed_action.h view/operation_options_widget.h controller/plugin_contoller.h controller/view_interface.h view/image_info_widget.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp view/mainwindow.cpp view/view.cpp controller/controller.cpp model/model.cpp view/canvas_window.cpp view/options_dock.cpp model/picture.cpp view/footer.cpp ensure_close_dialog.cpp image_operation.cpp operation_color_to_black.cpp model/histogram.cpp view/histogram_widget.cpp view/chart_representation.cpp view/canvas_image_label.cpp controller/indexed_action.cpp view/operation_options_widget.cpp controller/plugin_contoller.cpp view/image_info_widget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents view/mainwindow.ui $(DISTDIR)/
 
 
@@ -1058,9 +1064,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
 moc_mainwindow.cpp: view/view.h \
 		view/canvas_window.h \
 		view/options_dock.h \
@@ -1190,6 +1196,11 @@ moc_view_interface.cpp: controller/view_interface.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include controller/view_interface.h -o moc_view_interface.cpp
+
+moc_image_info_widget.cpp: view/image_info_widget.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/image_info_widget.h -o moc_image_info_widget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1358,6 +1369,9 @@ plugin_contoller.o: controller/plugin_contoller.cpp controller/plugin_contoller.
 		controller/view_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plugin_contoller.o controller/plugin_contoller.cpp
 
+image_info_widget.o: view/image_info_widget.cpp view/image_info_widget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image_info_widget.o view/image_info_widget.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -1396,6 +1410,9 @@ moc_plugin_contoller.o: moc_plugin_contoller.cpp
 
 moc_view_interface.o: moc_view_interface.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_view_interface.o moc_view_interface.cpp
+
+moc_image_info_widget.o: moc_image_info_widget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_image_info_widget.o moc_image_info_widget.cpp
 
 ####### Install
 

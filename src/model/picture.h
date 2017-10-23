@@ -29,6 +29,14 @@ struct rgb_unsigned_values {
   unsigned b;
 };
 
+struct picture_basic_info {
+  rgb_float_values average;
+  rgb_float_values deviation;
+  rgb_float_values entropy;
+  rgb_unsigned_values dynamic_range;
+  min_max_range range;
+};
+
 /* Representa una imagen en memoria y la información
  * de su histograma.
  *
@@ -44,16 +52,16 @@ private:
   QImage* raw_image;
   QPixmap* pixmap;
   histogram histograms;
-  rgb_float_values average;
-  rgb_float_values deviation;
-  rgb_float_values entropy;
-  rgb_unsigned_values dynamic_range;
-
-  min_max_range range;
+  picture_basic_info basic_info;
   unsigned sz;
 
 
-
+  void generate_histograms    ();
+  void generate_range         ();
+  void generate_average       ();
+  void generate_deviation     ();
+  void generate_dynamic_range ();
+  void generate_entropy       ();
 public:
   picture (QImage* image);
   picture (const picture& P);
@@ -67,12 +75,7 @@ public:
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
-  void generate_histograms    ();
-  void generate_range         ();
-  void generate_average       ();
-  void generate_deviation     ();
-  void generate_dynamic_range ();
-  void generate_entropy       ();
+  void generate_basic_info();
 
   inline QImage*  get_image  () const { return raw_image; }
   inline QPixmap* get_pixmap () const { return pixmap;    }
@@ -83,9 +86,12 @@ public:
 
   inline QImage* get_raw_image ()          const { return raw_image; }
   inline const histogram get_histograms () const { return histograms; }
-  inline const min_max_range get_range ()  const { return range; }
+
+  const picture_basic_info& get_basic_info () const { return basic_info; }
+
   inline void set_black_and_white (bool b)       { black_and_white = true; }
   inline bool is_black_and_white ()        const { return black_and_white; }
+
 };
 
 #endif // IMAGE_H

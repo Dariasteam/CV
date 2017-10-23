@@ -44,9 +44,11 @@ void plugin_controller::update_view() {
   if (preview) {
     current_canvas->set_pixmap(modified_pic->get_pixmap());
     emit update_histogram(modified_pic->get_histograms());
+    emit update_basic_info(modified_pic->get_basic_info());
   } else {
     current_canvas->set_pixmap(backup_pic->get_pixmap());
     emit update_histogram(backup_pic->get_histograms());
+    emit update_basic_info(backup_pic->get_basic_info());
   }
   current_canvas->update();
 }
@@ -67,6 +69,7 @@ void plugin_controller::on_cancel(bool b) {
   modified_pic->restore_from(backup_pic);
   current_canvas->set_pixmap(backup_pic->get_pixmap());  
   emit update_histogram(backup_pic->get_histograms());
+  emit update_basic_info(backup_pic->get_basic_info());
   on_end();
 }
 

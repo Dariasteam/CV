@@ -8,16 +8,21 @@ controller::controller() {
   connect(main_window.get_view(), SIGNAL(delete_image(uint)), this, SLOT(on_close_image(uint)));
   connect(main_window.get_view(), SIGNAL(image_focused(uint)), this, SLOT(on_set_active_image(uint)));
 
+
   connect(this, SIGNAL(update_histograms(histogram)),
           main_window.get_options_dock()->get_histogram_wid(),SLOT(on_update_charts(histogram)));
 
   connect(this, SIGNAL(update_operation_option(QWidget*)),
           main_window.get_options_dock()->get_operation_wid(), SLOT(on_set_widget(QWidget*)));
 
+  connect(this, SIGNAL(update_basic_info(picture_basic_info)),
+          main_window.get_options_dock()->get_image_wid(), SLOT(on_update_basic_info(picture_basic_info)));
+
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 
   connect(plugin_ctrller,&plugin_controller::generate_image,this,&controller::on_create_image);  
-  connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);
+  connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);  
+  connect(plugin_ctrller,&plugin_controller::update_basic_info,this,&controller::update_basic_info);
 
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
 }
@@ -38,7 +43,9 @@ void controller::on_close_image() {
 
 void controller::on_set_active_image (unsigned key) {
   active_image = key;
-  emit update_histograms(mdl.get_pictures().find(key).value()->get_histograms());
+  picture* aux = mdl.get_current_picture();
+  emit update_histograms(aux->get_histograms());
+  emit update_basic_info(aux->get_basic_info());
 }
 
 bool controller::load_all_plugins (const QString& path) {

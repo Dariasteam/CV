@@ -9,11 +9,7 @@ picture::picture(QImage* image) :
   pixmap->convertFromImage(*image);     
 
   generate_histograms();
-  generate_range();
-  generate_average();
-  generate_deviation();
-  generate_entropy();
-
+  generate_basic_info();
 }
 
 picture::picture(const picture& P) :
@@ -41,85 +37,90 @@ void picture::generate_histograms() {
 }
 
 void picture::generate_range() {
-  range = {{0, 0}, {0, 0}, {0, 0}};
+  basic_info.range = {{0, 0}, {0, 0}, {0, 0}};
   // RED
   for (unsigned i = 0; i < DEPTH; i++)
-    if (histograms.regular_r[i] > 0) { range.r.first = i; break; }
+    if (histograms.regular_r[i] > 0) { basic_info.range.r.first = i; break; }
   for (int i = DEPTH - 1; i >= 0; i--)
-    if (histograms.regular_r[i] > 0) { range.r.second = i; break; }
+    if (histograms.regular_r[i] > 0) { basic_info.range.r.second = i; break; }
 
   // GREEN
   for (unsigned i = 0; i < DEPTH; i++)
-    if (histograms.regular_g[i] > 0) { range.g.first = i; break; }
+    if (histograms.regular_g[i] > 0) { basic_info.range.g.first = i; break; }
   for (int i = DEPTH - 1; i >= 0; i--)
-    if (histograms.regular_g[i] > 0) { range.g.second = i; break; }
+    if (histograms.regular_g[i] > 0) { basic_info.range.g.second = i; break; }
 
   // BLUE
   for (unsigned i = 0; i < DEPTH; i++)
-    if (histograms.regular_b[i] > 0) { range.b.first = i; break; }
+    if (histograms.regular_b[i] > 0) { basic_info.range.b.first = i; break; }
   for (int i = DEPTH - 1; i >= 0; i--)
-    if (histograms.regular_b[i] > 0) { range.b.second = i; break; }
+    if (histograms.regular_b[i] > 0) { basic_info.range.b.second = i; break; }
 }
 
-#include <iostream>
+void picture::generate_basic_info() {
+  generate_range();
+  generate_average();
+  generate_deviation();
+  generate_dynamic_range();
+  generate_entropy();
+}
 
 void picture::generate_average() {
-  average  ={0, 0, 0};
-  for (unsigned i = range.r.first; i <= range.r.second; i++)
-    average.r += histograms.regular_r[i] * i;
-  for (unsigned i = range.g.first; i <= range.g.second; i++)
-    average.g += histograms.regular_g[i] * i;
-  for (unsigned i = range.b.first; i <= range.b.second; i++)
-    average.b += histograms.regular_b[i] * i;
+  basic_info.average  ={0, 0, 0};
+  for (unsigned i = basic_info.range.r.first; i <= basic_info.range.r.second; i++)
+    basic_info.average.r += histograms.regular_r[i] * i;
+  for (unsigned i = basic_info.range.g.first; i <= basic_info.range.g.second; i++)
+    basic_info.average.g += histograms.regular_g[i] * i;
+  for (unsigned i = basic_info.range.b.first; i <= basic_info.range.b.second; i++)
+    basic_info.average.b += histograms.regular_b[i] * i;
 
-  average.r /= sz;
-  average.g /= sz;
-  average.b /= sz;
+  basic_info.average.r /= sz;
+  basic_info.average.g /= sz;
+  basic_info.average.b /= sz;
 }
 
 void picture::generate_deviation() {
-  deviation = {0 ,0, 0};
-  for (unsigned i = range.r.first; i <= range.r.second; i++)
-    deviation.r += (histograms.regular_r[i] * pow(i - average.r, 2));
-  for (unsigned i = range.g.first; i <= range.g.second; i++)
-    deviation.g += (histograms.regular_g[i] * pow(i - average.g, 2));
-  for (unsigned i = range.b.first; i <= range.b.second; i++)
-    deviation.b += (histograms.regular_b[i] * pow(i - average.b, 2));
+  basic_info.deviation = {0 ,0, 0};
+  for (unsigned i = basic_info.range.r.first; i <= basic_info.range.r.second; i++)
+    basic_info.deviation.r += (histograms.regular_r[i] * pow(i - basic_info.average.r, 2));
+  for (unsigned i = basic_info.range.g.first; i <= basic_info.range.g.second; i++)
+    basic_info.deviation.g += (histograms.regular_g[i] * pow(i - basic_info.average.g, 2));
+  for (unsigned i = basic_info.range.b.first; i <= basic_info.range.b.second; i++)
+    basic_info.deviation.b += (histograms.regular_b[i] * pow(i - basic_info.average.b, 2));
 
-  deviation.r = sqrt(deviation.r / sz);
-  deviation.g = sqrt(deviation.g / sz);
-  deviation.b = sqrt(deviation.b / sz);
+  basic_info.deviation.r = sqrt(basic_info.deviation.r / sz);
+  basic_info.deviation.g = sqrt(basic_info.deviation.g / sz);
+  basic_info.deviation.b = sqrt(basic_info.deviation.b / sz);
 }
 
 void picture::generate_dynamic_range() {
-  dynamic_range = {0, 0, 0};
-  for (unsigned i = range.r.first; i <= range.r.second; i++)
-    if (histograms.regular_r[i] > 0) { dynamic_range.r++; }
-  for (unsigned i = range.g.first; i <= range.g.second; i++)
-    if (histograms.regular_g[i] > 0) { dynamic_range.g++; }
-  for (unsigned i = range.b.first; i <= range.b.second; i++)
-    if (histograms.regular_b[i] > 0) { dynamic_range.b++; }
+  basic_info.dynamic_range = {0, 0, 0};
+  for (unsigned i = basic_info.range.r.first; i <= basic_info.range.r.second; i++)
+    if (histograms.regular_r[i] > 0) { basic_info.dynamic_range.r++; }
+  for (unsigned i = basic_info.range.g.first; i <= basic_info.range.g.second; i++)
+    if (histograms.regular_g[i] > 0) { basic_info.dynamic_range.g++; }
+  for (unsigned i = basic_info.range.b.first; i <= basic_info.range.b.second; i++)
+    if (histograms.regular_b[i] > 0) { basic_info.dynamic_range.b++; }
 }
 
 void picture::generate_entropy() {
-  entropy = {0, 0, 0};
-  for (unsigned i = range.r.first; i <= range.r.second; i++) {
+  basic_info.entropy = {0, 0, 0};
+  for (unsigned i = basic_info.range.r.first; i <= basic_info.range.r.second; i++) {
     double value = histograms.normalized_regular_r[i];
-    if (value > 0) { entropy.r += (value * log2 (value)); }
-    std::cout << value << std::endl;
+    if (value > 0) { basic_info.entropy.r += (value * log2 (value)); }
   }
-  for (unsigned i = range.g.first; i <= range.g.second; i++) {
+  for (unsigned i = basic_info.range.g.first; i <= basic_info.range.g.second; i++) {
     double value = histograms.normalized_regular_g[i];
-    if (value > 0) { entropy.g += (value * log2 (value)); }
+    if (value > 0) { basic_info.entropy.g += (value * log2 (value)); }
   }
-  for (unsigned i = range.b.first; i <= range.g.second; i++) {
+  for (unsigned i = basic_info.range.b.first; i <= basic_info.range.g.second; i++) {
     double value = histograms.normalized_regular_b[i];
-    if (value > 0) { entropy.b += (value * log2 (value)); }
+    if (value > 0) { basic_info.entropy.b += (value * log2 (value)); }
   }
 
-  entropy.r = -entropy.r;
-  entropy.g = -entropy.g;
-  entropy.b = -entropy.b;
+  basic_info.entropy.r = -basic_info.entropy.r;
+  basic_info.entropy.g = -basic_info.entropy.g;
+  basic_info.entropy.b = -basic_info.entropy.b;
 }
 
 picture* picture::make_copy() {
@@ -140,7 +141,7 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
     }
   }
   generate_histograms();
-  generate_range();
+  generate_basic_info();
   update_pixmap();
 }
 

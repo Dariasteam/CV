@@ -16,6 +16,9 @@ options_dock::options_dock(QWidget* parent) : QDockWidget(parent) {
   histogram_wid = new histogram_widget (base_widget);
   layout->addWidget(histogram_wid);
 
+  image_info_wid = new image_info_widget (base_widget);
+  layout->addWidget(image_info_wid);
+
   operation_wid = new operation_options_widget (base_widget);
   layout->addWidget(operation_wid);
   layout->addStretch(0);

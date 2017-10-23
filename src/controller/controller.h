@@ -38,6 +38,7 @@ private slots:
   void use_plugin (unsigned index);  
 signals:
   void update_histograms (histogram hist);
+  void update_basic_info (picture_basic_info basic_info);
   void update_operation_option (QWidget* wid);
 };
 

@@ -43,6 +43,7 @@ public slots:
 
 signals:
   void update_histogram(histogram);
+  void update_basic_info(picture_basic_info);
   void overwrite_image(picture*);
   void generate_image(picture*);
 private slots:

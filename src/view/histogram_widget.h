@@ -35,10 +35,10 @@ private:
   QCheckBox* blue_chkbox;
 public:
   explicit histogram_widget(QWidget *parent = nullptr);
-
+/*
   const chart_representation* get_histogram () { return chart_histogram; }
   const chart_representation* get_ac_histogram () { return chart_ac_histogram; }
-
+*/
 public slots:
   void on_update_charts (const histogram& hist);
   void on_clear_charts ();
