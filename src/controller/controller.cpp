@@ -3,6 +3,9 @@
 controller::controller() {
   main_window.show();
 
+
+  options_dock* op_dock = main_window.get_options_dock();
+
   connect(&main_window, SIGNAL(load_image(QString)),SLOT(on_load_image(QString)));
   connect(&main_window, SIGNAL(save_image(QString, unsigned)),SLOT(on_store_image(QString, unsigned)));
   connect(main_window.get_view(), SIGNAL(delete_image(uint)), this, SLOT(on_close_image(uint)));
@@ -25,9 +28,7 @@ controller::controller() {
           main_window.get_options_dock()->get_operation_wid(),
           SLOT(on_set_widget(QWidget*)));
 
-  connect(this, SIGNAL(update_basic_info(picture_bsic_info)),
-          main_window.get_options_dock()->get_image_wid(),
-          SLOT(on_update_basic_info(picture_basic_info)));
+  connect(this,&controller::update_basic_info,op_dock->get_image_wid(),&image_info_widget::on_update_basic_info);
 
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 

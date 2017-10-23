@@ -17,7 +17,7 @@ struct rgb_labels {
   QLabel* b;
 };
 
-class image_info_widget : public QFrame
+class image_info_widget : public QWidget
 {
   Q_OBJECT
 private:

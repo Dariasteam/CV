@@ -3,4 +3,5 @@ build
 *.o
 moc_*
 src/moc_*
-
+*moc_*
+src/*.o
