@@ -12,7 +12,7 @@ picture::picture(QImage* image) :
   generate_range();
   generate_average();
   generate_deviation();
-
+  generate_entropy();
 
 }
 
@@ -37,7 +37,7 @@ void picture::generate_histograms() {
     histograms.regular_g[pixel.green()]+= 1;
     histograms.regular_b[pixel.blue() ]+= 1;    
   });
-  histograms.generate_from_regular();
+  histograms.generate_from_regular(sz);
 }
 
 void picture::generate_range() {
@@ -89,6 +89,37 @@ void picture::generate_deviation() {
   deviation.r = sqrt(deviation.r / sz);
   deviation.g = sqrt(deviation.g / sz);
   deviation.b = sqrt(deviation.b / sz);
+}
+
+void picture::generate_dynamic_range() {
+  dynamic_range = {0, 0, 0};
+  for (unsigned i = range.r.first; i <= range.r.second; i++)
+    if (histograms.regular_r[i] > 0) { dynamic_range.r++; }
+  for (unsigned i = range.g.first; i <= range.g.second; i++)
+    if (histograms.regular_g[i] > 0) { dynamic_range.g++; }
+  for (unsigned i = range.b.first; i <= range.b.second; i++)
+    if (histograms.regular_b[i] > 0) { dynamic_range.b++; }
+}
+
+void picture::generate_entropy() {
+  entropy = {0, 0, 0};
+  for (unsigned i = range.r.first; i <= range.r.second; i++) {
+    double value = histograms.normalized_regular_r[i];
+    if (value > 0) { entropy.r += (value * log2 (value)); }
+    std::cout << value << std::endl;
+  }
+  for (unsigned i = range.g.first; i <= range.g.second; i++) {
+    double value = histograms.normalized_regular_g[i];
+    if (value > 0) { entropy.g += (value * log2 (value)); }
+  }
+  for (unsigned i = range.b.first; i <= range.g.second; i++) {
+    double value = histograms.normalized_regular_b[i];
+    if (value > 0) { entropy.b += (value * log2 (value)); }
+  }
+
+  entropy.r = -entropy.r;
+  entropy.g = -entropy.g;
+  entropy.b = -entropy.b;
 }
 
 picture* picture::make_copy() {

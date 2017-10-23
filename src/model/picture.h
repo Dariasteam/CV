@@ -23,6 +23,12 @@ struct rgb_float_values {
   double b;
 };
 
+struct rgb_unsigned_values {
+  unsigned r;
+  unsigned g;
+  unsigned b;
+};
+
 /* Representa una imagen en memoria y la información
  * de su histograma.
  *
@@ -40,6 +46,8 @@ private:
   histogram histograms;
   rgb_float_values average;
   rgb_float_values deviation;
+  rgb_float_values entropy;
+  rgb_unsigned_values dynamic_range;
 
   min_max_range range;
   unsigned sz;
@@ -59,10 +67,12 @@ public:
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
-  void generate_histograms ();
-  void generate_range      ();
-  void generate_average    ();
-  void generate_deviation  ();
+  void generate_histograms    ();
+  void generate_range         ();
+  void generate_average       ();
+  void generate_deviation     ();
+  void generate_dynamic_range ();
+  void generate_entropy       ();
 
   inline QImage*  get_image  () const { return raw_image; }
   inline QPixmap* get_pixmap () const { return pixmap;    }
