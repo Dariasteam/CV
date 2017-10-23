@@ -2,7 +2,6 @@
 
 menu::menu(QWidget *parent) : view_interface(parent)
 {
-
   QBoxLayout* layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
   setLayout(layout);
 
@@ -20,9 +19,8 @@ menu::menu(QWidget *parent) : view_interface(parent)
   connect (bttn_PAL,&QPushButton::clicked,this,&menu::set_pal_checked);
   connect (bttn_NTSC,&QPushButton::clicked,this,&menu::set_ntsc_checked);
 
-  emit update_inform();
+  emit pal(true);
 }
-
 
 void menu::set_ntsc_checked(bool) {
   bttn_PAL->setChecked(false);
@@ -32,8 +30,4 @@ void menu::set_ntsc_checked(bool) {
 void menu::set_pal_checked(bool) {
   bttn_NTSC->setChecked(false);
   emit pal (true);
-}
-
-void menu::op_finished() {
-  emit update_inform();
 }

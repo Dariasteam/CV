@@ -51,12 +51,18 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = connector_plugin.cpp \
-		menu.cpp moc_connector_plugin.cpp \
-		moc_menu.cpp
+		menu.cpp \
+		controller.cpp \
+		model.cpp moc_connector_plugin.cpp \
+		moc_menu.cpp \
+		moc_controller.cpp
 OBJECTS       = connector_plugin.o \
 		menu.o \
+		controller.o \
+		model.o \
 		moc_connector_plugin.o \
-		moc_menu.o
+		moc_menu.o \
+		moc_controller.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -337,8 +343,12 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		plugin.pro connector_plugin.h \
-		menu.h connector_plugin.cpp \
-		menu.cpp
+		menu.h \
+		controller.h \
+		model.h connector_plugin.cpp \
+		menu.cpp \
+		controller.cpp \
+		model.cpp
 QMAKE_TARGET  = plugin
 DESTDIR       = 
 TARGET        = libplugin.so
@@ -939,8 +949,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents connector_plugin.h menu.h $(DISTDIR)/
-	$(COPY_FILE) --parents connector_plugin.cpp menu.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents connector_plugin.h menu.h controller.h model.h $(DISTDIR)/
+	$(COPY_FILE) --parents connector_plugin.cpp menu.cpp controller.cpp model.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -971,13 +981,15 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp
+compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp
+	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		menu.h \
+		controller.h \
+		model.h \
 		connector_plugin.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -987,6 +999,16 @@ moc_menu.cpp: menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
+
+moc_controller.cpp: menu.h \
+		model.h \
+		../../model/picture.h \
+		../../model/histogram.h \
+		../../controller/plugin_interface.h \
+		controller.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/plugin_example -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include controller.h -o moc_controller.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1006,17 +1028,35 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
-		menu.h
+		menu.h \
+		controller.h \
+		model.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
 
 menu.o: menu.cpp menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o menu.cpp
+
+controller.o: controller.cpp controller.h \
+		menu.h \
+		model.h \
+		../../model/picture.h \
+		../../model/histogram.h \
+		../../controller/plugin_interface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
+
+model.o: model.cpp model.h \
+		../../model/picture.h \
+		../../model/histogram.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connector_plugin.o moc_connector_plugin.cpp
 
 moc_menu.o: moc_menu.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_menu.o moc_menu.cpp
+
+moc_controller.o: moc_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
 
 ####### Install
 

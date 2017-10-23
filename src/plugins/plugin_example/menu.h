@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QBoxLayout>
-//#include "../../controller/plugin_interface.h"
 
 #define PAL_TXT "PAL"
 #define NTSC_TXT "NTSC"
@@ -14,9 +13,6 @@ class view_interface : public QWidget
   Q_OBJECT
 public:
   view_interface (QWidget* parent) : QWidget (parent) {}
-signals:
-  virtual void update_inform () = 0;
-public slots:
 };
 
 class menu : public view_interface {
@@ -32,10 +28,7 @@ private slots:
   void set_ntsc_checked (bool);
   void set_pal_checked (bool);
 signals:
-  void pal (bool);
-  void update_inform ();
-public slots:
-  void op_finished();
+  void pal (bool);  
 };
 
 #endif // MENU_H
