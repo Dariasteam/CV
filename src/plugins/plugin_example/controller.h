@@ -6,6 +6,7 @@
 #include "menu.h"
 #include "model.h"
 #include "../../controller/plugin_interface.h"
+#include "../../model/lut.h"
 
 class plugin_controller : public QObject {
   Q_OBJECT
@@ -19,7 +20,7 @@ public:
   {
     connect ((view_interface*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
   }
-  virtual bool operator () (picture* image) = 0;  
+  virtual bool operator () (picture* image, LUT* lut) = 0;
 signals:
   virtual void update_inform () = 0;
 };
@@ -32,7 +33,7 @@ private:
   bool pal;
 public:
   bool operator () ();
-  virtual bool operator () (picture* image);
+  virtual bool operator () (picture* image, LUT* lut);
   controller (QWidget* mn, PluginModel* mdl);
 public slots:
   void on_change_pal (bool p);

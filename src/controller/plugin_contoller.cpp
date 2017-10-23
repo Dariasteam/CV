@@ -32,7 +32,8 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),this,SLOT(update_view()));
   modified_pic = pic;  
 
-  if (!((PluginController*)op->get_controller())->operator ()(pic)) return false;
+  LUT* lut = new LUT;
+  if (!((PluginController*)op->get_controller())->operator ()(pic, lut)) return false;
 
   preview = op_widget->get_preview()->isChecked();
   overwrite = op_widget->get_overwrite()->isChecked();  

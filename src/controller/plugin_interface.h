@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "../model/picture.h"
+#include "../model/lut.h"
 
 struct plugin_metainfo {
   QString name     = "default plugin name";
@@ -24,6 +25,7 @@ class PluginModel {
 private:
   picture* backup_image;
   picture* original_image;
+  LUT* lut;
 public:
   PluginModel () :
     backup_image (nullptr),
@@ -33,8 +35,10 @@ public:
     backup_image = pic->make_copy();
     original_image = pic;
   }
-  picture* get_image () { return original_image; }
-  void restore_backup () { original_image->restore_from(backup_image); }
+  LUT* get_lut ()         { return lut;                                 }
+  void set_lut (LUT* l)   { lut = l;                                    }
+  picture* get_image ()   { return original_image;                      }
+  void restore_backup ()  { original_image->restore_from(backup_image); }
   ~PluginModel () {
     delete backup_image;
     original_image = nullptr;
@@ -46,7 +50,7 @@ class PluginController: public QObject {
   Q_OBJECT
 private:
   QWidget* view;
-  PluginModel* model;
+  PluginModel* model;    
 public:
   PluginController (QWidget* vw, PluginModel* mdl) :
     view (vw),
@@ -54,7 +58,7 @@ public:
   {
     connect ((PluginView*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
   }
-  virtual bool operator () (picture* image) = 0;  
+  virtual bool operator () (picture* image, LUT* lut) = 0;
 signals:
   virtual void update_inform () = 0;
 };
@@ -66,7 +70,7 @@ protected:
   // Contenido
   QWidget* view;
   QObject* ctrller;
-  PluginModel* mdl;
+  PluginModel* mdl;  
 public:
   PluginInterface () :
     view (nullptr),
@@ -74,14 +78,14 @@ public:
     mdl (nullptr)
   {}
   virtual void instance () = 0;
-  const plugin_metainfo& get_meta_info ()       { return meta_info;  }
-        QWidget* get_view ()                    { return view;       }
-  const QObject* get_controller ()              { return ctrller;    }
+  const plugin_metainfo& get_meta_info ()     { return meta_info; }
+        QWidget* get_view ()                  { return view;      }
+  const QObject* get_controller ()            { return ctrller;   }
   void uninstance () {
     close ();
-    if (ctrller != nullptr) { delete ctrller; ctrller = nullptr; }
-    if (mdl != nullptr)     { delete mdl;    mdl      = nullptr; }
-    if (view != nullptr)    { delete view;   view     = nullptr; }
+    if (ctrller != nullptr) { delete ctrller; ctrller  = nullptr; }
+    if (mdl != nullptr)     { delete mdl;     mdl      = nullptr; }
+    if (view != nullptr)    { delete view;    view     = nullptr; }
   }
 protected:
   virtual void close () = 0;

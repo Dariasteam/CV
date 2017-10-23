@@ -8,8 +8,7 @@
 #define PAL_TXT "PAL"
 #define NTSC_TXT "NTSC"
 
-class view_interface : public QWidget
-{
+class view_interface : public QWidget {
   Q_OBJECT
 public:
   view_interface (QWidget* parent) : QWidget (parent) {}

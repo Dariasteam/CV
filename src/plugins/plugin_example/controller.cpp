@@ -5,8 +5,9 @@ controller::controller(QWidget *mn, PluginModel *mdl) :
   pal (true)
 {}
 
-bool controller::operator () (picture* image) {
-  model->set_image(image);
+bool controller::operator () (picture* image, LUT* lut) {
+  model->set_lut(lut);
+  model->set_image(image); 
   operator ()();
 }
 
@@ -20,10 +21,25 @@ bool controller::operator ()() {
   else
     transform = NTSC;
 
+  LUT* lut = model->get_lut();
+
+  lut->each_value_modificator_r([&](double i) -> double {
+    return i * transform[0];
+  });
+
+  lut->each_value_modificator_g([&](double i) {
+    return i * transform[1];
+  });
+
+  lut->each_value_modificator_b([&](double i) {
+    return i * transform[2];
+  });
+
+
   img->each_pixel_modificator([&](QColor pixel) -> QColor {
-    unsigned gray = pixel.red()   * transform[0] +
-                    pixel.green() * transform[1] +
-                    pixel.blue()  * transform[2];
+    unsigned gray = lut->r [pixel.red()  ] +
+                    lut->g [pixel.green()] +
+                    lut->b [pixel.blue()];
     return QColor(gray, gray, gray);
   });
 

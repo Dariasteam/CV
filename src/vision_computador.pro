@@ -41,7 +41,8 @@ SOURCES += \
     controller/indexed_action.cpp \
     view/operation_options_widget.cpp \
     controller/plugin_contoller.cpp \
-    view/image_info_widget.cpp
+    view/image_info_widget.cpp \
+    model/lut.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -64,7 +65,8 @@ HEADERS += \
     view/operation_options_widget.h \
     controller/plugin_contoller.h \
     controller/view_interface.h \
-    view/image_info_widget.h
+    view/image_info_widget.h \
+    model/lut.h
 
 FORMS += \
         view/mainwindow.ui

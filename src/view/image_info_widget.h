@@ -24,10 +24,13 @@ private:
 
   rgb_labels brightness;
   rgb_labels contrast;
-  rgb_labels range;
 
-  QLabel* dynamic_range;
-  QLabel* entropy;
+  rgb_labels range_min;
+  rgb_labels range_max;
+
+  rgb_labels dynamic_range;
+
+  rgb_labels entropy;
 public:
   explicit image_info_widget(QWidget *parent = nullptr);
 

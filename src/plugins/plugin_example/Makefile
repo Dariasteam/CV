@@ -987,6 +987,7 @@ compiler_moc_header_clean:
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
+		../../model/lut.h \
 		menu.h \
 		controller.h \
 		model.h \
@@ -1005,6 +1006,7 @@ moc_controller.cpp: menu.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../controller/plugin_interface.h \
+		../../model/lut.h \
 		controller.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1028,6 +1030,7 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
+		../../model/lut.h \
 		menu.h \
 		controller.h \
 		model.h
@@ -1041,12 +1044,15 @@ controller.o: controller.cpp controller.h \
 		model.h \
 		../../model/picture.h \
 		../../model/histogram.h \
-		../../controller/plugin_interface.h
+		../../controller/plugin_interface.h \
+		../../model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
 
 model.o: model.cpp model.h \
 		../../model/picture.h \
-		../../model/histogram.h
+		../../model/histogram.h \
+		../../controller/plugin_interface.h \
+		../../model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 

@@ -8,7 +8,6 @@ controller::controller() {
   connect(main_window.get_view(), SIGNAL(delete_image(uint)), this, SLOT(on_close_image(uint)));
   connect(main_window.get_view(), SIGNAL(image_focused(uint)), this, SLOT(on_set_active_image(uint)));
 
-
   connect(this, SIGNAL(update_histograms(histogram)),
           main_window.get_options_dock()->get_histogram_wid(),SLOT(on_update_charts(histogram)));
 
