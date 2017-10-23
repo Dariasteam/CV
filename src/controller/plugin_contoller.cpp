@@ -79,7 +79,6 @@ void plugin_controller::on_end() {
   current_operation = nullptr;
   backup_pic = nullptr;
   modified_pic = nullptr;
-
 }
 
 void plugin_controller::on_clear() {
@@ -91,7 +90,6 @@ void plugin_controller::on_clear() {
   op_widget->on_clear_widget();
   if (current_operation != nullptr)
     current_operation->uninstance();
-  //on_end();
 }
 
 void plugin_controller::on_overwrite_toggled(bool b) {

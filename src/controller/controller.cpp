@@ -84,10 +84,10 @@ void controller::on_create_image(picture *pic) {
 
 void controller::use_plugin(unsigned index) {
   if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
-    plugin_ctrller->on_clear();
+    plugin_ctrller->on_clear();   
     PluginInterface* aux_plugin = mdl.get_plugins().at(index);
     aux_plugin->instance();
-    emit update_operation_option(aux_plugin->get_view());
+    emit update_operation_option(aux_plugin->get_view());   
     picture* aux_pic = mdl.get_picture_at(active_image);
     canvas_window* aux_canvas = main_window.get_view()->get_active_canvas();    
     plugin_ctrller->operator ()(aux_canvas, aux_plugin, aux_pic);

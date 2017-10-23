@@ -79,9 +79,9 @@ public:
   const QObject* get_controller ()              { return ctrller;    }
   void uninstance () {
     close ();
-    if (ctrller != nullptr) delete ctrller;
-    if (mdl != nullptr)     delete mdl;
-    if (view != nullptr)    delete view;
+    if (ctrller != nullptr) { delete ctrller; ctrller = nullptr; }
+    if (mdl != nullptr)     { delete mdl;    mdl      = nullptr; }
+    if (view != nullptr)    { delete view;   view     = nullptr; }
   }
 protected:
   virtual void close () = 0;
