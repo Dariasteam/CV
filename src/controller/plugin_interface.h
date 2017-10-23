@@ -14,10 +14,47 @@ struct plugin_metainfo {
   bool can_preview = false;
 };
 
-class M : public QWidget {
+class PluginView : public QWidget {
   Q_OBJECT
 public:
-  M (QWidget* parent) : QWidget (parent) {}
+  PluginView (QWidget* parent) : QWidget (parent) {}
+};
+
+class PluginModel {
+private:
+  picture* backup_image;
+  picture* original_image;
+public:
+  PluginModel () :
+    backup_image (nullptr),
+    original_image (nullptr)
+  {}
+  void set_image (picture* pic) {
+    backup_image = pic->make_copy();
+    original_image = pic;
+  }
+  picture* get_image () { return original_image; }
+  void restore_backup () { original_image->restore_from(backup_image); }
+  ~PluginModel () {
+    delete backup_image;
+    original_image = nullptr;
+    backup_image = nullptr;
+  }
+};
+
+class PluginController: public QObject {
+  Q_OBJECT
+private:
+  QWidget* view;
+  PluginModel* model;
+public:
+  PluginController (QWidget* vw, PluginModel* mdl) :
+    view (vw),
+    model (mdl)
+  {
+    connect ((PluginView*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
+  }
+  virtual bool operator () (picture* image) = 0;  
 signals:
   virtual void update_inform () = 0;
 };
@@ -28,16 +65,26 @@ protected:
   plugin_metainfo meta_info;
   // Contenido
   QWidget* view;
-  picture* backup_image;
-  picture* original_image;
+  QObject* ctrller;
+  PluginModel* mdl;
 public:
-  PluginInterface () : backup_image (nullptr) {}
-  const plugin_metainfo& get_meta_info () { return meta_info; }
-  QWidget* get_view ()                    { return view;      }
-  virtual bool operator () (picture* image) = 0;
-  virtual bool operator () () = 0;
+  PluginInterface () :
+    view (nullptr),
+    ctrller (nullptr),
+    mdl (nullptr)
+  {}
+  virtual void instance () = 0;
+  const plugin_metainfo& get_meta_info ()       { return meta_info;  }
+        QWidget* get_view ()                    { return view;       }
+  const QObject* get_controller ()              { return ctrller;    }
+  void uninstance () {
+    close ();
+    if (ctrller != nullptr) delete ctrller;
+    if (mdl != nullptr)     delete mdl;
+    if (view != nullptr)    delete view;
+  }
+protected:
   virtual void close () = 0;
-  void set_picture (picture* image) { backup_image = image; }
 };
 
 #define PluginInterface_iid "P"

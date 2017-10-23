@@ -32,7 +32,7 @@ void operation_options_widget::set_plugin_information(plugin_metainfo info) {
   check_preview->setEnabled(info.can_preview);
 }
 
-void operation_options_widget::on_set_widget(QWidget *wid) {      
+void operation_options_widget::on_set_widget(QWidget *wid) {
   wid->setVisible(true);
   content = wid;
   layout->addWidget(content,1,0,1,0);

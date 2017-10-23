@@ -32,7 +32,7 @@ public:
   picture (const picture* P);
 
   virtual picture* make_copy ();
-  virtual void copy_from (picture* pic);
+  virtual void restore_from (picture* pic);
 
   void operator =(const picture& pic);
 

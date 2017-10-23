@@ -38,7 +38,7 @@ picture* picture::make_copy() {
   return new picture (this);
 }
 
-void picture::copy_from(picture *pic) {
+void picture::restore_from(picture *pic) {
   (*pixmap)    = (*pic->get_pixmap());
   (*raw_image) = (*pic->get_raw_image());
   black_and_white = pic->is_black_and_white();
