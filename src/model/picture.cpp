@@ -1,9 +1,10 @@
 #include "picture.h"
 
-picture::picture(QImage* image) :
+picture::picture(QImage* image, QString f) :
   raw_image (image),
   black_and_white (false),
-  sz (image->width() * image->height())
+  sz (image->width() * image->height()),
+  format (f)
 {
   pixmap = new QPixmap();
   pixmap->convertFromImage(*image);     
@@ -154,6 +155,11 @@ bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {
     }
   }
 }
+
+bool picture::apply_lut(const LUT *lut) {
+
+}
+
 
 void picture::operator = (const picture& pic) {
   pixmap = pic.get_pixmap();

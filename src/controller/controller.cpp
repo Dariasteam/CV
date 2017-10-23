@@ -8,6 +8,9 @@ controller::controller() {
   connect(main_window.get_view(), SIGNAL(delete_image(uint)), this, SLOT(on_close_image(uint)));
   connect(main_window.get_view(), SIGNAL(image_focused(uint)), this, SLOT(on_set_active_image(uint)));
 
+  connect(this,SIGNAL(update_metadata(QString, QSize)),
+          main_window.get_footer(),SLOT(on_update_meta_data(QString,QSize)));
+
   connect(this, SIGNAL(update_histograms(histogram)),
           main_window.get_options_dock()->get_histogram_wid(),SLOT(on_update_charts(histogram)));
 
@@ -45,6 +48,7 @@ void controller::on_set_active_image (unsigned key) {
   picture* aux = mdl.get_current_picture();
   emit update_histograms(aux->get_histograms());
   emit update_basic_info(aux->get_basic_info());
+  emit update_metadata(aux->get_format(), aux->get_size());
 }
 
 bool controller::load_all_plugins (const QString& path) {
@@ -80,7 +84,6 @@ bool controller::load_plugin (const QString& path, const QDir& dir) {
 
     connect(plugin_action,SIGNAL(pressed_signal(uint)),this,SLOT(use_plugin(uint)));
   }
-
 }
 
 void controller::on_create_image(picture *pic) {

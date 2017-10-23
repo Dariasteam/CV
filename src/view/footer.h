@@ -9,7 +9,7 @@
 #define X_STRING "x: "
 #define Y_STRING "y: "
 #define FORMAT_STRING "formato: "
-#define SIZE_STRING "tamaño :"
+#define SIZE_STRING "tamaño: "
 
 class footer : public QStatusBar
 {

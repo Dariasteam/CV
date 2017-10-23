@@ -56,8 +56,9 @@ public:
     view (vw),
     model (mdl)
   {
-    connect ((PluginView*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
-  }
+    connect ((PluginView*)view,SIGNAL(update_inform()),
+             this,SIGNAL(update_inform()));
+  }  
   virtual bool operator () (picture* image, LUT* lut) = 0;
 signals:
   virtual void update_inform () = 0;

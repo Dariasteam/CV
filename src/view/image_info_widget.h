@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QString>
+#include <QFrame>
 
 #include <vector>
 
@@ -16,7 +17,7 @@ struct rgb_labels {
   QLabel* b;
 };
 
-class image_info_widget : public QWidget
+class image_info_widget : public QFrame
 {
   Q_OBJECT
 private:

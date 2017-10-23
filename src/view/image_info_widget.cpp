@@ -1,7 +1,10 @@
 #include "image_info_widget.h"
 
-image_info_widget::image_info_widget(QWidget *parent) : QWidget(parent)
-{
+image_info_widget::image_info_widget(QWidget *parent) : QFrame(parent)
+{  
+
+  setFrameStyle(QFrame::StyledPanel);
+
   brightness    = {new QLabel(this), new QLabel(this), new QLabel(this)};
   contrast      = {new QLabel(this), new QLabel(this), new QLabel(this)};
   entropy       = {new QLabel(this), new QLabel(this), new QLabel(this)};

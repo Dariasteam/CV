@@ -56,6 +56,7 @@ public:
   ~MainWindow();
   inline view* get_view () { return window_content; }
   inline options_dock* get_options_dock () { return op_dock; }  
+  inline footer* get_footer () { return foot; }
 private:
   Ui::MainWindow *ui;
   void generate_menu();
@@ -63,13 +64,12 @@ private slots:
   void on_bttn_load (bool);
   void on_bttn_save (bool);
   void on_image_focused();
-  void on_no_focused_image ();  
+  void on_no_focused_image ();
 public slots:
   indexed_action* on_add_plugin (QString category, QString name, unsigned index);
 signals:
   void load_image(QString file_name);
   void save_image(QString file_name, unsigned i);
-
 };
 
 #endif // MAINWINDOW_H

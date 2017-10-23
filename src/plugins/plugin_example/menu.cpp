@@ -23,11 +23,11 @@ menu::menu(QWidget *parent) : view_interface(parent)
 }
 
 void menu::set_ntsc_checked(bool) {
-  bttn_PAL->setChecked(false);
+  bttn_PAL->setChecked(false);  
   emit pal (false);  
 }
 
 void menu::set_pal_checked(bool) {
-  bttn_NTSC->setChecked(false);
+  bttn_NTSC->setChecked(false);  
   emit pal (true);
 }

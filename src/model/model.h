@@ -6,6 +6,7 @@
 #include <QList>
 #include <QImageReader>
 #include <QHash>
+#include <QRegularExpression>
 
 #include <iostream>
 

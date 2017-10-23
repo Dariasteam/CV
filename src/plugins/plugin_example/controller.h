@@ -19,7 +19,7 @@ public:
     model (mdl)
   {
     connect ((view_interface*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
-  }
+  }  
   virtual bool operator () (picture* image, LUT* lut) = 0;
 signals:
   virtual void update_inform () = 0;
@@ -32,7 +32,7 @@ private:
   const std::vector<double> PAL  = { 0.222, 0.707, 0.071 };
   bool pal;
 public:
-  bool operator () ();
+  bool operator () ();  
   virtual bool operator () (picture* image, LUT* lut);
   controller (QWidget* mn, PluginModel* mdl);
 public slots:

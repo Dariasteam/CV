@@ -19,5 +19,7 @@ void footer::on_update_coordenate_labels(QPoint point) {
 }
 
 void footer::on_update_meta_data(QString format, QSize size) {
-
+  image_format->setText(FORMAT_STRING + format);
+  image_size->setText(SIZE_STRING + QString::number(size.width()) +
+                      ", " + QString::number(size.height()));
 }

@@ -5,8 +5,14 @@ model::model() {
 }
 
 void model::load_image(const QString& file_name) {
-  QImage* raw_image = new QImage(file_name);  
-  add_image(new picture(raw_image));
+  int i_index = file_name.indexOf(".");
+  int l_index = file_name.size();
+  std::string format = "no format";
+  if (i_index > -1);
+    format = file_name.toStdString().substr(i_index + 2, l_index);
+
+  QImage* raw_image = new QImage(file_name);
+  add_image(new picture(raw_image, QString::fromStdString(format)));
 }
 
 void model::add_image(picture *pic) {
