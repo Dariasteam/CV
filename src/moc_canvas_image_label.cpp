@@ -32,11 +32,11 @@ struct qt_meta_stringdata_canvas_image_label_t {
 static const qt_meta_stringdata_canvas_image_label_t qt_meta_stringdata_canvas_image_label = {
     {
 QT_MOC_LITERAL(0, 0, 18), // "canvas_image_label"
-QT_MOC_LITERAL(1, 19, 18), // "update_coordinates"
+QT_MOC_LITERAL(1, 19, 18), // "update_coordenates"
 QT_MOC_LITERAL(2, 38, 0) // ""
 
     },
-    "canvas_image_label\0update_coordinates\0"
+    "canvas_image_label\0update_coordenates\0"
     ""
 };
 #undef QT_MOC_LITERAL
@@ -69,7 +69,7 @@ void canvas_image_label::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         canvas_image_label *_t = static_cast<canvas_image_label *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->update_coordinates((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 0: _t->update_coordenates((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -77,7 +77,7 @@ void canvas_image_label::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (canvas_image_label::*_t)(QPoint );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&canvas_image_label::update_coordinates)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&canvas_image_label::update_coordenates)) {
                 *result = 0;
                 return;
             }
@@ -122,7 +122,7 @@ int canvas_image_label::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void canvas_image_label::update_coordinates(QPoint _t1)
+void canvas_image_label::update_coordenates(QPoint _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

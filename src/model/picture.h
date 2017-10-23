@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <vector>
 #include <QSize>
+#include <QColor>
 
 #include <functional>
 #include <math.h>
@@ -72,6 +73,7 @@ public:
   virtual picture* make_copy ();
   virtual void restore_from (picture* pic);
 
+  QColor get_color (QPoint pos) { return raw_image->pixel(pos.x(), pos.y()); }
   void operator =(const picture& pic);
 
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);

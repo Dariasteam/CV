@@ -1,4 +1,6 @@
 *~
 build
 *.o
-*moc_*
+moc_*
+src/moc_*
+

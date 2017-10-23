@@ -13,7 +13,7 @@ public:
 private:
   void mouseMoveEvent(QMouseEvent* ev);
 signals:
-  void update_coordinates (QPoint);
+  void update_coordenates (QPoint);
 public slots:
 };
 

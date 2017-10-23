@@ -11,14 +11,23 @@ controller::controller() {
   connect(this,SIGNAL(update_metadata(QString, QSize)),
           main_window.get_footer(),SLOT(on_update_meta_data(QString,QSize)));
 
+  connect(this,SIGNAL(update_rgb_at(QColor)),
+          main_window.get_footer(),SLOT(on_update_rgb_at(QColor)));
+
+  connect(main_window.get_footer(),SIGNAL(get_rgb_at(QPoint)),
+          this,SLOT(on_get_rgb_at(QPoint)));
+
   connect(this, SIGNAL(update_histograms(histogram)),
-          main_window.get_options_dock()->get_histogram_wid(),SLOT(on_update_charts(histogram)));
+          main_window.get_options_dock()->get_histogram_wid(),
+          SLOT(on_update_charts(histogram)));
 
   connect(this, SIGNAL(update_operation_option(QWidget*)),
-          main_window.get_options_dock()->get_operation_wid(), SLOT(on_set_widget(QWidget*)));
+          main_window.get_options_dock()->get_operation_wid(),
+          SLOT(on_set_widget(QWidget*)));
 
-  connect(this, SIGNAL(update_basic_info(picture_basic_info)),
-          main_window.get_options_dock()->get_image_wid(), SLOT(on_update_basic_info(picture_basic_info)));
+  connect(this, SIGNAL(update_basic_info(picture_bsic_info)),
+          main_window.get_options_dock()->get_image_wid(),
+          SLOT(on_update_basic_info(picture_basic_info)));
 
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 
@@ -60,6 +69,10 @@ bool controller::load_all_plugins (const QString& path) {
     std::cout << "\n";
   }
   return result;
+}
+
+void controller::on_get_rgb_at(QPoint pos) {
+  emit update_rgb_at(mdl.get_current_picture()->get_color(pos));
 }
 
 bool controller::load_plugin (const QString& path, const QDir& dir) {

@@ -34,6 +34,7 @@ public slots:
 
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);
+  void on_get_rgb_at (QPoint);
 private slots:
   void use_plugin (unsigned index);
 signals:
@@ -41,6 +42,7 @@ signals:
   void update_basic_info (picture_basic_info basic_info);
   void update_operation_option (QWidget* wid);
   void update_metadata (QString format, QSize size);
+  void update_rgb_at (QColor color);
 };
 
 #endif // CONTROLLER_H
