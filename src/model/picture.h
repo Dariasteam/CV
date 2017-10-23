@@ -4,9 +4,24 @@
 #include <QImage>
 #include <QPixmap>
 #include <vector>
+
 #include <functional>
+#include <math.h>
 
 #include "histogram.h"
+
+struct min_max_range {
+            //   MIN      MAX
+  std::pair <unsigned, unsigned> r;
+  std::pair <unsigned, unsigned> g;
+  std::pair <unsigned, unsigned> b;
+};
+
+struct rgb_float_values {
+  double r;
+  double g;
+  double b;
+};
 
 /* Representa una imagen en memoria y la información
  * de su histograma.
@@ -23,8 +38,13 @@ private:
   QImage* raw_image;
   QPixmap* pixmap;
   histogram histograms;
-  unsigned average;           // media
-  double mediana;             // esto en inglés
+  rgb_float_values average;
+  rgb_float_values deviation;
+
+  min_max_range range;
+  unsigned sz;
+
+
 
 public:
   picture (QImage* image);
@@ -39,7 +59,10 @@ public:
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
-  void generate_histograms ();  
+  void generate_histograms ();
+  void generate_range      ();
+  void generate_average    ();
+  void generate_deviation  ();
 
   inline QImage*  get_image  () const { return raw_image; }
   inline QPixmap* get_pixmap () const { return pixmap;    }
@@ -48,11 +71,11 @@ public:
     pixmap->convertFromImage(*raw_image);    
   }
 
-  inline QImage* get_raw_image () const { return raw_image; }
-
-  inline histogram get_histograms () const { return histograms; }
-  inline void set_black_and_white (bool b) { black_and_white = true; }
-  inline bool is_black_and_white () const { return black_and_white; }
+  inline QImage* get_raw_image ()          const { return raw_image; }
+  inline const histogram get_histograms () const { return histograms; }
+  inline const min_max_range get_range ()  const { return range; }
+  inline void set_black_and_white (bool b)       { black_and_white = true; }
+  inline bool is_black_and_white ()        const { return black_and_white; }
 };
 
 #endif // IMAGE_H
