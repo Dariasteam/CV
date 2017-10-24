@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QObject>
 
+#include "../view/canvas_image_label.h"
 #include "../view/canvas_window.h"
 #include "../view/operation_options_widget.h"
 #include "../model/picture.h"
@@ -29,8 +30,6 @@ public:
   bool operator()(canvas_window* canvas,
                   PluginInterface* op,
                   picture* pic);
-
-
 
 public slots:
 

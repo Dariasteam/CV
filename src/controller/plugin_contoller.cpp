@@ -23,7 +23,9 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid) :
 
 bool plugin_controller::operator ()(canvas_window* canvas,
                                     PluginInterface* op,
-                                    picture* pic) {   
+                                    picture* pic) {
+
+  canvas_image_label* canvas_lbl = canvas->get_content();
   current_operation = op;
   current_canvas = canvas;
   backup_pic = pic->make_copy();
@@ -32,8 +34,19 @@ bool plugin_controller::operator ()(canvas_window* canvas,
            this,SLOT(update_view()));
   modified_pic = pic;  
 
+
+  plugin_metainfo info = op->get_meta_info();
+
   LUT* lut = new LUT;
-  if (!((PluginController*)op->get_controller())->operator ()(pic, lut)) return false;
+  if (info.require_lut) {
+    if (((PluginController*)op->get_controller())
+        ->operator ()(pic, lut)) return false;
+  } else if (info.require_image_canvas) {
+      if (((PluginController*)op->get_controller())
+        ->operator ()(pic, current_canvas->get_content()->get_canvas())) return false;
+  }
+
+
 
   if (!op->get_meta_info().can_preview) {
     op_widget->get_preview()->setChecked(false);

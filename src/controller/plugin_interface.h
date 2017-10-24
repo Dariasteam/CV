@@ -4,9 +4,9 @@
 #include <QString>
 #include <QWidget>
 
+#include "../view/canvas_image_label.h"
 #include "../model/picture.h"
 #include "../model/lut.h"
-#include "../view/canvas_image_label.h"
 
 struct plugin_metainfo {
   QString name     = "default plugin name";
@@ -14,6 +14,8 @@ struct plugin_metainfo {
   bool can_work_without_gui = false;
   bool no_gui = false;
   bool can_preview = false;
+  bool require_lut = false;
+  bool require_image_canvas = false;
 };
 
 class PluginView : public QWidget {
@@ -60,7 +62,8 @@ public:
     connect ((PluginView*)view,SIGNAL(update_inform()),
              this,SIGNAL(update_inform()));
   }  
-  virtual bool operator () (picture* image, LUT* lut, canvas_image_label* lbl) = 0;
+  virtual bool operator () (picture* image, LUT* lut = 0) = 0;
+  virtual bool operator () (picture* image, image_canvas* canvas = 0) = 0;
 signals:
   virtual void update_inform () = 0;
 };

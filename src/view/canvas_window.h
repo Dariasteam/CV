@@ -33,10 +33,12 @@ public:
   canvas_window(unsigned id, QPixmap& pixmap, footer* foot,
                 QString name, QWidget* parent = nullptr);
   inline void set_pixmap (const QPixmap* pix) {
-    showed_image->setPixmap(*pix);
+    showed_image->get_canvas()->setPixmap(*pix);
     showed_image->update();
   }
   inline void set_name (const QString& name) { setWindowTitle(name); }
+  inline canvas_image_label* get_content () { return showed_image; }
+  inline void set_content (canvas_image_label* content) { showed_image = content; }
 signals:
   void set_active (unsigned id);
   void close (unsigned id);  
