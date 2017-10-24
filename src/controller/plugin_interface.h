@@ -6,6 +6,7 @@
 
 #include "../model/picture.h"
 #include "../model/lut.h"
+#include "../view/canvas_image_label.h"
 
 struct plugin_metainfo {
   QString name     = "default plugin name";
@@ -59,7 +60,7 @@ public:
     connect ((PluginView*)view,SIGNAL(update_inform()),
              this,SIGNAL(update_inform()));
   }  
-  virtual bool operator () (picture* image, LUT* lut) = 0;
+  virtual bool operator () (picture* image, LUT* lut, canvas_image_label* lbl) = 0;
 signals:
   virtual void update_inform () = 0;
 };

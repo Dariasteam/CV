@@ -1,18 +1,21 @@
-#ifndef CANVAS_IMAGE_LABEL_H
-#define CANVAS_IMAGE_LABEL_H
+#ifndef MODEL_H
+#define MODEL_H
 
-#include <QLabel>
-#include <QWidget>
+#include "../../model/picture.h"
+#include "../../controller/plugin_interface.h"
+
+#include <QPixmap>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPoint>
 #include <QRect>
 #include <QPainter>
 
-class canvas_image_label : public QLabel {
-  Q_OBJECT
+#include <iostream>
+
+class selectable_pixmap : public QPixmap {
 public:
-  explicit canvas_image_label(QPixmap& pixmap, QWidget *parent = nullptr);
+  explicit selectable_pixmap (QPixmap& pix);
 private:
   QPoint start_point;
   QPoint end_point;
@@ -23,10 +26,14 @@ private:
   void mouseMoveEvent(QMouseEvent* ev);
   void mousePressEvent(QMouseEvent *ev);
   void mouseReleaseEvent(QMouseEvent *ev);
-  void paintEvent(QPaintEvent* ev) override;
+  void paintEvent(QPaintEvent* ev);
 signals:
-  void update_coordenates (QPoint);
   void update_region (QPoint, QPoint);
 };
 
-#endif // CANVAS_IMAGE_LABEL_H
+class model : public PluginModel {
+public:
+  model();
+};
+
+#endif // MODEL_H

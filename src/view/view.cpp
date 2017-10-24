@@ -29,6 +29,10 @@ void view::on_windows_close(unsigned key) {
 }
 
 void view::add_canvas_window(QPixmap &pixmap, QString name) {
+  QPoint position (-20, -20);
+  if (canvas_list.size() > 0)
+    position = canvas_list[active_canvas]->pos();
+
   unsigned key = canvas_list.size();
   canvas_window* aux_canvas = new canvas_window(key, pixmap, foot, name, this);
   canvas_list.insert(key,aux_canvas);
@@ -36,6 +40,7 @@ void view::add_canvas_window(QPixmap &pixmap, QString name) {
   connect(aux_canvas,SIGNAL(set_active(unsigned)),this,SLOT(on_window_set_active(unsigned)));
   connect(aux_canvas,SIGNAL(close(uint)),this,SLOT(on_windows_close(uint)));
 
+  aux_canvas->move(position + QPoint(20,20));
   aux_canvas->show();
 }
 

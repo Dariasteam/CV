@@ -19,7 +19,6 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid) :
 
   connect (op_widget->get_preview(),&QCheckBox::toggled,
            this, &plugin_controller::on_preview_toggled);
-
 }
 
 bool plugin_controller::operator ()(canvas_window* canvas,
@@ -29,11 +28,19 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   current_canvas = canvas;
   backup_pic = pic->make_copy();
 
-  connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),this,SLOT(update_view()));
+  connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),
+           this,SLOT(update_view()));
   modified_pic = pic;  
 
   LUT* lut = new LUT;
   if (!((PluginController*)op->get_controller())->operator ()(pic, lut)) return false;
+
+  if (!op->get_meta_info().can_preview) {
+    op_widget->get_preview()->setChecked(false);
+    op_widget->get_preview()->setCheckable(false);
+  } else {
+    op_widget->get_preview()->setCheckable(true);
+  }
 
   preview = op_widget->get_preview()->isChecked();
   overwrite = op_widget->get_overwrite()->isChecked();  

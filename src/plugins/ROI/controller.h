@@ -7,6 +7,7 @@
 #include "model.h"
 #include "../../controller/plugin_interface.h"
 #include "../../model/lut.h"
+#include "../../view/canvas_image_label.h"
 
 class plugin_controller : public QObject {
   Q_OBJECT
@@ -28,15 +29,10 @@ signals:
 class controller : public plugin_controller {
   Q_OBJECT
 private:
-  const std::vector<double> NTSC = { 0.299, 0.587, 0.114 };
-  const std::vector<double> PAL  = { 0.222, 0.707, 0.071 };
-  bool pal;
 public:
   bool operator () ();  
   virtual bool operator () (picture* image, LUT* lut);
   controller (QWidget* mn, PluginModel* mdl);
-public slots:
-  void on_change_pal (bool p);
 signals:
   void update_inform ();  
 };

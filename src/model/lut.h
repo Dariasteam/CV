@@ -1,7 +1,7 @@
 #ifndef LUT_H
 #define LUT_H
 
-#define DEPTH 255
+#define DEPTH 256
 
 #include <vector>
 #include <functional>

@@ -5,7 +5,7 @@ controller::controller(QWidget *mn, PluginModel *mdl) :
   pal (true)
 {}
 
-bool controller::operator () (picture* image, LUT* lut) {
+bool controller::operator () (picture* image, LUT* lut, canvas_image_label* lbl) {
   model->set_lut(lut);
   model->set_image(image); 
 

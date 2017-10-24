@@ -23,6 +23,7 @@ private:
   QLabel* image_format;
   QLabel* image_size;
   QLabel* rgb_values;
+  QLabel* rgb_show;
 public:
   explicit footer(QWidget *parent = nullptr);
 public slots:

@@ -4,7 +4,7 @@
 #include <vector>
 #include <QImage>
 
-#define DEPTH 255
+#define DEPTH 256
 
 struct histogram {
 private:

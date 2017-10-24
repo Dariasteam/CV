@@ -89,6 +89,8 @@ public:
     pixmap->convertFromImage(*raw_image);    
   }
 
+  inline void set_pixmap (QPixmap* pix) { pixmap = pix; }
+
   inline QSize get_size () { return pixmap->size(); }
   inline QString get_format () const { return format; }
 

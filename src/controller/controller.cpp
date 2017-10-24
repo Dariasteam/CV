@@ -28,7 +28,8 @@ controller::controller() {
           main_window.get_options_dock()->get_operation_wid(),
           SLOT(on_set_widget(QWidget*)));
 
-  connect(this,&controller::update_basic_info,op_dock->get_image_wid(),&image_info_widget::on_update_basic_info);
+  connect(this,&controller::update_basic_info,op_dock->get_image_wid(),
+               &image_info_widget::on_update_basic_info);
 
   plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
 
@@ -105,8 +106,8 @@ void controller::on_create_image(picture *pic) {
   main_window.get_view()->add_canvas_window(* (mdl.get_picture_at(-1)->get_pixmap()), "file_name");
 }
 
-void controller::use_plugin(unsigned index) {
-  if (index < mdl.get_plugins().size() && index < mdl.get_pictures().size()) {
+void controller::use_plugin(unsigned index) {  
+  if (index < mdl.get_plugins().size()) {
     plugin_ctrller->on_clear();   
     PluginInterface* aux_plugin = mdl.get_plugins().at(index);
     aux_plugin->instance();
