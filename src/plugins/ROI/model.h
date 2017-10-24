@@ -3,6 +3,7 @@
 
 #include "../../model/picture.h"
 #include "../../controller/plugin_interface.h"
+#include "../../view/canvas_image_label.h"
 
 #include <QPixmap>
 #include <QMouseEvent>
@@ -13,7 +14,7 @@
 
 #include <iostream>
 
-class selectable_pixmap : public QPixmap {
+class selectable_pixmap : public image_canvas {
 public:
   explicit selectable_pixmap (QPixmap& pix);
 private:
@@ -32,7 +33,10 @@ signals:
 };
 
 class model : public PluginModel {
-public:
+  selectable_pixmap* slct_pixmap;
+public:  
+  inline selectable_pixmap* get_selectable_pixmap () { return slct_pixmap; }
+  void create_selectable_pixmap (QPixmap& pix);
   model();
 };
 

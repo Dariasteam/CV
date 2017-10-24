@@ -2,10 +2,15 @@
 
 model::model() {}
 
+void model::create_selectable_pixmap(QPixmap &pix) {
+  slct_pixmap = new selectable_pixmap (pix);
+}
+
 selectable_pixmap::selectable_pixmap(QPixmap& pix) :
+  image_canvas(pix),
   selecting (false),
   area_selected (false)
-{
+{  
   QPixmap::operator =(pix);
 }
 
