@@ -41,11 +41,8 @@ void view::add_canvas_window(QPixmap &pixmap, QString name) {
   connect(aux_canvas,SIGNAL(close(uint)),this,SLOT(on_windows_close(uint)));
 
   aux_canvas->move(position + QPoint(20,20));
-
-  aux_canvas->raise();
   aux_canvas->show();
 
-  emit image_focused(key);
 }
 
 canvas_window* view::get_active_canvas() {

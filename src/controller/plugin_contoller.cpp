@@ -51,8 +51,9 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   if (!preview) {
     op_widget->get_preview()->setChecked(false);
     op_widget->get_preview()->setCheckable(false);
-  } else {
+  } else {    
     op_widget->get_preview()->setCheckable(true);
+    op_widget->get_preview()->setChecked(true);
   }
 
   if (!overwrite) {
@@ -60,6 +61,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
     op_widget->get_overwrite()->setCheckable(false);
   } else {
     op_widget->get_overwrite()->setCheckable(true);
+    op_widget->get_overwrite()->setChecked(true);
   }
 
 
@@ -86,25 +88,14 @@ void plugin_controller::update_view() {
   current_canvas->update();
 }
 
-#include <iostream>
-
 void plugin_controller::on_apply(bool b) {
   current_canvas->set_content(backup_canvas);
   if (overwrite) {
     current_canvas->set_pixmap(modified_pic->get_pixmap());
   } else {
     current_canvas->set_pixmap(backup_pic->get_pixmap());
-
-    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
-
     emit generate_image(modified_pic->make_copy());
-
-    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
-
     modified_pic->restore_from(backup_pic);
-
-    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
-    std::cout << backup_pic->get_pixmap()->size().width() << std::endl;
   }   
   on_end();
 }
