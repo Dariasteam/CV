@@ -3,7 +3,15 @@
 #include "connector_plugin.h"
 
 conector_plugin::conector_plugin () {
-  meta_info = {"Blanco y negro", "core", false, false, true};
+  meta_info = {
+  /* name       */  "Blanco y negro",
+  /* category        */  "core",
+  /* can_work_no_gui */  false,
+  /* is_no_gui       */  false,
+  /* can preview     */  true,
+  /* require_lut     */  true,
+  /* require_canvas  */  false
+  };
 }
 
 void conector_plugin::close() {

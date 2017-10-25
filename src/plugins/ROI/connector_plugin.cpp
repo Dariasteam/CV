@@ -20,7 +20,7 @@ void conector_plugin::close() {
 void conector_plugin::instance() {  
   if (view == nullptr && mdl == nullptr && ctrller == nullptr) {        
     view = new menu();        
-    mdl = new model ();    
+    mdl = new model ();
     ctrller = new controller(view, mdl);        
   }
 }

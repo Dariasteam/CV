@@ -13,7 +13,7 @@ class plugin_controller : public QObject {
   Q_OBJECT
 protected:
   QWidget* view;
-  model* mdl;
+  PluginModel* mdl;
 public:
   plugin_controller (QWidget* vw, PluginModel* ml) :
     view (vw),
@@ -22,7 +22,7 @@ public:
     connect ((view_interface*)view,SIGNAL(update_inform()),this,SIGNAL(update_inform()));
   }  
   virtual bool operator () (picture* image, LUT* lut) = 0;
-  virtual bool operator () (picture* image, image_canvas* canvas) = 0;
+  virtual bool operator () (picture* image, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;
 };
@@ -33,7 +33,7 @@ private:
 public:
   bool operator () ();  
   virtual bool operator () (picture* image, LUT* lut) {}
-  virtual bool operator () (picture* image, image_canvas* canvas);
+  virtual bool operator () (picture* image, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
 signals:
   void update_inform ();  

@@ -1079,9 +1079,9 @@ moc_mainwindow.cpp: view/view.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		controller/indexed_action.h \
@@ -1097,9 +1097,9 @@ moc_view.cpp: view/canvas_window.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		view/view.h \
@@ -1116,9 +1116,9 @@ moc_controller.cpp: view/mainwindow.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		controller/indexed_action.h \
@@ -1136,9 +1136,9 @@ moc_canvas_window.cpp: view/options_dock.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		view/canvas_window.h \
@@ -1168,7 +1168,8 @@ moc_canvas_image_label.cpp: view/canvas_image_label.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/canvas_image_label.h -o moc_canvas_image_label.cpp
 
-moc_plugin_interface.cpp: model/picture.h \
+moc_plugin_interface.cpp: view/canvas_image_label.h \
+		model/picture.h \
 		model/histogram.h \
 		model/lut.h \
 		controller/plugin_interface.h \
@@ -1182,6 +1183,7 @@ moc_indexed_action.cpp: controller/indexed_action.h \
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include controller/indexed_action.h -o moc_indexed_action.cpp
 
 moc_operation_options_widget.cpp: controller/plugin_interface.h \
+		view/canvas_image_label.h \
 		model/picture.h \
 		model/histogram.h \
 		model/lut.h \
@@ -1190,17 +1192,17 @@ moc_operation_options_widget.cpp: controller/plugin_interface.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/operation_options_widget.h -o moc_operation_options_widget.cpp
 
-moc_plugin_contoller.cpp: view/canvas_window.h \
+moc_plugin_contoller.cpp: view/canvas_image_label.h \
+		view/canvas_window.h \
 		view/options_dock.h \
 		view/histogram_widget.h \
 		view/chart_representation.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
-		view/canvas_image_label.h \
 		view/footer.h \
 		controller/view_interface.h \
 		controller/plugin_contoller.h \
@@ -1215,6 +1217,7 @@ moc_view_interface.cpp: controller/view_interface.h \
 
 moc_image_info_widget.cpp: model/picture.h \
 		model/histogram.h \
+		model/lut.h \
 		view/image_info_widget.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1249,9 +1252,9 @@ main.o: main.cpp controller/controller.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		controller/indexed_action.h \
@@ -1269,9 +1272,9 @@ mainwindow.o: view/mainwindow.cpp view/mainwindow.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		controller/indexed_action.h \
@@ -1286,9 +1289,9 @@ view.o: view/view.cpp view/view.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o view.o view/view.cpp
@@ -1303,9 +1306,9 @@ controller.o: controller/controller.cpp controller/controller.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h \
 		controller/indexed_action.h \
@@ -1317,8 +1320,9 @@ controller.o: controller/controller.cpp controller/controller.h \
 model.o: model/model.cpp model/model.h \
 		model/picture.h \
 		model/histogram.h \
+		model/lut.h \
 		controller/plugin_interface.h \
-		model/lut.h
+		view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model/model.cpp
 
 canvas_window.o: view/canvas_window.cpp view/canvas_window.h \
@@ -1328,9 +1332,9 @@ canvas_window.o: view/canvas_window.cpp view/canvas_window.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
 		view/canvas_image_label.h \
 		view/footer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o canvas_window.o view/canvas_window.cpp
@@ -1341,13 +1345,15 @@ options_dock.o: view/options_dock.cpp view/options_dock.h \
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h
+		view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o options_dock.o view/options_dock.cpp
 
 picture.o: model/picture.cpp model/picture.h \
-		model/histogram.h
+		model/histogram.h \
+		model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o picture.o model/picture.cpp
 
 footer.o: view/footer.cpp view/footer.h
@@ -1382,12 +1388,14 @@ indexed_action.o: controller/indexed_action.cpp controller/indexed_action.h
 
 operation_options_widget.o: view/operation_options_widget.cpp view/operation_options_widget.h \
 		controller/plugin_interface.h \
+		view/canvas_image_label.h \
 		model/picture.h \
 		model/histogram.h \
 		model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o operation_options_widget.o view/operation_options_widget.cpp
 
 plugin_contoller.o: controller/plugin_contoller.cpp controller/plugin_contoller.h \
+		view/canvas_image_label.h \
 		view/canvas_window.h \
 		view/options_dock.h \
 		view/histogram_widget.h \
@@ -1395,17 +1403,17 @@ plugin_contoller.o: controller/plugin_contoller.cpp controller/plugin_contoller.
 		model/histogram.h \
 		view/image_info_widget.h \
 		model/picture.h \
+		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
-		model/lut.h \
-		view/canvas_image_label.h \
 		view/footer.h \
 		controller/view_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plugin_contoller.o controller/plugin_contoller.cpp
 
 image_info_widget.o: view/image_info_widget.cpp view/image_info_widget.h \
 		model/picture.h \
-		model/histogram.h
+		model/histogram.h \
+		model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image_info_widget.o view/image_info_widget.cpp
 
 lut.o: model/lut.cpp model/lut.h

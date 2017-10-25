@@ -4,21 +4,20 @@ controller::controller(QWidget *mn, PluginModel *mdl) :
   plugin_controller (mn, mdl)
 {}
 
-bool controller::operator () (picture* image, image_canvas* canvas) {
-  mdl->set_image(image);
-  mdl->create_selectable_pixmap(canvas->pixmap());
+bool controller::operator () (picture* image, canvas_image_label* canvas) {
+
+  ((PluginModelCanvas*)mdl)->set_image(image);
+
+  ((PluginModelCanvas*)mdl)->create_selectable_pixmap(*image->get_pixmap());
+  ((PluginModelCanvas*)mdl)->set_label(canvas);
+
+  ((PluginModelCanvas*)mdl)->get_label()
+      ->set_canvas(((PluginModelCanvas*)mdl)->get_selectable_pixmap());
   operator ()();
 }
 
 bool controller::operator ()() {
-  model->restore_backup();
-  picture* img = model->get_image();  
-
-
-  model-> = new selectable_pixmap (*img->get_pixmap());
-
-  img->set_pixmap(s_pix);
-
+  mdl->restore_backup();
   emit update_inform();
   return true;
 }

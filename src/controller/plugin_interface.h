@@ -25,10 +25,9 @@ public:
 };
 
 class PluginModel {
-private:
+protected:
   picture* backup_image;
   picture* original_image;
-  LUT* lut;
 public:
   PluginModel () :
     backup_image (nullptr),
@@ -38,8 +37,6 @@ public:
     backup_image = pic->make_copy();
     original_image = pic;
   }
-  LUT* get_lut ()         { return lut;                                 }
-  void set_lut (LUT* l)   { lut = l;                                    }
   picture* get_image ()   { return original_image;                      }
   void restore_backup ()  { original_image->restore_from(backup_image); }
   ~PluginModel () {
@@ -49,11 +46,30 @@ public:
   }
 };
 
+class PluginModelLut : public PluginModel{
+protected:
+  LUT* lut;
+public:
+  LUT* get_lut ()         { return lut;                                 }
+  void set_lut (LUT* l)   { lut = l;                                    }  
+};
+
+class PluginModelCanvas : public PluginModel {
+protected:
+  image_canvas* slct_pixmap;
+  canvas_image_label* label;
+public:
+  inline image_canvas* get_selectable_pixmap () { return slct_pixmap; }
+  virtual void create_selectable_pixmap (QPixmap& pix) {}
+  void set_label (canvas_image_label* lbl) { label = lbl; }
+  canvas_image_label* get_label () { return label; }
+};
+
 class PluginController: public QObject {
   Q_OBJECT
 private:
   QWidget* view;
-  PluginModel* model;    
+  PluginModel* model;
 public:
   PluginController (QWidget* vw, PluginModel* mdl) :
     view (vw),
@@ -62,8 +78,8 @@ public:
     connect ((PluginView*)view,SIGNAL(update_inform()),
              this,SIGNAL(update_inform()));
   }  
-  virtual bool operator () (picture* image, LUT* lut = 0) = 0;
-  virtual bool operator () (picture* image, image_canvas* canvas = 0) = 0;
+  virtual bool operator () (picture* image, LUT* lut) = 0;
+  virtual bool operator () (picture* image, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;
 };

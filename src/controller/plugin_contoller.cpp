@@ -42,8 +42,8 @@ bool plugin_controller::operator ()(canvas_window* canvas,
     if (((PluginController*)op->get_controller())
         ->operator ()(pic, lut)) return false;
   } else if (info.require_image_canvas) {
-      if (((PluginController*)op->get_controller())
-        ->operator ()(pic, current_canvas->get_content()->get_canvas())) return false;
+    if (((PluginController*)op->get_controller())
+      ->operator ()(pic, current_canvas->get_content())) return false;
   }
 
 

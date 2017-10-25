@@ -985,6 +985,7 @@ compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controll
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
@@ -1007,6 +1008,7 @@ moc_controller.cpp: ../ROI/menu.h \
 		../../model/histogram.h \
 		../../model/lut.h \
 		../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h \
 		../ROI/controller.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1028,6 +1030,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 connector_plugin.o: ../ROI/connector_plugin.cpp ../ROI/connector_plugin.h \
 		../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
@@ -1045,14 +1048,16 @@ controller.o: ../ROI/controller.cpp ../ROI/controller.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
-		../../controller/plugin_interface.h
+		../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../ROI/controller.cpp
 
 model.o: ../ROI/model.cpp ../ROI/model.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
-		../../controller/plugin_interface.h
+		../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o ../ROI/model.cpp
 
 moc_connector_plugin.o: moc_connector_plugin.cpp 

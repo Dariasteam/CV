@@ -11,13 +11,27 @@
 #include <QPoint>
 #include <QRect>
 #include <QPainter>
+#include <QLabel>
+#include <QObject>
 
 #include <iostream>
 
-class selectable_pixmap : public image_canvas {
+class ImageCanvas : public QLabel {
+  Q_OBJECT
+public:
+  ImageCanvas (QPixmap& pix, QWidget* parent = nullptr) :
+    QLabel (parent)
+  {
+    setPixmap(pix);
+  }
+};
+
+class selectable_pixmap : public ImageCanvas {
+  Q_OBJECT
 public:
   explicit selectable_pixmap (QPixmap& pix);
 private:
+
   QPoint start_point;
   QPoint end_point;
 
@@ -28,16 +42,18 @@ private:
   void mousePressEvent(QMouseEvent *ev);
   void mouseReleaseEvent(QMouseEvent *ev);
   void paintEvent(QPaintEvent* ev);
-signals:
-  void update_region (QPoint, QPoint);
 };
 
-class model : public PluginModel {
-  selectable_pixmap* slct_pixmap;
-public:  
-  inline selectable_pixmap* get_selectable_pixmap () { return slct_pixmap; }
-  void create_selectable_pixmap (QPixmap& pix);
+
+
+class model : public PluginModelCanvas {
+private:
+
+public:
   model();
+  virtual void create_selectable_pixmap(QPixmap& pix) {
+    slct_pixmap = (image_canvas*)new selectable_pixmap (pix);
+  }
 };
 
 #endif // MODEL_H
