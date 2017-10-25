@@ -72,6 +72,7 @@ public:
 
   virtual picture* make_copy ();
   virtual void restore_from (picture* pic);
+  virtual void restore_from (QImage* img);
 
   QColor get_color (QPoint pos) { return raw_image->pixel(pos.x(), pos.y()); }
   void operator =(const picture& pic);

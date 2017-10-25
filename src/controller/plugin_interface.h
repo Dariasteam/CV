@@ -16,6 +16,7 @@ struct plugin_metainfo {
   bool can_preview = false;
   bool require_lut = false;
   bool require_image_canvas = false;
+  bool can_overwrite = true;
 };
 
 class PluginView : public QWidget {
@@ -60,7 +61,7 @@ protected:
 public:  
   virtual void create_selectable_pixmap (QPixmap& pix) {}
   void set_label (QLabel* lbl) { label = lbl; }
-  QLabel* get_label () { return label; }
+  QLabel* get_label () { return label; }  
 };
 
 class PluginController: public QObject {
@@ -104,9 +105,9 @@ public:
   const QObject* get_controller ()            { return ctrller;   }
   void uninstance () {
     close ();
-    if (ctrller != nullptr) { delete ctrller; ctrller  = nullptr; }
-    if (mdl != nullptr)     { delete mdl;     mdl      = nullptr; }
+    if (ctrller != nullptr) { delete ctrller; ctrller  = nullptr; }    
     if (view != nullptr)    { delete view;    view     = nullptr; }
+    //if (mdl != nullptr)     { delete mdl;     mdl      = nullptr; }
   }
 protected:
   virtual void close () = 0;

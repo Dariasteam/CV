@@ -24,7 +24,7 @@ public:
 private:
 
   QPoint start_point;
-  QPoint end_point;
+  QPoint end_point;    
 
   bool selecting;
   bool area_selected;
@@ -36,6 +36,7 @@ private:
 
 signals:
   void update_coordenates (QPoint);
+  void update_region (QRect);
 };
 
 class model : public PluginModelCanvas {

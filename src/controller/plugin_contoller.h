@@ -8,6 +8,7 @@
 #include "../view/canvas_image_label.h"
 #include "../view/canvas_window.h"
 #include "../view/operation_options_widget.h"
+#include "../view/footer.h"
 #include "../model/picture.h"
 #include "plugin_interface.h"
 #include "view_interface.h"
@@ -19,13 +20,19 @@ private:
   bool apply;
   bool preview;
 
+  footer* foot;
+
   operation_options_widget* op_widget;
   PluginInterface* current_operation;
   canvas_window* current_canvas;
+
   picture* backup_pic;
   picture* modified_pic;  
+
+  canvas_image_label* backup_canvas;
+  canvas_image_label* modified_canvas;
 public:
-  plugin_controller(operation_options_widget* op_wid);
+  plugin_controller(operation_options_widget* op_wid, footer* foot);
 
   bool operator()(canvas_window* canvas,
                   PluginInterface* op,

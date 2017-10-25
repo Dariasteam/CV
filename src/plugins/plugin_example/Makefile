@@ -55,14 +55,16 @@ SOURCES       = ../ROI/connector_plugin.cpp \
 		../ROI/controller.cpp \
 		../ROI/model.cpp moc_connector_plugin.cpp \
 		moc_menu.cpp \
-		moc_controller.cpp
+		moc_controller.cpp \
+		moc_model.cpp
 OBJECTS       = connector_plugin.o \
 		menu.o \
 		controller.o \
 		model.o \
 		moc_connector_plugin.o \
 		moc_menu.o \
-		moc_controller.o
+		moc_controller.o \
+		moc_model.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -981,9 +983,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
+compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp moc_model.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
+	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp moc_model.cpp
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h \
 		../../model/picture.h \
@@ -1013,6 +1015,16 @@ moc_controller.cpp: ../ROI/menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include ../ROI/controller.h -o moc_controller.cpp
+
+moc_model.cpp: ../../model/picture.h \
+		../../model/histogram.h \
+		../../model/lut.h \
+		../../controller/plugin_interface.h \
+		../../view/canvas_image_label.h \
+		../ROI/model.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include ../ROI/model.h -o moc_model.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1068,6 +1080,9 @@ moc_menu.o: moc_menu.cpp
 
 moc_controller.o: moc_controller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
+
+moc_model.o: moc_model.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_model.o moc_model.cpp
 
 ####### Install
 

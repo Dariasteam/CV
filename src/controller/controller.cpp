@@ -31,7 +31,7 @@ controller::controller() {
   connect(this,&controller::update_basic_info,op_dock->get_image_wid(),
                &image_info_widget::on_update_basic_info);
 
-  plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid());
+  plugin_ctrller = new plugin_controller (main_window.get_options_dock()->get_operation_wid(), main_window.get_footer());
 
   connect(plugin_ctrller,&plugin_controller::generate_image,this,&controller::on_create_image);  
   connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);  

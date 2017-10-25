@@ -10,11 +10,13 @@ conector_plugin::conector_plugin () {
   /* is_no_gui       */  false,
   /* can preview     */  false,
   /* require_lut     */  false,
-  /* require_canvas  */  true
+  /* require_canvas  */  true,
+  /* can overwrite   */  false,
   };
 }
 
 void conector_plugin::close() {  
+
 }
 
 void conector_plugin::instance() {  

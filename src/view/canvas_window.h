@@ -19,6 +19,8 @@
 #include "canvas_image_label.h"
 #include "footer.h"
 
+#include <iostream>
+
 #define HEADER_BAR_SIZE 20
 
 /* Representa una ventana flotante que muestra
@@ -38,7 +40,10 @@ public:
   }
   inline void set_name (const QString& name) { setWindowTitle(name); }
   inline canvas_image_label* get_content () { return showed_image; }
-  inline void set_content (canvas_image_label* content) { showed_image = content; }
+  inline void set_content (canvas_image_label* content) {
+    setWidget(content);
+    showed_image = content;
+  }
 signals:
   void set_active (unsigned id);
   void close (unsigned id);  
@@ -50,3 +55,4 @@ private:
 };
 
 #endif // CANVAS_WINDOWS_H
+

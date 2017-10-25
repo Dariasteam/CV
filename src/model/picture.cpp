@@ -132,9 +132,22 @@ picture* picture::make_copy() {
 
 void picture::restore_from(picture *pic) {
   (*pixmap)    = (*pic->get_pixmap());
+  //delete raw_image;
   (*raw_image) = (*pic->get_raw_image());
   black_and_white = pic->is_black_and_white();
   histograms = pic->get_histograms();
+  basic_info = pic->get_basic_info();
+}
+
+void picture::restore_from(QImage *img) {
+  pixmap = new QPixmap();
+  pixmap->convertFromImage(*img);
+
+  //delete raw_image;
+  raw_image = img;
+  black_and_white = false;
+  generate_histograms();
+  generate_basic_info();
 }
 
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {

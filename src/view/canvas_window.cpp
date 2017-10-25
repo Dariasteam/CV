@@ -12,8 +12,8 @@ canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
   connect(showed_image,SIGNAL(update_coordenates(QPoint)),
            foot,SLOT(on_update_coordenate_labels(QPoint)));
 
-  layout()->addWidget(showed_image);
-
+  //layout()->addWidget(showed_image);
+  setWidget(showed_image);
   setFixedSize(pix.size().width(), pix.height() + HEADER_BAR_SIZE);
 
 }

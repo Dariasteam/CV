@@ -36,6 +36,8 @@ public:
   virtual bool operator () (picture* image, LUT* lut) {}
   virtual bool operator () (picture* image, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
+public slots:
+  void on_set_region (QRect);
 signals:
   void update_inform ();
   void set_canvas_image_label (QLabel*);

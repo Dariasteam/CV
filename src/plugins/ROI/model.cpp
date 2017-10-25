@@ -20,6 +20,8 @@ void selectable_pixmap::mousePressEvent(QMouseEvent *ev) {
 void selectable_pixmap::mouseReleaseEvent(QMouseEvent *ev) {
   end_point = ev->pos();
   selecting = false;
+  QRect rect (start_point, end_point);
+  emit update_region(rect);
 }
 
 void selectable_pixmap::mouseMoveEvent(QMouseEvent *ev) {   
@@ -34,7 +36,7 @@ void selectable_pixmap::paintEvent(QPaintEvent *ev) {
   QPainter painter(this);
   painter.drawPixmap(0,0, *pixmap());
   if (area_selected) {
-    QRect rect (start_point, end_point);
+    QRect rect (start_point, end_point);    
     painter.drawRect(rect);
   }
 }
