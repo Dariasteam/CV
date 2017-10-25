@@ -22,14 +22,18 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid, footer* f
            this, &plugin_controller::on_preview_toggled);
 }
 
+#include <iostream>
+
 bool plugin_controller::operator ()(canvas_window* canvas,
                                     PluginInterface* op,
                                     picture* pic) {
 
   current_operation = op;
   current_canvas = canvas;  
-  backup_pic = pic->make_copy();  
   backup_canvas = canvas->get_content();
+
+
+  backup_pic = new picture (pic);
   modified_pic = pic;
 
   connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),
@@ -37,7 +41,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
 
   connect((PluginController*)op->get_controller(),
           SIGNAL(set_canvas_image_label(QLabel*)),this,
-          SLOT(on_change_image_label(QLabel*)));
+          SLOT(on_change_image_label(QLabel*)));  
 
   plugin_metainfo info = op->get_meta_info();
 
@@ -67,9 +71,6 @@ bool plugin_controller::operator ()(canvas_window* canvas,
     if (((PluginController*)op->get_controller())
       ->operator ()(modified_pic, current_canvas->get_content())) return false;
   }
-
-
-  //update_view();
 }
 
 void plugin_controller::update_view() {  
@@ -85,13 +86,25 @@ void plugin_controller::update_view() {
   current_canvas->update();
 }
 
+#include <iostream>
+
 void plugin_controller::on_apply(bool b) {
   current_canvas->set_content(backup_canvas);
   if (overwrite) {
     current_canvas->set_pixmap(modified_pic->get_pixmap());
   } else {
-    emit generate_image(modified_pic);
+    current_canvas->set_pixmap(backup_pic->get_pixmap());
+
+    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
+
+    emit generate_image(modified_pic->make_copy());
+
+    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
+
     modified_pic->restore_from(backup_pic);
+
+    std::cout << modified_pic->get_pixmap()->size().width() << std::endl;
+    std::cout << backup_pic->get_pixmap()->size().width() << std::endl;
   }   
   on_end();
 }

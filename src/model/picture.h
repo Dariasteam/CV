@@ -71,7 +71,7 @@ public:
   picture (const picture* P);
 
   virtual picture* make_copy ();
-  virtual void restore_from (picture* pic);
+  virtual void restore_from (const picture* pic);
   virtual void crop (picture* pic, QRect rect);
 
   QColor get_color (QPoint pos) { return raw_image->pixel(pos.x(), pos.y()); }

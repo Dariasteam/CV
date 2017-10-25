@@ -104,6 +104,8 @@ bool controller::load_plugin (const QString& path, const QDir& dir) {
 void controller::on_create_image(picture *pic) {  
   mdl->add_image(pic);
   vw->add_canvas_window(* (mdl->get_picture_at(-1)->get_pixmap()), "file_name");
+
+  std::cout << "Hay "  << mdl->get_pictures().size() << " ventanas " << std::endl;
 }
 
 void controller::use_plugin(unsigned index) {  

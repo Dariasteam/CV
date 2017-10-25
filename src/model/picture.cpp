@@ -13,21 +13,35 @@ picture::picture(QImage* image, QString f) :
   generate_basic_info();
 }
 
-picture::picture(const picture& P) :
-  raw_image (new QImage(*P.get_image())),
-  pixmap (new QPixmap (*P.get_pixmap())),
-  black_and_white (P.is_black_and_white()),
-  histograms (P.get_histograms()),
-  basic_info (P.get_basic_info())
-{}
+picture::picture(const picture& P) {
+  QImage*  aux_1 = raw_image;
+  QPixmap* aux_2 = pixmap;
 
-picture::picture(const picture* P) :
-  raw_image (new QImage(*P->get_image())),
-  pixmap (new QPixmap (*P->get_pixmap())),
-  black_and_white (P->is_black_and_white()),
-  histograms (P->get_histograms()),
-  basic_info (P->get_basic_info())
-{}
+  raw_image = new QImage  (*P.get_image());
+  pixmap =    new QPixmap (*P.get_pixmap());
+
+  //delete aux_1;
+  //delete aux_2;
+
+  black_and_white  = P.is_black_and_white();
+  histograms = P.get_histograms();
+  basic_info = P.get_basic_info();
+}
+
+picture::picture(const picture* P) {
+  QImage*  aux_1 = raw_image;
+  QPixmap* aux_2 = pixmap;
+
+  raw_image = new QImage(*P->get_image());
+  pixmap = new QPixmap (*P->get_pixmap());
+
+  //delete aux_1;
+  //delete aux_2;
+
+  black_and_white  = P->is_black_and_white();
+  histograms = P->get_histograms();
+  basic_info = P->get_basic_info();
+}
 
 void picture::generate_histograms() {
   histograms.clear();
@@ -130,20 +144,33 @@ picture* picture::make_copy() {
   return new picture (this);
 }
 
-void picture::restore_from(picture *pic) {
-  (*pixmap)    = (*pic->get_pixmap());
-  //delete raw_image;
-  (*raw_image) = (*pic->get_raw_image());
+#include <iostream>
+
+void picture::restore_from(const picture *pic) {
+  QImage*  aux_1 = raw_image;
+  QPixmap* aux_2 = pixmap;
+
+  raw_image = new QImage(*pic->get_raw_image());
+  pixmap = new QPixmap (QPixmap::fromImage(*raw_image));
+
+  //delete aux_1;
+  //delete aux_2;
+
   black_and_white = pic->is_black_and_white();
   histograms = pic->get_histograms();
   basic_info = pic->get_basic_info();
 }
 
 void picture::crop (picture* pic, QRect rect) {
+  QImage*  aux_1 = raw_image;
+  QPixmap* aux_2 = pixmap;
 
   raw_image = new QImage(raw_image->copy(rect));
-  //delete raw_image;
   pixmap = new QPixmap (pixmap->fromImage(*raw_image));
+
+  //delete aux_1;
+  //delete aux_2;
+
   black_and_white = pic->is_black_and_white();
   generate_histograms();
   generate_basic_info();
