@@ -14,7 +14,7 @@ bool controller::operator () (picture* image, LUT* lut) {
 
 bool controller::operator ()() {
   ((PluginModelLut*)model)->restore_backup();
-  picture* img = ((PluginModelLut*)model)->get_canvas();
+  picture* img = ((PluginModelLut*)model)->get_image();
   std::vector<double> transform;  
 
   if (pal)
