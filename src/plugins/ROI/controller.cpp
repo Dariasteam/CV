@@ -16,17 +16,17 @@ bool controller::operator () (picture* image, canvas_image_label* canvas) {
            &selectable_pixmap::update_region, this, &controller::on_set_region);
 
   emit set_canvas_image_label((QLabel*)((PluginModelCanvas*)mdl)->get_label());
+  return true;
 }
 
-bool controller::operator ()() {  
-  emit update_inform();
+bool controller::operator ()() {    
   return true;
 }
 
 void controller::on_set_region(QRect rect) {
   if (rect.size().width() > 1 && rect.size().height() > 1) {
-    mdl->restore_backup();
-    QImage crop_img = mdl->get_image()->get_raw_image()->copy(rect);
-    mdl->get_image()->restore_from(&crop_img);
+    //mdl->restore_backup();
+    //QImage crop_img = mdl->get_image()->get_raw_image()->copy(rect);
+    mdl->get_image()->crop(mdl->get_image(), rect);
   }
 }
