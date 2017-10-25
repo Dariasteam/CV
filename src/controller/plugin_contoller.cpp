@@ -86,15 +86,13 @@ void plugin_controller::update_view() {
 }
 
 void plugin_controller::on_apply(bool b) {
+  current_canvas->set_content(backup_canvas);
   if (overwrite) {
-    current_canvas->set_content(backup_canvas);
-
-    //current_canvas->set_pixmap(modified_pic->get_pixmap());
-  } else {    
-    current_canvas->set_content(backup_canvas);
-    // modified_pic->restore_from(backup_pic);
+    current_canvas->set_pixmap(modified_pic->get_pixmap());
+  } else {
     emit generate_image(modified_pic);
-  }  
+    modified_pic->restore_from(backup_pic);
+  }   
   on_end();
 }
 
