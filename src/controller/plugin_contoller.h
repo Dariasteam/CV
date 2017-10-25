@@ -45,7 +45,8 @@ signals:
   void overwrite_image(picture*);
   void generate_image(picture*);
 private slots:
-  void update_view ();  
+  void update_view ();
+  void on_change_image_label (QLabel* canv);
 };
 
 #endif // PLUGIN_CONTOLLER_H

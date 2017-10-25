@@ -55,14 +55,12 @@ public:
 };
 
 class PluginModelCanvas : public PluginModel {
-protected:
-  image_canvas* slct_pixmap;
-  canvas_image_label* label;
-public:
-  inline image_canvas* get_selectable_pixmap () { return slct_pixmap; }
+protected:  
+  QLabel* label;
+public:  
   virtual void create_selectable_pixmap (QPixmap& pix) {}
-  void set_label (canvas_image_label* lbl) { label = lbl; }
-  canvas_image_label* get_label () { return label; }
+  void set_label (QLabel* lbl) { label = lbl; }
+  QLabel* get_label () { return label; }
 };
 
 class PluginController: public QObject {
@@ -82,7 +80,9 @@ public:
   virtual bool operator () (picture* image, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;
+  virtual void set_canvas_image_label (QLabel *) = 0;
 };
+
 
 class PluginInterface {
 protected:

@@ -16,17 +16,8 @@
 
 #include <iostream>
 
-class ImageCanvas : public QLabel {
-  Q_OBJECT
-public:
-  ImageCanvas (QPixmap& pix, QWidget* parent = nullptr) :
-    QLabel (parent)
-  {
-    setPixmap(pix);
-  }
-};
 
-class selectable_pixmap : public ImageCanvas {
+class selectable_pixmap : public QLabel {
   Q_OBJECT
 public:
   explicit selectable_pixmap (QPixmap& pix);
@@ -42,17 +33,18 @@ private:
   void mousePressEvent(QMouseEvent *ev);
   void mouseReleaseEvent(QMouseEvent *ev);
   void paintEvent(QPaintEvent* ev);
+
+signals:
+  void update_coordenates (QPoint);
+
 };
-
-
 
 class model : public PluginModelCanvas {
 private:
-
 public:
   model();
   virtual void create_selectable_pixmap(QPixmap& pix) {
-    slct_pixmap = (image_canvas*)new selectable_pixmap (pix);
+    label = (QLabel*)new selectable_pixmap (pix);
   }
 };
 

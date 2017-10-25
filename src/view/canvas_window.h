@@ -33,7 +33,7 @@ public:
   canvas_window(unsigned id, QPixmap& pixmap, footer* foot,
                 QString name, QWidget* parent = nullptr);
   inline void set_pixmap (const QPixmap* pix) {
-    showed_image->get_canvas()->setPixmap(*pix);
+    showed_image->setPixmap(*pix);
     showed_image->update();
   }
   inline void set_name (const QString& name) { setWindowTitle(name); }

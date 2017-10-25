@@ -3,10 +3,11 @@
 model::model() {}
 
 selectable_pixmap::selectable_pixmap(QPixmap& pix) :
-  ImageCanvas(pix),
   selecting (false),
   area_selected (false)
-{}
+{
+  setPixmap(pix);
+}
 
 void selectable_pixmap::mousePressEvent(QMouseEvent *ev) {
   start_point = ev->pos();

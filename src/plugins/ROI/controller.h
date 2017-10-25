@@ -25,6 +25,7 @@ public:
   virtual bool operator () (picture* image, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;
+  virtual void set_canvas_image_label (QLabel*) = 0;
 };
 
 class controller : public plugin_controller {
@@ -36,7 +37,8 @@ public:
   virtual bool operator () (picture* image, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
 signals:
-  void update_inform ();  
+  void update_inform ();
+  virtual void set_canvas_image_label (QLabel*);
 };
 
 #endif // CONTROLLER_H

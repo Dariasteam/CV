@@ -10,7 +10,7 @@
 #include <QRect>
 #include <QBoxLayout>
 #include <QPainter>
-
+/*
 class image_canvas : public QLabel {
   Q_OBJECT
 public:
@@ -20,16 +20,16 @@ public:
     setPixmap(pix);
   }
 };
-
-class canvas_image_label : public QFrame {
+*/
+class canvas_image_label : public QLabel {
   Q_OBJECT
 public:
   explicit canvas_image_label(QPixmap& pixmap, QWidget *parent = nullptr);
-  virtual void set_canvas (image_canvas* img_c);
-  image_canvas* get_canvas () { return img_canvas; }
+  //virtual void set_canvas (image_canvas* img_c);
+  //image_canvas* get_pixmap () { return img_canvas; }
 private:
-  image_canvas* img_canvas;
-  QBoxLayout* layout;
+  //image_canvas* img_canvas;
+  //QBoxLayout* layout;
   void mouseMoveEvent(QMouseEvent *ev);
 signals:
   void update_coordenates (QPoint);

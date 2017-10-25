@@ -46,6 +46,10 @@ bool plugin_controller::operator ()(canvas_window* canvas,
       ->operator ()(pic, current_canvas->get_content())) return false;
   }
 
+  connect((PluginController*)op->get_controller(),
+          SIGNAL(set_canvas_image_label(QLabel*)),this,
+          SLOT(on_change_image_label(QLabel*)));
+
 
 
   if (!op->get_meta_info().can_preview) {
@@ -123,5 +127,9 @@ void plugin_controller::on_overwrite_toggled(bool b) {
 void plugin_controller::on_preview_toggled(bool b) {
   preview = b;
   update_view();
+}
+
+void plugin_controller::on_change_image_label(QLabel *canv) {
+
 }
 
