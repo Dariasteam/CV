@@ -25,10 +25,12 @@ plugin_controller::plugin_controller(operation_options_widget* op_wid, footer* f
 bool plugin_controller::operator ()(canvas_window* canvas,
                                     PluginInterface* op,
                                     picture* pic) {
+
   current_operation = op;
-  current_canvas = canvas;
-  backup_pic = pic->make_copy();
+  current_canvas = canvas;  
+  backup_pic = pic->make_copy();  
   backup_canvas = canvas->get_content();
+  modified_pic = pic;
 
   connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),
            this,SLOT(update_view()));
@@ -37,19 +39,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
           SIGNAL(set_canvas_image_label(QLabel*)),this,
           SLOT(on_change_image_label(QLabel*)));
 
-  modified_pic = pic;  
-
-
   plugin_metainfo info = op->get_meta_info();
-
-  LUT* lut = new LUT;
-  if (info.require_lut) {
-    if (((PluginController*)op->get_controller())
-        ->operator ()(pic, lut)) return false;
-  } else if (info.require_image_canvas) {
-    if (((PluginController*)op->get_controller())
-      ->operator ()(pic, current_canvas->get_content())) return false;
-  }
 
   preview = op->get_meta_info().can_preview;
   overwrite = op->get_meta_info().can_overwrite;
@@ -68,7 +58,18 @@ bool plugin_controller::operator ()(canvas_window* canvas,
     op_widget->get_overwrite()->setCheckable(true);
   }
 
-  update_view();
+
+  LUT* lut = new LUT;
+  if (info.require_lut) {
+    if (((PluginController*)op->get_controller())
+        ->operator ()(modified_pic, lut)) return false;
+  } else if (info.require_image_canvas) {
+    if (((PluginController*)op->get_controller())
+      ->operator ()(modified_pic, current_canvas->get_content())) return false;
+  }
+
+
+  //update_view();
 }
 
 void plugin_controller::update_view() {  
@@ -86,14 +87,13 @@ void plugin_controller::update_view() {
 
 void plugin_controller::on_apply(bool b) {
   if (overwrite) {
-    current_canvas->set_pixmap(modified_pic->get_pixmap());
-  } else {
     current_canvas->set_content(backup_canvas);
-    current_canvas->set_pixmap(backup_pic->get_pixmap());
-    picture* aux_pic = modified_pic;
 
-    //modified_pic->restore_from(backup_pic);
-    emit generate_image(aux_pic);
+    //current_canvas->set_pixmap(modified_pic->get_pixmap());
+  } else {    
+    current_canvas->set_content(backup_canvas);
+    // modified_pic->restore_from(backup_pic);
+    emit generate_image(modified_pic);
   }  
   on_end();
 }
@@ -101,14 +101,14 @@ void plugin_controller::on_apply(bool b) {
 void plugin_controller::on_cancel(bool b) {
   modified_pic->restore_from(backup_pic);
   current_canvas->set_pixmap(backup_pic->get_pixmap());  
-  current_canvas->set_content(backup_canvas);
-  //delete modified_canvas;
+  current_canvas->set_content(backup_canvas);  
   emit update_histogram(backup_pic->get_histograms());
   emit update_basic_info(backup_pic->get_basic_info());
   on_end();
 }
 
 void plugin_controller::on_end() {
+
   disconnect((view_interface*)current_operation->get_view(),SIGNAL(update_inform()),this,SLOT(update_view()));
   delete backup_pic;
   op_widget->on_clear_widget();
@@ -119,22 +119,26 @@ void plugin_controller::on_end() {
 
   modified_canvas = nullptr;
 
-  current_operation->uninstance();
+//  current_operation->uninstance();
 
   current_operation = nullptr;
   backup_pic = nullptr;
-  modified_pic = nullptr;  
+  modified_pic = nullptr;    
 }
 
 void plugin_controller::on_clear() {
+
   if (modified_pic != nullptr && backup_pic != nullptr && current_canvas != nullptr) {
     modified_pic->restore_from(backup_pic);
     current_canvas->set_pixmap(backup_pic->get_pixmap());
     delete backup_pic;
   }
+
+  /*
   op_widget->on_clear_widget();
   if (current_operation != nullptr)
-    current_operation->uninstance();
+    current_operation->uninstance();  
+    */
 }
 
 void plugin_controller::on_overwrite_toggled(bool b) {

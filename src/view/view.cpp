@@ -44,6 +44,8 @@ void view::add_canvas_window(QPixmap &pixmap, QString name) {
 
   aux_canvas->raise();
   aux_canvas->show();
+
+  emit image_focused(key);
 }
 
 canvas_window* view::get_active_canvas() {

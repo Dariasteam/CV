@@ -139,13 +139,12 @@ void picture::restore_from(picture *pic) {
   basic_info = pic->get_basic_info();
 }
 
-void picture::restore_from(QImage *img) {
-  pixmap = new QPixmap();
-  pixmap->convertFromImage(*img);
+void picture::crop (picture* pic, QRect rect) {
 
+  raw_image = new QImage(raw_image->copy(rect));
   //delete raw_image;
-  raw_image = img;
-  black_and_white = false;
+  pixmap = new QPixmap (pixmap->fromImage(*raw_image));
+  black_and_white = pic->is_black_and_white();
   generate_histograms();
   generate_basic_info();
 }

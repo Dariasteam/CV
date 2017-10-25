@@ -17,8 +17,12 @@
 class controller : public QObject {
   Q_OBJECT
 private:
-  MainWindow main_window;
-  model mdl;
+  MainWindow* main_window;
+  view* vw;
+  model* mdl;
+  footer* foot;
+  options_dock* op_dock;
+
   unsigned active_image;
   plugin_controller* plugin_ctrller;
 public:
