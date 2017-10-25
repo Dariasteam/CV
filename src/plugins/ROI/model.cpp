@@ -4,12 +4,15 @@ model::model() {}
 
 selectable_pixmap::selectable_pixmap(QPixmap& pix) :
   selecting (false),
-  area_selected (false)
+  area_selected (false)  
 {
+  setMouseTracking(true);
   setPixmap(pix);
 }
 
 void selectable_pixmap::mousePressEvent(QMouseEvent *ev) {
+  area_selected = false;
+  repaint();
   start_point = ev->pos();
   selecting = true;
 }
@@ -19,7 +22,7 @@ void selectable_pixmap::mouseReleaseEvent(QMouseEvent *ev) {
   selecting = false;
 }
 
-void selectable_pixmap::mouseMoveEvent(QMouseEvent *ev) {  
+void selectable_pixmap::mouseMoveEvent(QMouseEvent *ev) {   
   if (selecting) {
     area_selected = true;
     end_point = ev->pos();

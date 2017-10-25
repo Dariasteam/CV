@@ -36,7 +36,6 @@ private:
 
 signals:
   void update_coordenates (QPoint);
-
 };
 
 class model : public PluginModelCanvas {

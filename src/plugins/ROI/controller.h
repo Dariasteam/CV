@@ -38,7 +38,7 @@ public:
   controller (QWidget* mn, PluginModel* mdl);
 signals:
   void update_inform ();
-  virtual void set_canvas_image_label (QLabel*);
+  void set_canvas_image_label (QLabel*);
 };
 
 #endif // CONTROLLER_H
