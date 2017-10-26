@@ -7,6 +7,7 @@
 #include <QSlider>
 #include <QBoxLayout>
 #include <QLabel>
+#include <QCheckBox>
 
 #define BRIGHTNESS_TXT "Brillo"
 #define CONTRAST_TXT    "Contraste"
@@ -14,6 +15,8 @@
 #define R_TEXT "R"
 #define G_TEXT "G"
 #define B_TEXT "B"
+
+#define FIXED_TEXT "Bloquear canales"
 
 #define MIN_RANGE_B 1
 #define MAX_RANGE_B 1000
@@ -65,6 +68,7 @@ private:
   b_c_slider* b;
 
   QBoxLayout* layout;
+  bool fixed;
 
 public:
   explicit slider_group (const QString& name_1,
@@ -86,25 +90,28 @@ public:
     connect(b->get_slider(),SIGNAL(sliderMoved(int)),
             this, SLOT(on_propagate_values(int)));
 
-
-    layout->addWidget(r);
-    layout->addWidget(g);
-    layout->addWidget(b);
-  }
-
-  void set_fixed () {
     connect(r->get_slider(),SIGNAL(valueChanged(int)),
             this, SLOT(on_replicate_values(int)));
     connect(g->get_slider(),SIGNAL(valueChanged(int)),
             this, SLOT(on_replicate_values(int)));
     connect(b->get_slider(),SIGNAL(valueChanged(int)),
             this, SLOT(on_replicate_values(int)));
+
+    layout->addWidget(r);
+    layout->addWidget(g);
+    layout->addWidget(b);
+  }  
+
+  void set_fixed (bool f) {
+    fixed = f;
   }
 private slots:
   void on_replicate_values (int v) {
-    r->get_slider()->setValue(v);
-    g->get_slider()->setValue(v);
-    b->get_slider()->setValue(v);
+    if (fixed) {
+      r->get_slider()->setValue(v);
+      g->get_slider()->setValue(v);
+      b->get_slider()->setValue(v);
+    }
   }
 
   void on_propagate_values (int v) {
@@ -124,14 +131,16 @@ private:
   QBoxLayout* layout;
   slider_group* brightness_sliders;
   slider_group* contrast_sliders;
+  QCheckBox* fixed_checkbox;
 public:
   explicit menu(QWidget *parent = nullptr);  
   inline slider_group* get_bright_values ()   { return brightness_sliders;}
-  inline slider_group* get_contrast_values () { return contrast_sliders;}
-
-  void set_fixed () {
-    brightness_sliders->set_fixed();
-    contrast_sliders->set_fixed();
+  inline slider_group* get_contrast_values () { return contrast_sliders;} 
+  QCheckBox* get_fixed_checkbox () { return fixed_checkbox; }
+private slots:
+  void on_set_fixed (bool f) {
+    brightness_sliders->set_fixed(f);
+    contrast_sliders->set_fixed(f);
   }
 };
 

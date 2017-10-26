@@ -4,7 +4,7 @@
 
 conector_plugin::conector_plugin () {  
   meta_info = {
-  /* name            */  "seleccionar área de interés",
+  /* name            */  "Seleccionar área de interés",
   /* category        */  "core",
   /* can_work_no_gui */  false,
   /* is_no_gui       */  false,

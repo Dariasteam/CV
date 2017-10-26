@@ -15,8 +15,11 @@ bool controller::operator () (picture* image, LUT* lut) {
   ((PluginModelLut*)mdl)->set_image(image);
   picture* img = ((PluginModelLut*)mdl)->get_image();
 
-  if (image->is_black_and_white())
-    ((menu*)view)->set_fixed();
+  if (image->is_black_and_white()) {
+    QCheckBox* chk = ((menu*)view)->get_fixed_checkbox();
+    chk->setChecked(true);
+    chk->setEnabled(false);
+  }
 
   on_change_brightness(DEFAULT_B, DEFAULT_B, DEFAULT_B);
   on_change_contrast(DEFAULT_C, DEFAULT_C, DEFAULT_C);
