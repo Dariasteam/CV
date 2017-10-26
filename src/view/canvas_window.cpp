@@ -2,7 +2,7 @@
 
 canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
                              QString name, QWidget* parent) :
-                             QMdiSubWindow (parent, Qt::WindowSystemMenuHint), ID (id)
+                             QMdiSubWindow (parent), ID (id)
 {
   setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   showed_image = new canvas_image_label(pix, this);

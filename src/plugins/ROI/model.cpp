@@ -30,6 +30,7 @@ void selectable_pixmap::mouseMoveEvent(QMouseEvent *ev) {
     end_point = ev->pos();
     repaint();
   }
+  emit update_coordenates(ev->pos());
 }
 
 void selectable_pixmap::paintEvent(QPaintEvent *ev) {

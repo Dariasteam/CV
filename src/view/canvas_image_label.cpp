@@ -9,5 +9,5 @@ canvas_image_label::canvas_image_label(QPixmap& pixmap, QWidget *parent) :
 }
 
 void canvas_image_label::mouseMoveEvent(QMouseEvent* ev) {
-  update_coordenates(ev->pos());    
+  emit update_coordenates(ev->pos());
 }

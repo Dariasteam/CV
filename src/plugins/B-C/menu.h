@@ -76,6 +76,7 @@ public:
                          const QString& name_3,
                          int a, int z, int c) {
 
+    fixed = false;
     r = new b_c_slider(name_1, a, z, c);
     g = new b_c_slider(name_2, a, z, c);
     b = new b_c_slider(name_3, a, z, c);
