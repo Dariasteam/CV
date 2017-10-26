@@ -14,7 +14,7 @@ struct LUT {
 private:
 
   virtual void each_value_modificator(std::function<double (double)> lambda,
-                              std::vector<double> &vec);
+                                      std::vector<double> &vec);
 
 public:
   LUT();

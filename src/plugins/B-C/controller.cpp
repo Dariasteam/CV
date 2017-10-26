@@ -18,14 +18,35 @@ bool controller::operator () (picture* image, LUT* lut) {
   if (image->is_black_and_white())
     ((menu*)view)->set_fixed();
 
-  ((model*)mdl)->average = img->get_basic_info().average;
+  on_change_brightness(DEFAULT_B, DEFAULT_B, DEFAULT_B);
+  on_change_contrast(DEFAULT_C, DEFAULT_C, DEFAULT_C);
+  operator ()();
 }
 
-bool controller::operator ()() {
+bool controller::operator ()() {  
   ((PluginModelLut*)mdl)->restore_backup();
   picture* img = ((PluginModelLut*)mdl)->get_image();
 
   LUT* lut = ((PluginModelLut*)mdl)->get_lut();
+
+// RED
+
+  rgb_float_values beta = ((model*)mdl)->brightness;
+  rgb_float_values alpha = ((model*)mdl)->contrast;
+
+  lut->each_value_modificator_r([&](double i) -> double {
+    return alpha.r * i + beta.r;
+  });
+
+// GREEN
+  lut->each_value_modificator_g([&](double i) -> double {
+    return alpha.g * i + beta.g;
+  });
+
+// BLUE
+  lut->each_value_modificator_b([&](double i) -> double {
+    return alpha.b * i + beta.b;
+  });
 
   img->each_pixel_modificator([&](QColor pixel) -> QColor {
     unsigned r = lut->r [pixel.red()  ];
@@ -39,33 +60,19 @@ bool controller::operator ()() {
 }
 
 void controller::on_change_brightness(int r, int g, int b) {
-  LUT* lut = ((PluginModelLut*)mdl)->get_lut();
-// RED
-  if (r != ((model*)mdl)->brightness.r) {
-    ((model*)mdl)->brightness.r = r;
-    lut->each_value_modificator_r([&](double i) -> double {
-      return i * ((model*)mdl)->brightness.r / ((model*)mdl)->average.r;
-    });
-  }
-// GREEN
-  if (g != ((model*)mdl)->brightness.g) {
-    ((model*)mdl)->brightness.g = g;
-    lut->each_value_modificator_g([&](double i) -> double {
-      return i * ((model*)mdl)->brightness.g / ((model*)mdl)->average.g;
-    });
-  }
-// BLUE
-  if (b != ((model*)mdl)->brightness.b) {
-    ((model*)mdl)->brightness.b = b;
-    lut->each_value_modificator_b([&](double i) -> double {
-      return i * ((model*)mdl)->brightness.b / ((model*)mdl)->average.b;
-    });
-  }
-
+  ((model*)mdl)->brightness = {
+    double(r) / 10,
+    double(g) / 10,
+    double(b) / 10
+  };
   operator ()();
 }
 
 void controller::on_change_contrast  (int r, int g, int b) {
-  ((model*)mdl)->contrast = {r, g, b};
+  ((model*)mdl)->contrast = {
+    double(r) / 10,
+    double(g) / 10,
+    double(b) / 10
+  };
   operator ()();
 }

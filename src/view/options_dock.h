@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QBoxLayout>
 #include <QWidget>
+#include <QScrollArea>
 
 #include "histogram_widget.h"
 #include "image_info_widget.h"

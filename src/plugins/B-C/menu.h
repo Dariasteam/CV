@@ -15,8 +15,13 @@
 #define G_TEXT "G"
 #define B_TEXT "B"
 
-#define MIN_RANGE 1
-#define MAX_RANGE 100
+#define MIN_RANGE_B 1
+#define MAX_RANGE_B 1000
+#define DEFAULT_B 100
+
+#define MIN_RANGE_C 1
+#define MAX_RANGE_C 100
+#define DEFAULT_C 10
 
 class view_interface : public QWidget {
   Q_OBJECT
@@ -31,13 +36,13 @@ private:
   QLabel* value_indicator;
   QSlider* slider;
 public:
-  explicit b_c_slider (const QString& channel_name) {
+  explicit b_c_slider (const QString& channel_name, int a, int b, int c) {
     layout = new QBoxLayout(QBoxLayout::LeftToRight, this);
     value_indicator = new QLabel (this);
     value_indicator->setMinimumWidth(20);
     slider = new QSlider(Qt::Horizontal, this);
-    slider->setRange(MIN_RANGE,MAX_RANGE);
-    slider->setValue(MAX_RANGE / 2);
+    slider->setRange(a,b);
+    slider->setValue(c);
 
     layout->addWidget(new QLabel (channel_name, this));
     layout->addWidget(slider);
@@ -64,10 +69,12 @@ private:
 public:
   explicit slider_group (const QString& name_1,
                          const QString& name_2,
-                         const QString& name_3) {
-    r = new b_c_slider(name_1);
-    g = new b_c_slider(name_2);
-    b = new b_c_slider(name_3);
+                         const QString& name_3,
+                         int a, int z, int c) {
+
+    r = new b_c_slider(name_1, a, z, c);
+    g = new b_c_slider(name_2, a, z, c);
+    b = new b_c_slider(name_3, a, z, c);
 
     layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     setLayout(layout);

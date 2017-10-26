@@ -8,10 +8,7 @@ class model : public PluginModelLut {
 public:
   rgb_float_values brightness;
   rgb_float_values contrast;
-  rgb_float_values average;
 public:
-
-
   model();
 };
 

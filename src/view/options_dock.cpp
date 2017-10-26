@@ -1,8 +1,11 @@
 #include "options_dock.h"
 
 options_dock::options_dock(QWidget* parent) : QDockWidget(parent) {
-  QWidget* base_widget = new QWidget (this);
-  setWidget(base_widget);
+  QScrollArea* scroll_area = new QScrollArea(this);
+  setWidget(scroll_area);
+  scroll_area->setWidgetResizable(true);
+
+  QWidget* base_widget = new QWidget ();
 
   setDisabled(true);
 
@@ -22,4 +25,7 @@ options_dock::options_dock(QWidget* parent) : QDockWidget(parent) {
   operation_wid = new operation_options_widget (base_widget);
   layout->addWidget(operation_wid);
   layout->addStretch(0);
+
+  scroll_area->setWidget(base_widget);
+
 }
