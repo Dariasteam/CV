@@ -110,7 +110,7 @@ void plugin_controller::on_cancel(bool b) {
 }
 
 void plugin_controller::on_end() {
-
+/*
   disconnect((view_interface*)current_operation->get_view(),SIGNAL(update_inform()),this,SLOT(update_view()));
   delete backup_pic;
   op_widget->on_clear_widget();
@@ -120,6 +120,8 @@ void plugin_controller::on_end() {
     delete modified_canvas;
 
   modified_canvas = nullptr;
+*/
+  op_widget->on_clear_widget();
 
 //  current_operation->uninstance();
 

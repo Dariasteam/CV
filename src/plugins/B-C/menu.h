@@ -17,10 +17,10 @@
 
 #define MIN_RANGE_B 1
 #define MAX_RANGE_B 1000
-#define DEFAULT_B 100
+#define DEFAULT_B 0
 
 #define MIN_RANGE_C 1
-#define MAX_RANGE_C 100
+#define MAX_RANGE_C 30
 #define DEFAULT_C 10
 
 class view_interface : public QWidget {
@@ -79,12 +79,12 @@ public:
     layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     setLayout(layout);
 
-    connect(r->get_slider(),SIGNAL(sliderReleased()),
-            this, SLOT(on_propagate_values()));
-    connect(g->get_slider(),SIGNAL(sliderReleased()),
-            this, SLOT(on_propagate_values()));
-    connect(b->get_slider(),SIGNAL(sliderReleased()),
-            this, SLOT(on_propagate_values()));
+    connect(r->get_slider(),SIGNAL(sliderMoved(int)),
+            this, SLOT(on_propagate_values(int)));
+    connect(g->get_slider(),SIGNAL(sliderMoved(int)),
+            this, SLOT(on_propagate_values(int)));
+    connect(b->get_slider(),SIGNAL(sliderMoved(int)),
+            this, SLOT(on_propagate_values(int)));
 
 
     layout->addWidget(r);
@@ -107,7 +107,7 @@ private slots:
     b->get_slider()->setValue(v);
   }
 
-  void on_propagate_values () {
+  void on_propagate_values (int v) {
     update_values (
       r->get_slider()->value(),
       g->get_slider()->value(),

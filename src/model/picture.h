@@ -93,6 +93,7 @@ public:
   inline void set_pixmap (QPixmap* pix) { pixmap = pix; }
 
   inline QSize get_size () { return pixmap->size(); }
+  inline unsigned get_sz () { return sz; }
   inline QString get_format () const { return format; }
 
   inline QImage* get_raw_image ()          const { return raw_image; }

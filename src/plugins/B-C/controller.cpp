@@ -35,17 +35,17 @@ bool controller::operator ()() {
   rgb_float_values alpha = ((model*)mdl)->contrast;
 
   lut->each_value_modificator_r([&](double i) -> double {
-    return alpha.r * i + beta.r;
+    return alpha.r * i + beta.r - 1;
   });
 
 // GREEN
   lut->each_value_modificator_g([&](double i) -> double {
-    return alpha.g * i + beta.g;
+    return alpha.g * i + beta.g - 1;
   });
 
 // BLUE
   lut->each_value_modificator_b([&](double i) -> double {
-    return alpha.b * i + beta.b;
+    return alpha.b * i + beta.b - 1;
   });
 
   img->each_pixel_modificator([&](QColor pixel) -> QColor {
