@@ -49,7 +49,7 @@ public:
     backup_image = nullptr;
   }
 
-  virtual void create_selectable_pixmap (QPixmap& pix) {}
+  virtual void create_custom_canvas (QPixmap& pix) {}
   void set_label (QLabel* lbl) { label = lbl; }
   QLabel* get_label () { return label; }
   LUT* get_lut ()         { return lut;                                 }
@@ -87,8 +87,7 @@ public:
   {
     connect ((PluginView*)view,SIGNAL(update_inform()),
              this,SIGNAL(update_inform()));
-  }  
-  //virtual bool operator () (picture* image, LUT* lut) = 0;
+  }    
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;

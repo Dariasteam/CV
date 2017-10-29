@@ -39,11 +39,11 @@ signals:
   void update_region (QRect);
 };
 
-class model : public PluginModelCanvas {
+class model : public PluginModel {
 private:
 public:
   model();
-  virtual void create_selectable_pixmap(QPixmap& pix) {
+  virtual void create_custom_canvas (QPixmap& pix) {
     label = (QLabel*)new selectable_pixmap (pix);
   }
 };

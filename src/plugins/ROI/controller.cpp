@@ -6,15 +6,15 @@ controller::controller(QWidget *mn, PluginModel *mdl) :
   plugin_controller (mn, mdl)
 {}
 
-bool controller::operator () (picture* image, canvas_image_label* canvas) {
+bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canvas) {
 
-  ((PluginModelCanvas*)mdl)->set_image(image);
-  ((PluginModelCanvas*)mdl)->create_selectable_pixmap(*image->get_pixmap());    
+  mdl->set_image(image);
+  mdl->create_custom_canvas(*image->get_pixmap());
 
-  connect (((selectable_pixmap*)((model*)mdl)->get_label()),
+  connect (((selectable_pixmap*)mdl->get_label()),
            &selectable_pixmap::update_region, this, &controller::on_set_region);
 
-  emit set_canvas_image_label((QLabel*)((PluginModelCanvas*)mdl)->get_label());
+  emit set_canvas_image_label((QLabel*)mdl->get_label());
   return true;
 }
 
