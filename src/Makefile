@@ -1163,7 +1163,10 @@ moc_histogram_widget.cpp: view/chart_representation.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/histogram_widget.h -o moc_histogram_widget.cpp
 
-moc_canvas_image_label.cpp: view/canvas_image_label.h \
+moc_canvas_image_label.cpp: model/picture.h \
+		model/histogram.h \
+		model/lut.h \
+		view/canvas_image_label.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/canvas_image_label.h -o moc_canvas_image_label.cpp
@@ -1193,14 +1196,14 @@ moc_operation_options_widget.cpp: controller/plugin_interface.h \
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/operation_options_widget.h -o moc_operation_options_widget.cpp
 
 moc_plugin_contoller.cpp: view/canvas_image_label.h \
+		model/picture.h \
+		model/histogram.h \
+		model/lut.h \
 		view/canvas_window.h \
 		view/options_dock.h \
 		view/histogram_widget.h \
 		view/chart_representation.h \
-		model/histogram.h \
 		view/image_info_widget.h \
-		model/picture.h \
-		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
 		view/footer.h \
@@ -1380,7 +1383,10 @@ histogram_widget.o: view/histogram_widget.cpp view/histogram_widget.h \
 chart_representation.o: view/chart_representation.cpp view/chart_representation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chart_representation.o view/chart_representation.cpp
 
-canvas_image_label.o: view/canvas_image_label.cpp view/canvas_image_label.h
+canvas_image_label.o: view/canvas_image_label.cpp view/canvas_image_label.h \
+		model/picture.h \
+		model/histogram.h \
+		model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o canvas_image_label.o view/canvas_image_label.cpp
 
 indexed_action.o: controller/indexed_action.cpp controller/indexed_action.h
@@ -1396,14 +1402,14 @@ operation_options_widget.o: view/operation_options_widget.cpp view/operation_opt
 
 plugin_contoller.o: controller/plugin_contoller.cpp controller/plugin_contoller.h \
 		view/canvas_image_label.h \
+		model/picture.h \
+		model/histogram.h \
+		model/lut.h \
 		view/canvas_window.h \
 		view/options_dock.h \
 		view/histogram_widget.h \
 		view/chart_representation.h \
-		model/histogram.h \
 		view/image_info_widget.h \
-		model/picture.h \
-		model/lut.h \
 		view/operation_options_widget.h \
 		controller/plugin_interface.h \
 		view/footer.h \

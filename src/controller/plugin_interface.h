@@ -29,6 +29,9 @@ class PluginModel {
 protected:
   picture* backup_image;
   picture* original_image;
+
+  LUT* lut;
+  QLabel* label;
 public:
   PluginModel () :
     backup_image (nullptr),
@@ -45,12 +48,19 @@ public:
     original_image = nullptr;
     backup_image = nullptr;
   }
+
+  virtual void create_selectable_pixmap (QPixmap& pix) {}
+  void set_label (QLabel* lbl) { label = lbl; }
+  QLabel* get_label () { return label; }
+  LUT* get_lut ()         { return lut;                                 }
+  void set_lut (LUT* l)   { lut = l;                                    }
 };
 
+/*
 class PluginModelLut : public PluginModel{
 protected:
   LUT* lut;
-public:
+public:  
   LUT* get_lut ()         { return lut;                                 }
   void set_lut (LUT* l)   { lut = l;                                    }  
 };
@@ -63,6 +73,7 @@ public:
   void set_label (QLabel* lbl) { label = lbl; }
   QLabel* get_label () { return label; }  
 };
+*/
 
 class PluginController: public QObject {
   Q_OBJECT
@@ -77,8 +88,8 @@ public:
     connect ((PluginView*)view,SIGNAL(update_inform()),
              this,SIGNAL(update_inform()));
   }  
-  virtual bool operator () (picture* image, LUT* lut) = 0;
-  virtual bool operator () (picture* image, canvas_image_label* canvas) = 0;
+  //virtual bool operator () (picture* image, LUT* lut) = 0;
+  virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
 signals:
   virtual void update_inform () = 0;
   virtual void set_canvas_image_label (QLabel *) = 0;

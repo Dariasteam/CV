@@ -64,15 +64,9 @@ bool plugin_controller::operator ()(canvas_window* canvas,
     op_widget->get_overwrite()->setChecked(true);
   }
 
-
   LUT* lut = new LUT;
-  if (info.require_lut) {
-    if (((PluginController*)op->get_controller())
-        ->operator ()(modified_pic, lut)) return false;
-  } else if (info.require_image_canvas) {
-    if (((PluginController*)op->get_controller())
-      ->operator ()(modified_pic, current_canvas->get_content())) return false;
-  }
+  if (((PluginController*)op->get_controller())->operator ()
+      (modified_pic, lut, current_canvas->get_content())) return false;
 }
 
 void plugin_controller::update_view() {  

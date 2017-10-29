@@ -5,16 +5,16 @@ controller::controller(QWidget *mn, PluginModel* mdl) :
   pal (true)
 {}
 
-bool controller::operator () (picture* image, LUT* lut) {
-  ((PluginModelLut*)model)->set_lut(lut);
-  ((PluginModelLut*)model)->set_image(image);
 
+bool controller::operator () (picture* image, LUT* lut, canvas_image_label* lbl) {
+  model->set_lut(lut);
+  model->set_image(image);
   operator ()();
 }
 
 bool controller::operator ()() {
-  ((PluginModelLut*)model)->restore_backup();
-  picture* img = ((PluginModelLut*)model)->get_image();
+  model->restore_backup();
+  picture* img = model->get_image();
   std::vector<double> transform;  
 
   if (pal)
@@ -22,7 +22,7 @@ bool controller::operator ()() {
   else
     transform = NTSC;
 
-  LUT* lut = ((PluginModelLut*)model)->get_lut();
+  LUT* lut = model->get_lut();
 
   lut->each_value_modificator_r([&](double i) -> double {
     return i * transform[0];

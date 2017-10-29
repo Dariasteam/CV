@@ -4,7 +4,7 @@
 #include "../../model/picture.h"
 #include "../../controller/plugin_interface.h"
 
-class model : public PluginModelLut {
+class model : public PluginModel {
 public:
   model();
 };

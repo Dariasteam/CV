@@ -18,11 +18,11 @@
 
 #define FIXED_TEXT "Bloquear canales"
 
-#define MIN_RANGE_B 1
-#define MAX_RANGE_B 1000
+#define MIN_RANGE_B -2000
+#define MAX_RANGE_B 2000
 #define DEFAULT_B 0
 
-#define MIN_RANGE_C 1
+#define MIN_RANGE_C 0
 #define MAX_RANGE_C 30
 #define DEFAULT_C 10
 
@@ -46,6 +46,7 @@ public:
     slider = new QSlider(Qt::Horizontal, this);
     slider->setRange(a,b);
     slider->setValue(c);
+    slider->setTracking(false);
 
     layout->addWidget(new QLabel (channel_name, this));
     layout->addWidget(slider);
@@ -84,19 +85,12 @@ public:
     layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     setLayout(layout);
 
-    connect(r->get_slider(),SIGNAL(sliderMoved(int)),
-            this, SLOT(on_propagate_values(int)));
-    connect(g->get_slider(),SIGNAL(sliderMoved(int)),
-            this, SLOT(on_propagate_values(int)));
-    connect(b->get_slider(),SIGNAL(sliderMoved(int)),
-            this, SLOT(on_propagate_values(int)));
-
     connect(r->get_slider(),SIGNAL(valueChanged(int)),
-            this, SLOT(on_replicate_values(int)));
+            this, SLOT(on_propagate_values(int)));
     connect(g->get_slider(),SIGNAL(valueChanged(int)),
-            this, SLOT(on_replicate_values(int)));
+            this, SLOT(on_propagate_values(int)));
     connect(b->get_slider(),SIGNAL(valueChanged(int)),
-            this, SLOT(on_replicate_values(int)));
+            this, SLOT(on_propagate_values(int)));
 
     layout->addWidget(r);
     layout->addWidget(g);
@@ -104,15 +98,29 @@ public:
   }  
 
   void set_fixed (bool f) {
+    if (f) {
+      connect(r->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+      connect(g->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+      connect(b->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+    } else {
+      disconnect(r->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+      disconnect(g->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+      disconnect(b->get_slider(),SIGNAL(valueChanged(int)),
+              this, SLOT(on_replicate_values(int)));
+    }
+
     fixed = f;
   }
 private slots:
-  void on_replicate_values (int v) {
-    if (fixed) {
-      r->get_slider()->setValue(v);
-      g->get_slider()->setValue(v);
-      b->get_slider()->setValue(v);
-    }
+  void on_replicate_values (int v) {    
+    r->get_slider()->setValue(v);
+    g->get_slider()->setValue(v);
+    b->get_slider()->setValue(v);
   }
 
   void on_propagate_values (int v) {
