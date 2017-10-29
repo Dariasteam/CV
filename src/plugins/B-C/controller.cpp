@@ -10,10 +10,10 @@ controller::controller(QWidget *mn, PluginModel* mdl) :
           this,SLOT(on_change_contrast(int,int,int)));
 }
 
-bool controller::operator () (picture* image, LUT* lut) {
-  ((PluginModelLut*)mdl)->set_lut(lut);
-  ((PluginModelLut*)mdl)->set_image(image);
-  picture* img = ((PluginModelLut*)mdl)->get_image();
+bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canvas) {
+  mdl->set_lut(lut);
+  mdl->set_image(image);
+  picture* img = mdl->get_image();
 
   if (image->is_black_and_white()) {
     QCheckBox* chk = ((menu*)view)->get_fixed_checkbox();
@@ -27,10 +27,10 @@ bool controller::operator () (picture* image, LUT* lut) {
 }
 
 bool controller::operator ()() {  
-  ((PluginModelLut*)mdl)->restore_backup();
-  picture* img = ((PluginModelLut*)mdl)->get_image();
+  mdl->restore_backup();
+  picture* img = mdl->get_image();
 
-  LUT* lut = ((PluginModelLut*)mdl)->get_lut();
+  LUT* lut = mdl->get_lut();
 
 // RED
 
