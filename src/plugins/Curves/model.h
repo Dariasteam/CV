@@ -7,8 +7,30 @@
 
 #include <iostream>
 
+#include <QSpinBox>
+#include <QPushButton>
+#include <QWidget>
+
 #define DEPTH 256
 #define DISTANCE 40
+
+class point_representation : public QWidget {
+  Q_OBJECT
+private:
+  QBoxLayout* layout;
+
+  QSpinBox* x;
+  QSpinBox* y;
+
+  QPushButton* close_bttn;
+public:
+  explicit point_representation (unsigned X, unsigned Y,
+                                 QWidget* parent = nullptr);
+public slots:
+  void on_set_values (unsigned x, unsigned y);
+signals:
+  void check_values (unsigned x, unsigned y);
+};
 
 class model : public QObject,
               public PluginModel {
@@ -17,6 +39,7 @@ private:
 public:
   model();  
   QList <QPoint*> points;
+  //QList <point_representation*> info_wids;
   QPoint* current_point;
   QPoint* prev;
   QPoint* next;

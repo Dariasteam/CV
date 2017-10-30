@@ -1,5 +1,24 @@
 #include "menu.h"
 
+point_representation::point_representation(unsigned X, unsigned Y,
+                                           QWidget *parent) :
+  QWidget (parent)
+{
+  layout = new QBoxLayout (QBoxLayout::LeftToRight, this);
+  x = new QSpinBox (this);
+  y = new QSpinBox (this);
+
+  close_bttn = new QPushButton (CLOSE_TXT, this);
+
+  layout->addWidget(x);
+  layout->addWidget(y);
+  layout->addWidget(close_bttn);
+}
+
+void point_representation::on_set_values(unsigned x, unsigned y) {
+
+}
+
 curve_chart::curve_chart(model *mdl) {
   setMouseTracking(true);
 
@@ -10,8 +29,6 @@ curve_chart::curve_chart(model *mdl) {
                SLOT(on_update_point(QPoint,double)));
 
   connect(this,SIGNAL(release()),mdl,SLOT(on_release_point()));
-
-
 }
 
 void curve_chart::mouseMoveEvent(QMouseEvent *ev) {  
@@ -23,8 +40,6 @@ void curve_chart::mouseMoveEvent(QMouseEvent *ev) {
 
   emit update_point(p, factor);
 }
-
-#include <iostream>
 
 void curve_chart::mousePressEvent(QMouseEvent *ev) {  
   double factor = (double(width())/ double(DEPTH));
@@ -44,7 +59,7 @@ menu::menu(model* m, QWidget *parent) :
   connect(m,SIGNAL(update_chart(QList<QPoint*>)),this,
             SLOT(on_update_points(QList<QPoint*>)));
 
-  layout = new QStackedLayout (this);
+  layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
 
   QSizePolicy szp;
   szp.setHorizontalPolicy(QSizePolicy::MinimumExpanding);

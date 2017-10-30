@@ -14,8 +14,11 @@
 #include <QtCharts>
 #include <QChart>
 #include <QStackedLayout>
+#include <QSpinBox>
 
 #include "model.h"
+
+#define CLOSE_TXT "x"
 
 class view_interface : public QWidget {
   Q_OBJECT
@@ -41,7 +44,7 @@ class menu : public view_interface {
   Q_OBJECT
 private:
   model* mdl;
-  QStackedLayout* layout;
+  QBoxLayout* layout;
 
   curve_chart chart_view;
   QChart chart;
