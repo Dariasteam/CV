@@ -14,7 +14,7 @@
 class chart_representation : public QWidget {
 private:
   QChartView view;
-  QChart chart;  
+  QChart chart;
   QAreaSeries* area_series_r;
   QAreaSeries* area_series_g;
   QAreaSeries* area_series_b;  

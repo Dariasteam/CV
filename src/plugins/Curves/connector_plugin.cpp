@@ -21,8 +21,8 @@ void conector_plugin::close() {
 
 void conector_plugin::instance() {  
   if (view == nullptr && mdl == nullptr && ctrller == nullptr) {        
-    view = new menu();        
     mdl = new model ();
+    view = new menu((model*)mdl);
     ctrller = new controller(view, mdl);        
   }
 }

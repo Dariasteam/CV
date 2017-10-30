@@ -5,47 +5,27 @@
 #include "../../controller/plugin_interface.h"
 #include "../../view/canvas_image_label.h"
 
-#include <QPixmap>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QPoint>
-#include <QRect>
-#include <QPainter>
-#include <QLabel>
-#include <QObject>
-
 #include <iostream>
 
+#define DEPTH 256
+#define DISTANCE 40
 
-class selectable_pixmap : public QLabel {
+class model : public QObject,
+              public PluginModel {
   Q_OBJECT
+private:  
 public:
-  explicit selectable_pixmap (QPixmap& pix);
-private:
-
-  QPoint start_point;
-  QPoint end_point;    
-
-  bool selecting;
-  bool area_selected;
-
-  void mouseMoveEvent(QMouseEvent* ev);
-  void mousePressEvent(QMouseEvent *ev);
-  void mouseReleaseEvent(QMouseEvent *ev);
-  void paintEvent(QPaintEvent* ev);
-
+  model();  
+  QList <QPoint*> points;
+  QPoint* current_point;
+  QPoint* prev;
+  QPoint* next;
+public slots:
+  void on_update_point (QPoint original_c, double factor);  
+  void on_click_point (QPoint point, double factor);
+  void on_release_point ();
 signals:
-  void update_coordenates (QPoint);
-  void update_region (QRect);
-};
-
-class model : public PluginModelCanvas {
-private:
-public:
-  model();
-  virtual void create_selectable_pixmap(QPixmap& pix) {
-    label = (QLabel*)new selectable_pixmap (pix);
-  }
+  void update_chart (QList<QPoint*>);
 };
 
 #endif // MODEL_H
