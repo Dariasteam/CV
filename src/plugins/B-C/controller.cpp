@@ -24,9 +24,11 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
   ((model*)mdl)->old_brightness = image->get_basic_info().average;
   ((model*)mdl)->old_contrast = image->get_basic_info().deviation;
 
+  on_change_brightness(((model*)mdl)->old_brightness);
+  on_change_contrast(((model*)mdl)->old_contrast);
 
-  on_change_brightness(((model*)mdl)->old_contrast);
-  on_change_contrast(((model*)mdl)->old_brightness);
+  ((menu*)view)->set_slider_b(((model*)mdl)->old_brightness);
+  ((menu*)view)->set_slider_c(((model*)mdl)->old_contrast);
   operator ()();
 }
 
@@ -36,7 +38,7 @@ bool controller::operator ()() {
 
   LUT* lut = mdl->get_lut();
 
-// RED
+// RED  
 
   rgb_float_values alpha = ((model*)mdl)->contrast / ((model*)mdl)->old_contrast;
   rgb_float_values beta = ((model*)mdl)->brightness - alpha * ((model*)mdl)->old_brightness;

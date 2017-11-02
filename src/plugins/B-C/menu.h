@@ -116,6 +116,12 @@ public:
 
     fixed = f;
   }
+
+  void set_values (rgb_float_values rgb) {
+    r->get_slider()->setValue(rgb.r);
+    g->get_slider()->setValue(rgb.g);
+    b->get_slider()->setValue(rgb.b);
+  }
 private slots:
   void on_replicate_values (int v) {    
     r->get_slider()->setValue(v);
@@ -130,7 +136,7 @@ private slots:
       b->get_slider()->value()
       }
     );
-  }
+  }  
 signals:
   void update_values (rgb_float_values rgb);
 };
@@ -147,11 +153,18 @@ public:
   inline slider_group* get_bright_values ()   { return brightness_sliders;}
   inline slider_group* get_contrast_values () { return contrast_sliders;} 
   QCheckBox* get_fixed_checkbox () { return fixed_checkbox; }
+
+  void set_slider_b (rgb_float_values rgb) {
+    brightness_sliders->set_values(rgb);
+  }
+  void set_slider_c (rgb_float_values rgb) {
+    contrast_sliders->set_values(rgb);
+  }
 private slots:
   void on_set_fixed (bool f) {
     brightness_sliders->set_fixed(f);
     contrast_sliders->set_fixed(f);
-  }
+  }  
 };
 
 #endif // MENU_H
