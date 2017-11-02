@@ -9,6 +9,8 @@
 #include <QLabel>
 #include <QCheckBox>
 
+#include "../../model/picture.h"
+
 #define BRIGHTNESS_TXT "Brillo"
 #define CONTRAST_TXT    "Contraste"
 
@@ -18,13 +20,11 @@
 
 #define FIXED_TEXT "Bloquear canales"
 
-#define MIN_RANGE_B -2000
-#define MAX_RANGE_B 2000
-#define DEFAULT_B 0
+#define MIN_RANGE_B 0
+#define MAX_RANGE_B 255
 
 #define MIN_RANGE_C 0
-#define MAX_RANGE_C 30
-#define DEFAULT_C 10
+#define MAX_RANGE_C 255
 
 class view_interface : public QWidget {
   Q_OBJECT
@@ -124,14 +124,15 @@ private slots:
   }
 
   void on_propagate_values (int v) {
-    update_values (
+    emit update_values ({
       r->get_slider()->value(),
       g->get_slider()->value(),
       b->get_slider()->value()
+      }
     );
   }
 signals:
-  void update_values (int, int, int);
+  void update_values (rgb_float_values rgb);
 };
 
 class menu : public view_interface {  

@@ -3,11 +3,11 @@
 controller::controller(QWidget *mn, PluginModel* mdl) :
   plugin_controller (mn, mdl)
 {
-  connect(((menu*)mn)->get_bright_values(),SIGNAL(update_values(int,int,int)),
-          this,SLOT(on_change_brightness(int,int,int)));
+  connect(((menu*)mn)->get_bright_values(),SIGNAL(update_values(rgb_float_values)),
+          this,SLOT(on_change_brightness(rgb_float_values)));
 
-  connect(((menu*)mn)->get_contrast_values(),SIGNAL(update_values(int,int,int)),
-          this,SLOT(on_change_contrast(int,int,int)));
+  connect(((menu*)mn)->get_contrast_values(),SIGNAL(update_values(rgb_float_values)),
+          this,SLOT(on_change_contrast(rgb_float_values)));
 }
 
 bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canvas) {
@@ -21,8 +21,12 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
     chk->setEnabled(false);
   }
 
-  on_change_brightness(DEFAULT_B, DEFAULT_B, DEFAULT_B);
-  on_change_contrast(DEFAULT_C, DEFAULT_C, DEFAULT_C);
+  ((model*)mdl)->old_brightness = image->get_basic_info().average;
+  ((model*)mdl)->old_contrast = image->get_basic_info().deviation;
+
+
+  on_change_brightness(((model*)mdl)->old_contrast);
+  on_change_contrast(((model*)mdl)->old_brightness);
   operator ()();
 }
 
@@ -34,8 +38,8 @@ bool controller::operator ()() {
 
 // RED
 
-  rgb_float_values beta = ((model*)mdl)->brightness;
-  rgb_float_values alpha = ((model*)mdl)->contrast;
+  rgb_float_values alpha = ((model*)mdl)->contrast / ((model*)mdl)->old_contrast;
+  rgb_float_values beta = ((model*)mdl)->brightness - alpha * ((model*)mdl)->old_brightness;
 
   lut->each_value_modificator_r([&](double i) -> double {
     return alpha.r * i + beta.r - 1;
@@ -56,26 +60,26 @@ bool controller::operator ()() {
     unsigned g = lut->g [pixel.green()];
     unsigned b = lut->b [pixel.blue() ];
     return QColor(r, g, b);
-  });
+  }); 
 
   emit update_inform();
   return true;
 }
 
-void controller::on_change_brightness(int r, int g, int b) {
+void controller::on_change_brightness(rgb_float_values rgb) {
   ((model*)mdl)->brightness = {
-    double(r) / 10,
-    double(g) / 10,
-    double(b) / 10
+    double(rgb.r),
+    double(rgb.g),
+    double(rgb.b)
   };
   operator ()();
 }
 
-void controller::on_change_contrast  (int r, int g, int b) {
+void controller::on_change_contrast  (rgb_float_values rgb) {
   ((model*)mdl)->contrast = {
-    double(r) / 10,
-    double(g) / 10,
-    double(b) / 10
+    double(rgb.r),
+    double(rgb.g),
+    double(rgb.b)
   };
   operator ()();
 }

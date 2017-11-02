@@ -24,6 +24,30 @@ struct rgb_float_values {
   double r;
   double g;
   double b;
+
+  rgb_float_values operator *(const rgb_float_values& c) {
+    return rgb_float_values {
+      r * c.r,
+      g * c.g,
+      b * c.b,
+    };
+  }
+
+  rgb_float_values operator /(const rgb_float_values& c) {
+    return rgb_float_values {
+      r / c.r,
+      g / c.g,
+      b / c.b,
+    };
+  }
+
+  rgb_float_values operator -(const rgb_float_values& c) {
+    return rgb_float_values {
+      r - c.r,
+      g - c.g,
+      b - c.b,
+    };
+  }
 };
 
 struct rgb_unsigned_values {

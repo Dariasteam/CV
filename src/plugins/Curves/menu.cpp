@@ -82,12 +82,9 @@ menu::menu(model* m, QWidget *parent) :
   layout->addWidget(&chart_view);
 }
 
-#include <iostream>
-
 void menu::on_update_points(QList<QPoint*> points) {
   chart_line_serie->clear();
-  for (unsigned i = 0; i < points.size(); i++) {
-    std::cout << points.at(i)->x() << std::endl;
+  for (unsigned i = 0; i < points.size(); i++) {    
     *chart_line_serie << (*points.at(i));
   }
 }

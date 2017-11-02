@@ -7,10 +7,10 @@ menu::menu(QWidget *parent) :
   setLayout(layout);
 
   brightness_sliders = new slider_group (R_TEXT, G_TEXT, B_TEXT,
-                                         MIN_RANGE_B, MAX_RANGE_B, DEFAULT_B);
+                                         MIN_RANGE_B, MAX_RANGE_B, 0);
 
   contrast_sliders   = new slider_group (R_TEXT, G_TEXT, B_TEXT,
-                                         MIN_RANGE_C, MAX_RANGE_C, DEFAULT_C);
+                                         MIN_RANGE_C, MAX_RANGE_C, 0);
 
   fixed_checkbox = new QCheckBox (FIXED_TEXT, this);
   connect(fixed_checkbox,SIGNAL(toggled(bool)),this,SLOT(on_set_fixed(bool)));

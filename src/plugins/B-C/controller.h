@@ -34,8 +34,8 @@ public:
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
 public slots:
-  void on_change_brightness (int r, int g, int b);
-  void on_change_contrast   (int r, int g, int b);
+  void on_change_brightness (rgb_float_values rgb);
+  void on_change_contrast   (rgb_float_values rgb);
 signals:
   void update_inform ();
   void set_canvas_image_label (QLabel*);

@@ -8,6 +8,9 @@ class model : public PluginModel {
 public:
   rgb_float_values brightness;
   rgb_float_values contrast;
+
+  rgb_float_values old_brightness;
+  rgb_float_values old_contrast;
 public:
   model();
 };
