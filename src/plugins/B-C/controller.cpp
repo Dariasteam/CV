@@ -21,14 +21,17 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
     chk->setEnabled(false);
   }
 
-  ((model*)mdl)->old_brightness = image->get_basic_info().average;
-  ((model*)mdl)->old_contrast = image->get_basic_info().deviation;
+  rgb_float_values old_b = image->get_basic_info().average;
+  rgb_float_values old_c = image->get_basic_info().deviation;
 
-  on_change_brightness(((model*)mdl)->old_brightness);
-  on_change_contrast(((model*)mdl)->old_contrast);
+  ((model*)mdl)->old_brightness = old_b;
+  ((model*)mdl)->old_contrast = old_c;
 
-  ((menu*)view)->set_slider_b(((model*)mdl)->old_brightness);
-  ((menu*)view)->set_slider_c(((model*)mdl)->old_contrast);
+  on_change_brightness(old_b);
+  on_change_contrast(old_c);
+
+  ((menu*)view)->set_slider_b(old_b);
+  ((menu*)view)->set_slider_c(old_c);
   operator ()();
 }
 

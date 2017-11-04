@@ -8,7 +8,7 @@ conector_plugin::conector_plugin () {
   /* category        */  "core",
   /* can_work_no_gui */  false,
   /* is_no_gui       */  false,
-  /* can preview     */  false,
+  /* can preview     */  true,
   /* require_lut     */  true,
   /* require_canvas  */  true,
   /* can overwrite   */  true,

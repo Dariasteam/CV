@@ -353,6 +353,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_MailCommon.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporter.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Mbox.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageCore.pri \
@@ -685,6 +686,7 @@ Makefile: vision_computador.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/li
 		/usr/lib/qt/mkspecs/modules/qt_MailCommon.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporter.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Mbox.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageCore.pri \
@@ -970,6 +972,7 @@ Makefile: vision_computador.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/li
 /usr/lib/qt/mkspecs/modules/qt_MailCommon.pri:
 /usr/lib/qt/mkspecs/modules/qt_MailImporter.pri:
 /usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri:
+/usr/lib/qt/mkspecs/modules/qt_Marble.pri:
 /usr/lib/qt/mkspecs/modules/qt_Mbox.pri:
 /usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri:
 /usr/lib/qt/mkspecs/modules/qt_MessageCore.pri:

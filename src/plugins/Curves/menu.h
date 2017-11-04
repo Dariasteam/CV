@@ -26,6 +26,25 @@ public:
   view_interface (QWidget* parent) : QWidget (parent) {}
 };
 
+class point_representation : public QWidget {
+  Q_OBJECT
+private:
+  QBoxLayout* layout;
+
+  QSpinBox* x;
+  QSpinBox* y;
+
+  QPushButton* close_bttn;
+public:
+  explicit point_representation (QPoint p,
+                                 bool closable,
+                                 QWidget* parent = nullptr);
+public slots:
+  void on_set_values (unsigned x, unsigned y);
+signals:
+  void check_values (unsigned x, unsigned y);  
+};
+
 class curve_chart : public QChartView {
   Q_OBJECT
 public :
@@ -46,13 +65,18 @@ private:
   model* mdl;
   QBoxLayout* layout;
 
+  QWidget* labels_container;
+  QWidget* chart_container;
+
   curve_chart chart_view;
   QChart chart;
   QLineSeries* chart_line_serie;
 public slots:
-  void on_update_points (QList<QPoint*> points);
+  void on_update_points (QList<SyncPoint*> points);
 public:
   explicit menu(model* m, QWidget *parent = nullptr);
+signals:
+  void update_lut (QList<SyncPoint*> points);
 };
 
 #endif // MENU_H

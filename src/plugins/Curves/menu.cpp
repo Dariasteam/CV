@@ -1,6 +1,7 @@
 #include "menu.h"
 
-point_representation::point_representation(unsigned X, unsigned Y,
+point_representation::point_representation(QPoint point,
+                                           bool closable,
                                            QWidget *parent) :
   QWidget (parent)
 {
@@ -10,13 +11,23 @@ point_representation::point_representation(unsigned X, unsigned Y,
 
   close_bttn = new QPushButton (CLOSE_TXT, this);
 
+  x->setMaximum(255);
+  y->setMaximum(255);
+
   layout->addWidget(x);
   layout->addWidget(y);
   layout->addWidget(close_bttn);
+
+  if (!closable)
+    close_bttn->setEnabled(false);
+
+
+  on_set_values(point.x(), point.y());
 }
 
-void point_representation::on_set_values(unsigned x, unsigned y) {
-
+void point_representation::on_set_values(unsigned X, unsigned Y) {
+  x->setValue(X);
+  y->setValue(Y);
 }
 
 curve_chart::curve_chart(model *mdl) {
@@ -34,7 +45,7 @@ curve_chart::curve_chart(model *mdl) {
 void curve_chart::mouseMoveEvent(QMouseEvent *ev) {  
   double factor = (double(width())/ double(DEPTH));
 
-  QPoint p (ev->pos());
+  SyncPoint p (ev->pos());
   p.setY(double(height()) - double(p.y()));
   p.setX(p.x() / factor);
 
@@ -56,35 +67,58 @@ menu::menu(model* m, QWidget *parent) :
   chart_view (m)
 {    
 
-  connect(m,SIGNAL(update_chart(QList<QPoint*>)),this,
-            SLOT(on_update_points(QList<QPoint*>)));
+
+  connect(m,SIGNAL(update_chart(QList<SyncPoint*>)),this,
+            SLOT(on_update_points(QList<SyncPoint*>)));
 
   layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
 
-  QSizePolicy szp;
-  szp.setHorizontalPolicy(QSizePolicy::MinimumExpanding);
-  szp.setWidthForHeight(true);
-  chart_view.setSizePolicy(szp);  
-  chart_view.sizePolicy().setHeightForWidth(true);
-  chart_view.size().setHeight(chart_view.size().width());
+  chart_container = new QWidget(this);
+  chart_container->setMinimumHeight(300);
+  chart_container->setLayout(new QBoxLayout (QBoxLayout::TopToBottom, this));
+
+  labels_container = new QWidget(this);
+  labels_container->setLayout(new QBoxLayout (QBoxLayout::TopToBottom, this));
 
   chart_view.setRenderHint(QPainter::Antialiasing);
   chart.legend()->setVisible(false);
   chart_view.setChart(&chart);
 
+  chart_line_serie = new QLineSeries;
+  *chart_line_serie << QPoint(0,0) << QPoint(DEPTH - 1, DEPTH - 1);
+  chart.addSeries(chart_line_serie);
   chart.setMargins(QMargins(0,0,0,0));
 
-  chart_line_serie = new QLineSeries;
+  on_update_points(mdl->points);
 
-  *chart_line_serie << QPoint(0,0) << QPoint(DEPTH - 1, DEPTH - 1);
 
-  chart.addSeries(chart_line_serie);
-  layout->addWidget(&chart_view);
+  chart_container->layout()->addWidget(&chart_view);
+
+  layout->addWidget(chart_container);
+  layout->addWidget(labels_container);
 }
 
-void menu::on_update_points(QList<QPoint*> points) {
-  chart_line_serie->clear();
-  for (unsigned i = 0; i < points.size(); i++) {    
-    *chart_line_serie << (*points.at(i));
+void menu::on_update_points(QList<SyncPoint*> points) {
+
+  emit update_lut(points);
+
+  chart_line_serie->clear();    
+
+  QLayoutItem *child;
+  while ((child = labels_container->layout()->takeAt(0)) != 0)  {
+    child->widget()->deleteLater();
   }
+
+  for (unsigned i = 0; i < points.size(); i++) {
+    SyncPoint aux = *(points.at(i));
+    *chart_line_serie << aux;
+    point_representation* l_aux =new point_representation(aux, this);
+
+/*
+    l_aux->connect(&aux,SIGNAL(update_position(uint,uint)),
+                   l_aux,SLOT(on_set_values(uint,uint)));
+*/
+    labels_container->layout()->addWidget(l_aux);
+  }  
+
 }

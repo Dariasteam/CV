@@ -6,9 +6,16 @@ LUT::LUT() :
   b(DEPTH)
 {}
 
-void LUT::each_value_modificator(std::function<double (double)> lambda,
+void LUT::each_value_modificator(unsigned from ,unsigned to ,
+                                 std::function<double (double)> lambda,
                                  std::vector<double>& vec) {
-  for (unsigned i = 0; i < DEPTH; i++) {
+  if (from > DEPTH)
+    from = 0;
+  if (to > DEPTH)
+    to = DEPTH;
+
+
+  for (unsigned i = from; i < to; i++) {
     double value = lambda(i);
     if (value > 255)
       vec[i] = 255;
@@ -20,14 +27,21 @@ void LUT::each_value_modificator(std::function<double (double)> lambda,
 }
 
 void LUT::each_value_modificator_r(std::function<double (double)> lambda) {
- each_value_modificator(lambda, r);
+ each_value_modificator(0, DEPTH, lambda, r);
 }
 
 void LUT::each_value_modificator_g(std::function<double (double)> lambda) {
- each_value_modificator(lambda, g);
+ each_value_modificator(0, DEPTH, lambda, g);
 }
 
 void LUT::each_value_modificator_b(std::function<double (double)> lambda) {
- each_value_modificator(lambda, b);
+ each_value_modificator(0, DEPTH, lambda, b);
+}
+
+void LUT::each_modificator_from_to(unsigned from, unsigned to,
+                                   std::function<double (double)> lambda) {
+  each_value_modificator(from, to, lambda, r);
+  each_value_modificator(from, to, lambda, g);
+  each_value_modificator(from, to, lambda, b);
 }
 

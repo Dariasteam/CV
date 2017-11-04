@@ -23,7 +23,7 @@ public:
   }  
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
 signals:
-  virtual void update_inform () = 0;  
+  virtual void update_inform () = 0;
 };
 
 class controller : public plugin_controller {
@@ -32,7 +32,9 @@ private:
 public:
   bool operator () ();  
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
-  controller (QWidget* mn, PluginModel* mdl);
+  controller (QWidget* mn, PluginModel* mdl);  
+public slots:
+  void on_calculate_lut (QList<SyncPoint*> points);
 signals:
   void update_inform ();  
 };

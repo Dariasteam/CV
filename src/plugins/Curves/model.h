@@ -14,23 +14,27 @@
 #define DEPTH 256
 #define DISTANCE 40
 
-class point_representation : public QWidget {
+
+class SyncPoint : public QObject, public QPoint {
   Q_OBJECT
-private:
-  QBoxLayout* layout;
-
-  QSpinBox* x;
-  QSpinBox* y;
-
-  QPushButton* close_bttn;
 public:
-  explicit point_representation (unsigned X, unsigned Y,
-                                 QWidget* parent = nullptr);
+  explicit SyncPoint (int X, int Y) : QPoint(X,Y) {}
+  SyncPoint (QPoint p) :
+    QPoint(p.x(),p.y())
+  {}
+  SyncPoint (SyncPoint& p) :
+    QPoint(p.x(),p.y())
+  {}
+
+
+  void setY (unsigned i) { QPoint::setY(i); update_position(x(), y()); }
+  void setX (unsigned i) { QPoint::setX(i); update_position(x(), y()); }
 public slots:
-  void on_set_values (unsigned x, unsigned y);
+  void on_update_position (unsigned x, unsigned y) {}
 signals:
-  void check_values (unsigned x, unsigned y);
+  void update_position (unsigned x, unsigned y);
 };
+
 
 class model : public QObject,
               public PluginModel {
@@ -38,17 +42,17 @@ class model : public QObject,
 private:  
 public:
   model();  
-  QList <QPoint*> points;
+  QList <SyncPoint*> points;
   //QList <point_representation*> info_wids;
-  QPoint* current_point;
-  QPoint* prev;
-  QPoint* next;
+  SyncPoint* current_point;
+  SyncPoint* prev;
+  SyncPoint* next;
 public slots:
   void on_update_point (QPoint original_c, double factor);  
   void on_click_point (QPoint point, double factor);
   void on_release_point ();
 signals:
-  void update_chart (QList<QPoint*>);
+  void update_chart (QList<SyncPoint*>);
 };
 
 #endif // MODEL_H

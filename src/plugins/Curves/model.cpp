@@ -3,8 +3,8 @@
 model::model() :
 current_point (nullptr)
 {
-  points.push_back(new QPoint(0,0));
-  points.push_back(new QPoint(DEPTH - 1, DEPTH - 1));
+  points.push_back(new SyncPoint(0,0));
+  points.push_back(new SyncPoint(DEPTH - 1, DEPTH - 1));
 }
 
 #include <iostream>
@@ -51,8 +51,8 @@ void model::on_click_point(QPoint point, double factor) {
   QPoint* candidate_point = new QPoint(-1,-1);
 
   for (unsigned i = 1; i < points.size(); i++) {
-    QPoint* p1 = points.at(i - 1);
-    QPoint* p2 = points.at(i);
+    SyncPoint* p1 = points.at(i - 1);
+    SyncPoint* p2 = points.at(i);
 
     if (fabs(p1->x() * factor - point.x()) < DISTANCE) {
       candidate_point = p1;
@@ -64,7 +64,7 @@ void model::on_click_point(QPoint point, double factor) {
       break;
     } else if (p2->x() * factor > point.x() && p1->x() * factor < point.x()) {
       prev = p1;
-      current_point = new QPoint(point);
+      current_point = new SyncPoint(point.x(), point.y());
       points.insert(i, current_point);
 
       if (current_point != points.back())
