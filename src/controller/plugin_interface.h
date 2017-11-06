@@ -56,25 +56,6 @@ public:
   void set_lut (LUT* l)   { lut = l;                                    }
 };
 
-/*
-class PluginModelLut : public PluginModel{
-protected:
-  LUT* lut;
-public:  
-  LUT* get_lut ()         { return lut;                                 }
-  void set_lut (LUT* l)   { lut = l;                                    }  
-};
-
-class PluginModelCanvas : public PluginModel {
-protected:  
-  QLabel* label;
-public:  
-  virtual void create_selectable_pixmap (QPixmap& pix) {}
-  void set_label (QLabel* lbl) { label = lbl; }
-  QLabel* get_label () { return label; }  
-};
-*/
-
 class PluginController: public QObject {
   Q_OBJECT
 private:
@@ -89,9 +70,12 @@ public:
              this,SIGNAL(update_inform()));
   }    
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
+public slots:
+  virtual void on_receive_current_image (picture* pic) = 0;
 signals:
   virtual void update_inform () = 0;
   virtual void set_canvas_image_label (QLabel *) = 0;
+  virtual void request_current_image () = 0;
 };
 
 
@@ -122,6 +106,7 @@ public:
 protected:
   virtual void close () = 0;
 };
+
 
 #define PluginInterface_iid "P"
 

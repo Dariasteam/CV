@@ -46,9 +46,7 @@ void controller::on_calculate_lut(QList<SyncPoint*> points) {
         double result = a * b_c + aP->y();
         return result;
       });
-
     }
-
   }
 
   operator ()();

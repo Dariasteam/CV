@@ -30,7 +30,7 @@ private:
   picture* modified_pic;  
 
   canvas_image_label* backup_canvas;
-  canvas_image_label* modified_canvas;
+  canvas_image_label* modified_canvas;    
 public:
   plugin_controller(operation_options_widget* op_wid, footer* foot);
 
@@ -46,14 +46,18 @@ public slots:
   void on_cancel (bool);
   void on_end ();
   void on_clear ();
+  void on_receive_current_image (picture*);
+  void on_request_current_image ();
 signals:
   void update_histogram(histogram);
   void update_basic_info(picture_basic_info);
   void overwrite_image(picture*);
   void generate_image(picture*);
+  void send_current_image (picture*);
+  void request_current_image ();
 private slots:
   void update_view ();
-  void on_change_image_label (QLabel* canv);
+  void on_change_image_label (QLabel* canv);    
 };
 
 #endif // PLUGIN_CONTOLLER_H

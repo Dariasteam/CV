@@ -41,8 +41,10 @@ public:
                                  QWidget* parent = nullptr);
 public slots:
   void on_set_values (unsigned x, unsigned y);
+  void on_check_value (int);
 signals:
   void check_values (unsigned x, unsigned y);  
+  void delete_point ();
 };
 
 class curve_chart : public QChartView {

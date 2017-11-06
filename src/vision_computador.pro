@@ -38,11 +38,11 @@ SOURCES += \
         view/histogram_widget.cpp \
         view/chart_representation.cpp \
         view/canvas_image_label.cpp \
-    controller/indexed_action.cpp \
-    view/operation_options_widget.cpp \
-    controller/plugin_contoller.cpp \
-    view/image_info_widget.cpp \
-    model/lut.cpp
+        controller/indexed_action.cpp \
+        view/operation_options_widget.cpp \
+        controller/plugin_contoller.cpp \
+        view/image_info_widget.cpp \
+        model/lut.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -60,17 +60,14 @@ HEADERS += \
         view/histogram_widget.h \
         view/chart_representation.h \
         view/canvas_image_label.h \
-    controller/plugin_interface.h \
-    controller/indexed_action.h \
-    view/operation_options_widget.h \
-    controller/plugin_contoller.h \
-    controller/view_interface.h \
-    view/image_info_widget.h \
-    model/lut.h
+        controller/plugin_interface.h \
+        controller/indexed_action.h \
+        view/operation_options_widget.h \
+        controller/plugin_contoller.h \
+        controller/view_interface.h \
+        view/image_info_widget.h \
+        model/lut.h
 
 FORMS += \
         view/mainwindow.ui
         
-#COMMAND = "mv vision_computador ../build/"
-              
-QMAKE_POST_LINK += $$COMMAND

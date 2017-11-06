@@ -42,6 +42,9 @@ controller::controller() {
   connect(plugin_ctrller,&plugin_controller::update_histogram,this,&controller::update_histograms);  
   connect(plugin_ctrller,&plugin_controller::update_basic_info,this,&controller::update_basic_info);
 
+  connect(plugin_ctrller,&plugin_controller::request_current_image,this,&controller::on_get_current_image);
+  connect(this,&controller::send_current_image,plugin_ctrller,&plugin_controller::on_receive_current_image);
+
   load_all_plugins(DEFAULT_PLUGINS_LOCATION);
 }
 
@@ -80,6 +83,10 @@ bool controller::load_all_plugins (const QString& path) {
 
 void controller::on_get_rgb_at(QPoint pos) {
   emit update_rgb_at(mdl->get_current_picture()->get_color(pos));
+}
+
+void controller::on_get_current_image() {
+  emit send_current_image(mdl->get_current_picture());
 }
 
 bool controller::load_plugin (const QString& path, const QDir& dir) {

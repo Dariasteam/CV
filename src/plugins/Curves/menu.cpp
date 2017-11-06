@@ -21,6 +21,8 @@ point_representation::point_representation(QPoint point,
   if (!closable)
     close_bttn->setEnabled(false);
 
+  connect(x,SIGNAL(valueChanged(int)),this,SIGNAL(on_check_value(int)));
+  connect(y,SIGNAL(valueChanged(int)),this,SIGNAL(on_check_value(int)));
 
   on_set_values(point.x(), point.y());
 }
@@ -28,6 +30,10 @@ point_representation::point_representation(QPoint point,
 void point_representation::on_set_values(unsigned X, unsigned Y) {
   x->setValue(X);
   y->setValue(Y);
+}
+
+void point_representation::on_check_value(int) {
+  emit check_values(x->value(), y->value());
 }
 
 curve_chart::curve_chart(model *mdl) {
@@ -74,7 +80,7 @@ menu::menu(model* m, QWidget *parent) :
   layout = new QBoxLayout (QBoxLayout::TopToBottom, this);
 
   chart_container = new QWidget(this);
-  chart_container->setMinimumHeight(300);
+  chart_container->setFixedHeight(300);
   chart_container->setLayout(new QBoxLayout (QBoxLayout::TopToBottom, this));
 
   labels_container = new QWidget(this);
@@ -114,10 +120,11 @@ void menu::on_update_points(QList<SyncPoint*> points) {
     *chart_line_serie << aux;
     point_representation* l_aux =new point_representation(aux, this);
 
-/*
-    l_aux->connect(&aux,SIGNAL(update_position(uint,uint)),
-                   l_aux,SLOT(on_set_values(uint,uint)));
-*/
+
+    connect(l_aux,SIGNAL(check_values(uint,uint)),
+                   &aux,SLOT(on_update_position(uint,uint)));
+
+
     labels_container->layout()->addWidget(l_aux);
   }  
 

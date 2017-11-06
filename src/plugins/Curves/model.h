@@ -27,12 +27,13 @@ public:
   {}
 
 
-  void setY (unsigned i) { QPoint::setY(i); update_position(x(), y()); }
-  void setX (unsigned i) { QPoint::setX(i); update_position(x(), y()); }
+  void setY (unsigned i) { QPoint::setY(i); }
+  void setX (unsigned i) { QPoint::setX(i); }
 public slots:
-  void on_update_position (unsigned x, unsigned y) {}
-signals:
-  void update_position (unsigned x, unsigned y);
+  void on_update_position (unsigned x, unsigned y) {
+    setX (x);
+    setY (y);
+  }
 };
 
 

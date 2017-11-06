@@ -39,9 +39,14 @@ public slots:
   bool load_all_plugins (const QString& path);
   bool load_plugin (const QString& plugin_name, const QDir& dir);
   void on_get_rgb_at (QPoint);
+
+  void on_get_current_image ();
+
 private slots:
-  void use_plugin (unsigned index);
+  void use_plugin (unsigned index);  
 signals:
+
+  void send_current_image (picture* pic);
   void update_histograms (histogram hist);
   void update_basic_info (picture_basic_info basic_info);
   void update_operation_option (QWidget* wid);
