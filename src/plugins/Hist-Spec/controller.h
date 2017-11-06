@@ -41,9 +41,6 @@ public:
   bool operator () ();    
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
-
-  void generate_lut_a ();
-  void generate_lut_b ();
 public slots:
   void on_receive_current_image (picture* pic);
   void on_bttn_request_pushed();

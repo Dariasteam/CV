@@ -81,7 +81,7 @@ private:
   QPixmap* pixmap;
   histogram histograms;
   picture_basic_info basic_info;
-  unsigned sz;
+  unsigned sz;                    // area
 
   void generate_histograms    ();
   void generate_range         ();

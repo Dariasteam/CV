@@ -86,7 +86,7 @@ void controller::on_get_rgb_at(QPoint pos) {
 }
 
 void controller::on_get_current_image() {
-  emit send_current_image(mdl->get_current_picture());
+  emit send_current_image(mdl->get_picture_at(active_image));
 }
 
 bool controller::load_plugin (const QString& path, const QDir& dir) {
