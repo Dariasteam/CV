@@ -40,9 +40,11 @@ public:
         distance = fabs(vec[i] - v);
       }
     }
-    std::cout << "para " << v << " se le corresponde " << vec[value] <<
-                 " que vale " << value << std::endl;
-    return value;
+
+    if (distance < 15)
+      return value;
+    else
+      return original;
   }
 
   double search_value_r (double v, double original) {
