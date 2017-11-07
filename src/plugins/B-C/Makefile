@@ -297,6 +297,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_MailCommon.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporter.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Mbox.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageCore.pri \
@@ -599,6 +600,7 @@ Makefile: plugin.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspec
 		/usr/lib/qt/mkspecs/modules/qt_MailCommon.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporter.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Mbox.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_MessageCore.pri \
@@ -884,6 +886,7 @@ Makefile: plugin.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspec
 /usr/lib/qt/mkspecs/modules/qt_MailCommon.pri:
 /usr/lib/qt/mkspecs/modules/qt_MailImporter.pri:
 /usr/lib/qt/mkspecs/modules/qt_MailImporterAkonadi.pri:
+/usr/lib/qt/mkspecs/modules/qt_Marble.pri:
 /usr/lib/qt/mkspecs/modules/qt_Mbox.pri:
 /usr/lib/qt/mkspecs/modules/qt_MessageComposer.pri:
 /usr/lib/qt/mkspecs/modules/qt_MessageCore.pri:
@@ -997,16 +1000,19 @@ moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/B-C -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include connector_plugin.h -o moc_connector_plugin.cpp
 
-moc_menu.cpp: menu.h \
+moc_menu.cpp: ../../model/picture.h \
+		../../model/histogram.h \
+		../../model/lut.h \
+		menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/B-C -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
 
 moc_controller.cpp: menu.h \
-		model.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		model.h \
 		../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h \
 		controller.h \
@@ -1039,15 +1045,18 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		model.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connector_plugin.o connector_plugin.cpp
 
-menu.o: menu.cpp menu.h
+menu.o: menu.cpp menu.h \
+		../../model/picture.h \
+		../../model/histogram.h \
+		../../model/lut.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o menu.cpp
 
 controller.o: controller.cpp controller.h \
 		menu.h \
-		model.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		model.h \
 		../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
