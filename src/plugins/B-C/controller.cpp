@@ -61,9 +61,9 @@ bool controller::operator ()() {
   });
 
   img->each_pixel_modificator([&](QColor pixel) -> QColor {
-    unsigned r = lut->r [pixel.red()  ];
-    unsigned g = lut->g [pixel.green()];
-    unsigned b = lut->b [pixel.blue() ];
+    unsigned r = std::round (lut->r [pixel.red()  ]);
+    unsigned g = std::round (lut->g [pixel.green()]);
+    unsigned b = std::round (lut->b [pixel.blue() ]);
     return QColor(r, g, b);
   }); 
 

@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = plugin1.0.0
-DISTDIR = /home/darias/ULL/VC/vision_computador/src/plugins/ROI/.tmp/plugin1.0.0
+DISTDIR = /home/darias/ULL/VC/vision_computador/src/plugins/Sub/.tmp/plugin1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -shared
 LIBS          = $(SUBLIBS) -lQt5Charts -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -55,16 +55,14 @@ SOURCES       = connector_plugin.cpp \
 		controller.cpp \
 		model.cpp moc_connector_plugin.cpp \
 		moc_menu.cpp \
-		moc_controller.cpp \
-		moc_model.cpp
+		moc_controller.cpp
 OBJECTS       = connector_plugin.o \
 		menu.o \
 		controller.o \
 		model.o \
 		moc_connector_plugin.o \
 		moc_menu.o \
-		moc_controller.o \
-		moc_model.o
+		moc_controller.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -364,7 +362,7 @@ first: all
 $(TARGET):  $(OBJECTS) $(SUBLIBS) $(OBJCOMP)  
 	-$(DEL_FILE) $(TARGET)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS) $(OBJCOMP)
-	mv libplugin.so ../../../build/compiled_plugins/ROI
+	mv libplugin.so ../../../build/compiled_plugins/Sub
 
 
 
@@ -986,9 +984,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp moc_model.cpp
+compiler_moc_header_make_all: moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp moc_model.cpp
+	-$(DEL_FILE) moc_connector_plugin.cpp moc_menu.cpp moc_controller.cpp
 moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h \
 		../../model/picture.h \
@@ -1000,12 +998,12 @@ moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		connector_plugin.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include connector_plugin.h -o moc_connector_plugin.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/Sub -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include connector_plugin.h -o moc_connector_plugin.cpp
 
 moc_menu.cpp: menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/Sub -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include menu.h -o moc_menu.cpp
 
 moc_controller.cpp: menu.h \
 		model.h \
@@ -1017,17 +1015,7 @@ moc_controller.cpp: menu.h \
 		controller.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include controller.h -o moc_controller.cpp
-
-moc_model.cpp: ../../model/picture.h \
-		../../model/histogram.h \
-		../../model/lut.h \
-		../../controller/plugin_interface.h \
-		../../view/canvas_image_label.h \
-		model.h \
-		moc_predefs.h \
-		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/ROI -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include model.h -o moc_model.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src/plugins/Sub -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include controller.h -o moc_controller.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1083,9 +1071,6 @@ moc_menu.o: moc_menu.cpp
 
 moc_controller.o: moc_controller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
-
-moc_model.o: moc_model.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_model.o moc_model.cpp
 
 ####### Install
 
