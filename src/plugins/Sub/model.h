@@ -68,9 +68,7 @@ public:
 class model : public PluginModel {
 public:
   picture* aux_pic;
-  model();
-  custom_LUT a_lut;
-  custom_LUT b_lut;
+  model();  
 };
 
 #endif // MODEL_H

@@ -176,12 +176,56 @@ void picture::crop (picture* pic, QRect rect) {
   generate_basic_info();
 }
 
+#include <atomic>
+#include <future>
+
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
-  for (unsigned i = 0; i < raw_image->width(); i++) {
-    for (unsigned j = 0; j < raw_image->height(); j++){
-      raw_image->setPixelColor(i, j, lambda (raw_image->pixelColor(i, j)));
+
+  std::atomic<bool> image_in_use (false);
+  unsigned aux_width = raw_image->width() / 3;
+  unsigned aux_height = raw_image->height() / 3;
+
+  auto async_function = [&](unsigned min_w, unsigned min_h,
+                            unsigned max_w, unsigned max_h) {
+    for (unsigned i = min_w; i < max_w; i++) {
+      for (unsigned j = min_h; j < max_h; j++){
+        QColor input_color = raw_image->pixelColor(i, j);
+        QColor output_color = lambda (input_color);
+        while (image_in_use.load()) {}
+        image_in_use.store(true);
+        raw_image->setPixelColor(i, j, output_color);
+        image_in_use.store(false);
+      }
     }
-  }
+  };
+
+  std::future<void> p1 = std::async(async_function, 0, 0, aux_width, aux_height);
+  std::future<void> p2 = std::async(async_function, aux_width, 0, aux_width * 2, aux_height);
+  std::future<void> p3 = std::async(async_function, aux_width * 2, 0, aux_width * 3, aux_height);
+
+  std::future<void> p4 = std::async(async_function, 0, aux_height, aux_width, aux_height * 2);
+  std::future<void> p5 = std::async(async_function, aux_width, aux_height, aux_width * 2, aux_height * 2);
+  std::future<void> p6 = std::async(async_function, aux_width * 2, aux_height, aux_width * 3, aux_height * 2);
+
+  std::future<void> p7 = std::async(async_function, 0, aux_height * 2, aux_width, aux_height * 3);
+  std::future<void> p8 = std::async(async_function, aux_width, aux_height * 2, aux_width * 2, aux_height * 3);
+  std::future<void> p9 = std::async(async_function, aux_width * 2, aux_height * 2, aux_width * 3, aux_height * 3);
+
+
+  p1.get();
+  p2.get();
+  p3.get();
+  p4.get();
+  p5.get();
+  p6.get();
+  p7.get();
+  p8.get();
+  p9.get();
+/*
+  std::future<void> p = std::async(async_function, 0, 0, aux_width * 2, aux_height *2 );
+  p.get();
+  */
+
   generate_histograms();
   generate_basic_info();
   update_pixmap();
