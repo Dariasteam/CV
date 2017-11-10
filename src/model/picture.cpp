@@ -176,19 +176,16 @@ void picture::crop (picture* pic, QRect rect) {
   generate_basic_info();
 }
 
-#include <atomic>
-#include <future>
-
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
-
   std::atomic<bool> image_in_use (false);
-  unsigned aux_width = raw_image->width() / 3;
-  unsigned aux_height = raw_image->height() / 3;
+  unsigned aux_width = raw_image->width() / N_THREADS_X;
+  unsigned aux_height = raw_image->height() / N_THREADS_Y;
+  std::vector<std::future<void>> promises (N_THREADS_X * N_THREADS_Y);
 
   auto async_function = [&](unsigned min_w, unsigned min_h,
                             unsigned max_w, unsigned max_h) {
     for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = min_h; j < max_h; j++){
+      for (unsigned j = min_h; j < max_h; j++) {
         QColor input_color = raw_image->pixelColor(i, j);
         QColor output_color = lambda (input_color);
         while (image_in_use.load()) {}
@@ -199,32 +196,18 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
     }
   };
 
-  std::future<void> p1 = std::async(async_function, 0, 0, aux_width, aux_height);
-  std::future<void> p2 = std::async(async_function, aux_width, 0, aux_width * 2, aux_height);
-  std::future<void> p3 = std::async(async_function, aux_width * 2, 0, aux_width * 3, aux_height);
+  for (unsigned i = 0; i < N_THREADS_X; i++) {
+    for (unsigned j = 0; j < N_THREADS_Y; j++) {
+      promises[(i * 3) + j] = std::async(async_function,
+                                         aux_width  * i,
+                                         aux_height * j,
+                                         aux_width  * (i + 1),
+                                         aux_height * (j + 1));
+    }
+  }
 
-  std::future<void> p4 = std::async(async_function, 0, aux_height, aux_width, aux_height * 2);
-  std::future<void> p5 = std::async(async_function, aux_width, aux_height, aux_width * 2, aux_height * 2);
-  std::future<void> p6 = std::async(async_function, aux_width * 2, aux_height, aux_width * 3, aux_height * 2);
-
-  std::future<void> p7 = std::async(async_function, 0, aux_height * 2, aux_width, aux_height * 3);
-  std::future<void> p8 = std::async(async_function, aux_width, aux_height * 2, aux_width * 2, aux_height * 3);
-  std::future<void> p9 = std::async(async_function, aux_width * 2, aux_height * 2, aux_width * 3, aux_height * 3);
-
-
-  p1.get();
-  p2.get();
-  p3.get();
-  p4.get();
-  p5.get();
-  p6.get();
-  p7.get();
-  p8.get();
-  p9.get();
-/*
-  std::future<void> p = std::async(async_function, 0, 0, aux_width * 2, aux_height *2 );
-  p.get();
-  */
+  for (auto& promise : promises)
+    promise.get();
 
   generate_histograms();
   generate_basic_info();
@@ -232,11 +215,32 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
 }
 
 bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {
-  for (unsigned i = 0; i < raw_image->width(); i++) {
-    for (unsigned j = 0; j < raw_image->height(); j++){
-      lambda (raw_image->pixelColor(i, j));
+  unsigned aux_width = raw_image->width() / N_THREADS_X;
+  unsigned aux_height = raw_image->height() / N_THREADS_Y;
+  std::vector<std::future<void>> promises (N_THREADS_X * N_THREADS_Y);
+
+  auto async_function = [&](unsigned min_w, unsigned min_h,
+                            unsigned max_w, unsigned max_h) {
+    for (unsigned i = min_w; i < max_w; i++) {
+      for (unsigned j = min_h; j < max_h; j++){
+        QColor input_color = raw_image->pixelColor(i, j);
+        lambda (input_color);
+      }
+    }
+  };
+
+  for (unsigned i = 0; i < N_THREADS_X; i++) {
+    for (unsigned j = 0; j < N_THREADS_Y; j++) {
+      promises[(i * 3) + j] = std::async(async_function,
+                                         aux_width  * i,
+                                         aux_height * j,
+                                         aux_width  * (i + 1),
+                                         aux_height * (j + 1));
     }
   }
+
+  for (auto& promise : promises)
+    promise.get();
 }
 
 bool picture::apply_lut(const LUT *lut) {

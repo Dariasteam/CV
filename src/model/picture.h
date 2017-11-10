@@ -7,11 +7,16 @@
 #include <QSize>
 #include <QColor>
 
+#include <atomic>
+#include <future>
 #include <functional>
 #include <math.h>
 
 #include "histogram.h"
 #include "../model/lut.h"
+
+#define N_THREADS_X 3
+#define N_THREADS_Y 3
 
 struct min_max_range {
             //   MIN      MAX
@@ -88,7 +93,7 @@ private:
   void generate_average       ();
   void generate_deviation     ();
   void generate_dynamic_range ();
-  void generate_entropy       ();
+  void generate_entropy       ();  
 public:
   picture (QImage* image, QString f);
   picture (const picture& P);
