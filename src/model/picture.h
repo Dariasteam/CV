@@ -15,9 +15,6 @@
 #include "histogram.h"
 #include "../model/lut.h"
 
-#define N_THREADS_X 3
-#define N_THREADS_Y 3
-
 struct min_max_range {
             //   MIN      MAX
   std::pair <unsigned, unsigned> r;
@@ -99,6 +96,8 @@ public:
   picture (const picture& P);
   picture (const picture* P);
 
+  virtual void subImage (const picture* pic);
+
   virtual picture* make_copy ();
   virtual void restore_from (const picture* pic);
   virtual void crop (picture* pic, QRect rect);
@@ -132,7 +131,6 @@ public:
 
   inline void set_black_and_white (bool b)       { black_and_white = true; }
   inline bool is_black_and_white ()        const { return black_and_white; }
-
 };
 
 #endif // IMAGE_H

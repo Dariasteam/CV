@@ -8,6 +8,8 @@ LUT::LUT() :
 
 #include <future>
 #include <functional>
+#include <iostream>
+#include <cmath>
 
 void LUT::each_value_modificator(unsigned from ,unsigned to ,
                                  std::function<double (double)> lambda,
@@ -15,10 +17,7 @@ void LUT::each_value_modificator(unsigned from ,unsigned to ,
   if (from > DEPTH)
     from = 0;
   if (to > DEPTH)
-    to = DEPTH;
-
-  unsigned to_quad = to / 6;
-
+    to = DEPTH;  
 
   std::function<void(unsigned, unsigned)> func = [&](unsigned min,
                                                      unsigned max) {
@@ -33,19 +32,17 @@ void LUT::each_value_modificator(unsigned from ,unsigned to ,
     }
   };
 
-  std::future<void> f1 = std::async(func, 0, to_quad);
-  std::future<void> f2 = std::async(func, to_quad    , to_quad * 2);
-  std::future<void> f3 = std::async(func, to_quad * 2, to_quad * 3);
-  std::future<void> f4 = std::async(func, to_quad * 3, to_quad * 4);
-  std::future<void> f5 = std::async(func, to_quad * 4, to_quad * 5);
-  std::future<void> f6 = std::async(func, to_quad * 5, to_quad * 6);
+  unsigned n_segments = (N_THREADS_X * N_THREADS_Y);
+  std::vector<std::future<void>> promises (n_segments);
+  unsigned segment = (to - from) / n_segments;
 
-  f1.get();
-  f2.get();
-  f3.get();
-  f4.get();
-  f5.get();
-  f6.get();
+  for (unsigned i = 0; i < n_segments; i++)
+    promises[i] = std::async(func, from + (segment * i), from + (segment * (i + 1)));
+
+  for (auto& promise : promises)
+    promise.get();
+
+  func (from + (segment * (n_segments)), to);
 }
 
 void LUT::each_value_modificator_r(std::function<double (double)> lambda) {

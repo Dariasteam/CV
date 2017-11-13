@@ -7,6 +7,9 @@
 #include <functional>
 #include <QObject>
 
+#define N_THREADS_X 3
+#define N_THREADS_Y 3
+
 struct LUT {
   std::vector<double> r;
   std::vector<double> g;

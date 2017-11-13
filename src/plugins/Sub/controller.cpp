@@ -26,6 +26,12 @@ bool controller::operator ()() {
   if (height_a != height_b || width_a != width_b)
     return false;
 
+  img_a->subImage(img_b);
+
+  emit update_inform();
+  return true;
+
+  /*
   for (unsigned i = 0; i < height_a; i++) {
     for (unsigned j = 0; j < width_a; j++) {
 
@@ -57,8 +63,8 @@ bool controller::operator ()() {
     return QColor(r, g, b);
   });
 
-  emit update_inform();
-  return true;
+
+  */
 }
 
 

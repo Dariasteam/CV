@@ -144,8 +144,6 @@ picture* picture::make_copy() {
   return new picture (this);
 }
 
-#include <iostream>
-
 void picture::restore_from(const picture *pic) {
   QImage*  aux_1 = raw_image;
   QPixmap* aux_2 = pixmap;
@@ -247,6 +245,24 @@ bool picture::apply_lut(const LUT *lut) {
 
 }
 
+void picture::subImage(const picture *pic) {
+  for (unsigned i = 0; i < get_size().width(); i++) {
+    for (unsigned j = 0; j < get_size().height(); j++) {
+      QColor a_color = get_raw_image()->pixel(i, j);
+      QColor b_color = pic->get_raw_image()->pixel(i, j);
+      QColor final_color;
+
+      final_color.setRed  ( abs(a_color.red()   - b_color.red()));
+      final_color.setGreen( abs(a_color.green() - b_color.green()));
+      final_color.setBlue ( abs(a_color.blue()  - b_color.blue()));
+
+      get_raw_image()->setPixelColor(i, j, final_color);
+    }
+  }
+  generate_histograms();
+  generate_basic_info();
+  update_pixmap();
+}
 
 void picture::operator = (const picture& pic) {
   pixmap = pic.get_pixmap();
