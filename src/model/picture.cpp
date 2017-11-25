@@ -175,15 +175,15 @@ void picture::crop (picture* pic, QRect rect) {
 }
 
 bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
-  std::atomic<bool> image_in_use (false);
-  unsigned aux_width = raw_image->width() / N_THREADS_X;
-  unsigned aux_height = raw_image->height() / N_THREADS_Y;
-  std::vector<std::future<void>> promises (N_THREADS_X * N_THREADS_Y);
+  unsigned number = N_THREADS;
 
-  auto async_function = [&](unsigned min_w, unsigned min_h,
-                            unsigned max_w, unsigned max_h) {
+  std::atomic<bool> image_in_use (false);
+  unsigned aux_width  = raw_image->width() / number;
+  std::vector<std::future<void>> promises (number + 1);
+
+  auto async_function = [&](unsigned min_w, unsigned max_w) {
     for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = min_h; j < max_h; j++) {
+      for (unsigned j = 0; j < raw_image->height(); j++) {
         QColor input_color = raw_image->pixelColor(i, j);
         QColor output_color = lambda (input_color);
         while (image_in_use.load()) {}
@@ -194,15 +194,15 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
     }
   };
 
-  for (unsigned i = 0; i < N_THREADS_X; i++) {
-    for (unsigned j = 0; j < N_THREADS_Y; j++) {
-      promises[(i * 3) + j] = std::async(async_function,
-                                         aux_width  * i,
-                                         aux_height * j,
-                                         aux_width  * (i + 1),
-                                         aux_height * (j + 1));
-    }
+  for (unsigned i = 0; i < number; i++) {
+    promises[i] =  std::async(async_function,
+                              aux_width * i,
+                              aux_width * (i + 1));
   }
+
+  promises[number] =  std::async(async_function,
+                                 aux_width * number,
+                                 raw_image->width());
 
   for (auto& promise : promises)
     promise.get();
@@ -213,29 +213,29 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
 }
 
 bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {
-  unsigned aux_width = raw_image->width() / N_THREADS_X;
-  unsigned aux_height = raw_image->height() / N_THREADS_Y;
-  std::vector<std::future<void>> promises (N_THREADS_X * N_THREADS_Y);
 
-  auto async_function = [&](unsigned min_w, unsigned min_h,
-                            unsigned max_w, unsigned max_h) {
+  unsigned number = 1;
+  unsigned aux_width  = raw_image->width() / number;
+  std::vector<std::future<void>> promises (number + 1);
+
+  auto async_function = [&](unsigned min_w, unsigned max_w) {
     for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = min_h; j < max_h; j++){
+      for (unsigned j = 0; j < raw_image->height(); j++) {
         QColor input_color = raw_image->pixelColor(i, j);
-        lambda (input_color);
+        lambda (input_color);        
       }
     }
   };
 
-  for (unsigned i = 0; i < N_THREADS_X; i++) {
-    for (unsigned j = 0; j < N_THREADS_Y; j++) {
-      promises[(i * 3) + j] = std::async(async_function,
-                                         aux_width  * i,
-                                         aux_height * j,
-                                         aux_width  * (i + 1),
-                                         aux_height * (j + 1));
-    }
+  for (unsigned i = 0; i < number; i++) {
+    promises[i] =  std::async(async_function,
+                              aux_width * i,
+                              aux_width * (i + 1));
   }
+
+  promises[number] =  std::async(async_function,
+                                 aux_width * number,
+                                 raw_image->width());
 
   for (auto& promise : promises)
     promise.get();

@@ -6,25 +6,20 @@ LUT::LUT() :
   b(DEPTH)
 {}
 
-#include <future>
-#include <functional>
-#include <iostream>
-#include <cmath>
-
 void LUT::each_value_modificator(unsigned from ,unsigned to ,
                                  std::function<double (double)> lambda,
                                  std::vector<double>& vec) {
   if (from > DEPTH)
     from = 0;
-  if (to > DEPTH)
-    to = DEPTH;  
+  if (to > DEPTH - 1)
+    to = DEPTH - 1;
 
   std::function<void(unsigned, unsigned)> func = [&](unsigned min,
                                                      unsigned max) {
     for (unsigned i = min; i < max; i++) {
       double value = lambda(i);
-      if (value > 255)
-        vec[i] = 255;
+      if (value > DEPTH - 1)
+        vec[i] = DEPTH - 1;
       else if (value < 0)
         vec[i] = 0;
       else
@@ -32,7 +27,8 @@ void LUT::each_value_modificator(unsigned from ,unsigned to ,
     }
   };
 
-  unsigned n_segments = (N_THREADS_X * N_THREADS_Y);
+  unsigned n_segments = (N_THREADS);
+
   std::vector<std::future<void>> promises (n_segments);
   unsigned segment = (to - from) / n_segments;
 

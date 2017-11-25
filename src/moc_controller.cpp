@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'controller.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'controller.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.9.2. It"
+#error "This file was generated using the moc from 5.9.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -179,45 +179,44 @@ void controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (controller::*_t)(picture * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::send_current_image)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::send_current_image)) {
                 *result = 0;
                 return;
             }
         }
         {
             typedef void (controller::*_t)(histogram );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::update_histograms)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::update_histograms)) {
                 *result = 1;
                 return;
             }
         }
         {
             typedef void (controller::*_t)(picture_basic_info );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::update_basic_info)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::update_basic_info)) {
                 *result = 2;
                 return;
             }
         }
         {
             typedef void (controller::*_t)(QWidget * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::update_operation_option)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::update_operation_option)) {
                 *result = 3;
                 return;
             }
         }
         {
             typedef void (controller::*_t)(QString , QSize );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::update_metadata)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::update_metadata)) {
                 *result = 4;
                 return;
             }
         }
         {
             typedef void (controller::*_t)(QColor );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&controller::update_rgb_at)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&controller::update_rgb_at)) {
                 *result = 5;
                 return;
             }

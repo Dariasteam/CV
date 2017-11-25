@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.9.2. It"
+#error "This file was generated using the moc from 5.9.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -112,17 +112,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (MainWindow::*_t)(QString );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::load_image)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::load_image)) {
                 *result = 0;
                 return;
             }
         }
         {
             typedef void (MainWindow::*_t)(QString , unsigned  );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::save_image)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::save_image)) {
                 *result = 1;
                 return;
             }

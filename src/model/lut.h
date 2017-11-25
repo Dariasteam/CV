@@ -3,12 +3,15 @@
 
 #define DEPTH 256
 
-#include <vector>
-#include <functional>
 #include <QObject>
 
-#define N_THREADS_X 3
-#define N_THREADS_Y 3
+#include <vector>
+#include <functional>
+#include <future>
+#include <iostream>
+#include <cmath>
+
+#define N_THREADS 8
 
 struct LUT {
   std::vector<double> r;
