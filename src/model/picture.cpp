@@ -151,8 +151,8 @@ void picture::restore_from(const picture *pic) {
   raw_image = new QImage(*pic->get_raw_image());
   pixmap = new QPixmap (QPixmap::fromImage(*raw_image));
 
-  //delete aux_1;
-  //delete aux_2;
+  delete aux_1;
+  delete aux_2;
 
   black_and_white = pic->is_black_and_white();
   histograms = pic->get_histograms();
@@ -166,8 +166,8 @@ void picture::crop (picture* pic, QRect rect) {
   raw_image = new QImage(raw_image->copy(rect));
   pixmap = new QPixmap (pixmap->fromImage(*raw_image));
 
-  //delete aux_1;
-  //delete aux_2;
+  delete aux_1;
+  delete aux_2;
 
   black_and_white = pic->is_black_and_white();
   generate_histograms();
@@ -212,36 +212,25 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
   update_pixmap();
 }
 
-bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {
-
-  unsigned number = 1;
-  unsigned aux_width  = raw_image->width() / number;
-  std::vector<std::future<void>> promises (number + 1);
-
-  auto async_function = [&](unsigned min_w, unsigned max_w) {
-    for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = 0; j < raw_image->height(); j++) {
-        QColor input_color = raw_image->pixelColor(i, j);
-        lambda (input_color);        
-      }
+bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {    
+  for (unsigned i = 0; i < raw_image->width(); i++) {
+    for (unsigned j = 0; j < raw_image->height(); j++) {
+      QColor input_color = raw_image->pixelColor(i, j);
+      lambda (input_color);
     }
-  };
-
-  for (unsigned i = 0; i < number; i++) {
-    promises[i] =  std::async(async_function,
-                              aux_width * i,
-                              aux_width * (i + 1));
   }
-
-  promises[number] =  std::async(async_function,
-                                 aux_width * number,
-                                 raw_image->width());
-
-  for (auto& promise : promises)
-    promise.get();
 }
 
-bool picture::apply_lut(const LUT *lut) {
+bool picture::apply_lut(const LUT* lut) {
+  each_pixel_modificator([&](QColor pixel) -> QColor {
+    unsigned r = std::round (lut->r [pixel.red()  ]);
+    unsigned g = std::round (lut->g [pixel.green()]);
+    unsigned b = std::round (lut->b [pixel.blue() ]);
+    return QColor(r, g, b);
+  });
+}
+
+bool picture::apply_kernel(const kernel* ker) {
 
 }
 

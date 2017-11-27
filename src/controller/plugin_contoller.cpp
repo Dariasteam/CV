@@ -113,7 +113,7 @@ void plugin_controller::on_cancel(bool b) {
 }
 
 void plugin_controller::on_end() {
-/*
+
   disconnect((view_interface*)current_operation->get_view(),SIGNAL(update_inform()),this,SLOT(update_view()));
   delete backup_pic;
   op_widget->on_clear_widget();
@@ -121,12 +121,9 @@ void plugin_controller::on_end() {
 
   if (modified_canvas != nullptr)
     delete modified_canvas;
-
   modified_canvas = nullptr;
-*/
-  op_widget->on_clear_widget();
 
-//  current_operation->uninstance();
+  //on_clear();
 
   current_operation = nullptr;
   backup_pic = nullptr;
@@ -134,18 +131,15 @@ void plugin_controller::on_end() {
 }
 
 void plugin_controller::on_clear() {
-
   if (modified_pic != nullptr && backup_pic != nullptr && current_canvas != nullptr) {
     modified_pic->restore_from(backup_pic);
     current_canvas->set_pixmap(backup_pic->get_pixmap());
     delete backup_pic;
   }
 
-  /*
   op_widget->on_clear_widget();
   if (current_operation != nullptr)
-    current_operation->uninstance();  
-    */
+    current_operation->uninstance();
 }
 
 void plugin_controller::on_overwrite_toggled(bool b) {

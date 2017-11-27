@@ -42,7 +42,8 @@ SOURCES += \
         view/operation_options_widget.cpp \
         controller/plugin_contoller.cpp \
         view/image_info_widget.cpp \
-        model/lut.cpp
+        model/lut.cpp \
+    model/kernel.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -66,7 +67,8 @@ HEADERS += \
         controller/plugin_contoller.h \
         controller/view_interface.h \
         view/image_info_widget.h \
-        model/lut.h
+        model/lut.h \
+    model/kernel.h
 
 FORMS += \
         view/mainwindow.ui

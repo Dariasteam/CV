@@ -42,7 +42,7 @@ public:
     layout->addWidget(slider);
     layout->addWidget(value_indicator);
 
-    connect(slider,SIGNAL(valueChanged(int)),this,SLOT(on_slider_moved(int)));
+    connect(slider,SIGNAL(sliderMoved(int)),this,SLOT(on_slider_moved(int)));
   }
   inline QSlider* get_slider () { return slider; }
 private slots:

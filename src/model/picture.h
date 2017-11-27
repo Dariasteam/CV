@@ -14,6 +14,7 @@
 
 #include "histogram.h"
 #include "../model/lut.h"
+#include "../model/kernel.h"
 
 struct min_max_range {
             //   MIN      MAX
@@ -107,6 +108,8 @@ public:
 
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
+
+  virtual bool apply_kernel           (const kernel* ker);
   virtual bool apply_lut              (const LUT* lut);
 
   void generate_basic_info();

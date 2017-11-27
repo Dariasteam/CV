@@ -20,12 +20,7 @@ bool controller::operator ()() {
 
   LUT* lut = mdl->get_lut();
 
-  img->each_pixel_modificator([&](QColor pixel) -> QColor {
-    unsigned r = lut->r [pixel.red()  ];
-    unsigned g = lut->g [pixel.green()];
-    unsigned b = lut->b [pixel.blue() ];
-    return QColor(r, g, b);
-  });
+  img->apply_lut(lut);
 
   emit update_inform();
   return true;

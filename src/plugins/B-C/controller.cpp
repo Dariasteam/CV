@@ -60,12 +60,7 @@ bool controller::operator ()() {
     return alpha.b * i + beta.b - 1;
   });
 
-  img->each_pixel_modificator([&](QColor pixel) -> QColor {
-    unsigned r = std::round (lut->r [pixel.red()  ]);
-    unsigned g = std::round (lut->g [pixel.green()]);
-    unsigned b = std::round (lut->b [pixel.blue() ]);
-    return QColor(r, g, b);
-  }); 
+  img->apply_lut(lut);
 
   emit update_inform();
   return true;

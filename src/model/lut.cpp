@@ -9,10 +9,10 @@ LUT::LUT() :
 void LUT::each_value_modificator(unsigned from ,unsigned to ,
                                  std::function<double (double)> lambda,
                                  std::vector<double>& vec) {
-  if (from > DEPTH)
+  if (from > DEPTH - 1)
     from = 0;
   if (to > DEPTH - 1)
-    to = DEPTH - 1;
+    to = DEPTH;
 
   std::function<void(unsigned, unsigned)> func = [&](unsigned min,
                                                      unsigned max) {
@@ -29,16 +29,16 @@ void LUT::each_value_modificator(unsigned from ,unsigned to ,
 
   unsigned n_segments = (N_THREADS);
 
-  std::vector<std::future<void>> promises (n_segments);
+  std::vector<std::future<void>> promises (n_segments + 1);
   unsigned segment = (to - from) / n_segments;
 
   for (unsigned i = 0; i < n_segments; i++)
-    promises[i] = std::async(func, from + (segment * i), from + (segment * (i + 1)));
+    promises[i] = std::async(func, from + (segment * i), from + (segment * (i + 1)));      
+
+  promises[n_segments] = std::async(func, from + (segment * (n_segments - 1)), to);
 
   for (auto& promise : promises)
     promise.get();
-
-  func (from + (segment * (n_segments)), to);
 }
 
 void LUT::each_value_modificator_r(std::function<double (double)> lambda) {
