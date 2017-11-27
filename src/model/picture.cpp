@@ -11,9 +11,17 @@ picture::picture(QImage* image, QString f) :
 
   generate_histograms();
   generate_basic_info();
+
+  filter* fofo = new filter({{1,1,1,1,1},
+                             {1,1,1,1,1},
+                             {1,1,1,1,1},
+                             {1,1,1,1,1},
+                             {1,1,1,1,1},
+                            });
+  apply_filter(fofo);
 }
 
-picture::picture(const picture& P) {
+picture::picture(const picture& P) : QObject(nullptr) {
   QImage*  aux_1 = raw_image;
   QPixmap* aux_2 = pixmap;
 
@@ -179,11 +187,13 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
 
   std::atomic<bool> image_in_use (false);
   unsigned aux_width  = raw_image->width() / number;
+  unsigned height = raw_image->height();
+
   std::vector<std::future<void>> promises (number + 1);
 
   auto async_function = [&](unsigned min_w, unsigned max_w) {
     for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = 0; j < raw_image->height(); j++) {
+      for (unsigned j = 0; j < height; j++) {
         QColor input_color = raw_image->pixelColor(i, j);
         QColor output_color = lambda (input_color);
         while (image_in_use.load()) {}
@@ -214,9 +224,8 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
 
 bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {    
   for (unsigned i = 0; i < raw_image->width(); i++) {
-    for (unsigned j = 0; j < raw_image->height(); j++) {
-      QColor input_color = raw_image->pixelColor(i, j);
-      lambda (input_color);
+    for (unsigned j = 0; j < raw_image->height(); j++) {      
+      lambda (raw_image->pixelColor(i, j));
     }
   }
 }
@@ -230,8 +239,72 @@ bool picture::apply_lut(const LUT* lut) {
   });
 }
 
-bool picture::apply_kernel(const kernel* ker) {
+bool picture::apply_filter(const filter* flitr) {
+  picture* aux_pic = make_copy();
 
+  unsigned number = N_THREADS;
+
+  unsigned filter_size = flitr->get_size();
+  unsigned offset = filter_size / 3;
+
+  std::atomic<bool> image_in_use (false);
+  unsigned aux_width  = raw_image->width() / number;
+  unsigned height = raw_image->height();
+
+  std::vector<std::future<void>> promises (number);
+
+  auto async_function = [&](unsigned min_w, unsigned max_w) {
+    for (unsigned i = min_w; i < max_w; i++) {
+      for (unsigned j = offset; j < height - offset; j++) {
+        while (image_in_use.load()) {}
+        image_in_use.store(true);
+
+        // Obtener la región de vecindad        
+
+        rgb_float_values acumulator;
+
+        for (unsigned k = 0; k < filter_size; k++) {
+          for (unsigned h = 0; h < filter_size; h++) {
+            QColor color = raw_image->pixelColor(i + k - offset, j + h - offset);
+            acumulator.r += flitr->get_element(k,h) * color.red();
+            acumulator.g += flitr->get_element(k,h) * color.green();
+            acumulator.b += flitr->get_element(k,h) * color.blue();
+          }
+        }                
+
+        acumulator.r = std::round(acumulator.r / std::pow(filter_size,2));
+        acumulator.g = std::round(acumulator.g / std::pow(filter_size,2));
+        acumulator.b = std::round(acumulator.b / std::pow(filter_size,2));
+
+        aux_pic->get_raw_image()->setPixelColor(i,j,QColor(acumulator.r,
+                                                           acumulator.g,
+                                                           acumulator.b));
+
+        acumulator = {0, 0, 0};
+        image_in_use.store(false);
+      }
+    }
+  };
+
+  for (unsigned i = 0; i < number - 1; i++) {
+    promises[i] =  std::async(async_function,
+                              aux_width * i + offset,
+                              aux_width * (i + 1) + offset);
+  }
+
+  promises[number - 1] =  std::async(async_function,
+                                     aux_width * (number - 1) + offset,
+                                     raw_image->width() - offset);
+
+  for (auto& promise : promises)
+    promise.get();
+
+  restore_from(aux_pic);
+  delete aux_pic;
+
+  generate_histograms();
+  generate_basic_info();
+  update_pixmap();
 }
 
 void picture::subImage(const picture *pic) {

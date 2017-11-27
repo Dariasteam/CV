@@ -43,7 +43,7 @@ SOURCES += \
         controller/plugin_contoller.cpp \
         view/image_info_widget.cpp \
         model/lut.cpp \
-    model/kernel.cpp
+    model/filter.cpp
 
 HEADERS += \
         view/mainwindow.h \
@@ -68,7 +68,7 @@ HEADERS += \
         controller/view_interface.h \
         view/image_info_widget.h \
         model/lut.h \
-    model/kernel.h
+    model/filter.h
 
 FORMS += \
         view/mainwindow.ui
