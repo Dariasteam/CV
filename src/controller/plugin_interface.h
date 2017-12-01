@@ -7,6 +7,7 @@
 #include "../view/canvas_image_label.h"
 #include "../model/picture.h"
 #include "../model/lut.h"
+#include "../model/filter.h"
 
 struct plugin_metainfo {
   QString name     = "default plugin name";
@@ -35,8 +36,9 @@ protected:
 public:
   PluginModel () :
     backup_image (nullptr),
-    original_image (nullptr)
+    original_image (nullptr)    
   {}
+
   void set_image (picture* pic) {
     backup_image = pic->make_copy();
     original_image = pic;

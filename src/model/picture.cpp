@@ -11,14 +11,6 @@ picture::picture(QImage* image, QString f) :
 
   generate_histograms();
   generate_basic_info();
-
-  filter* fofo = new filter({{1,1,1,1,1},
-                             {1,1,1,1,1},
-                             {1,1,1,1,1},
-                             {1,1,1,1,1},
-                             {1,1,1,1,1},
-                            });
-  apply_filter(fofo);
 }
 
 picture::picture(const picture& P) : QObject(nullptr) {
@@ -159,8 +151,8 @@ void picture::restore_from(const picture *pic) {
   raw_image = new QImage(*pic->get_raw_image());
   pixmap = new QPixmap (QPixmap::fromImage(*raw_image));
 
-  delete aux_1;
-  delete aux_2;
+  //delete aux_1;
+  //delete aux_2;
 
   black_and_white = pic->is_black_and_white();
   histograms = pic->get_histograms();
@@ -174,8 +166,8 @@ void picture::crop (picture* pic, QRect rect) {
   raw_image = new QImage(raw_image->copy(rect));
   pixmap = new QPixmap (pixmap->fromImage(*raw_image));
 
-  delete aux_1;
-  delete aux_2;
+  //delete aux_1;
+  //delete aux_2;
 
   black_and_white = pic->is_black_and_white();
   generate_histograms();
@@ -239,8 +231,8 @@ bool picture::apply_lut(const LUT* lut) {
   });
 }
 
-bool picture::apply_filter(const filter* flitr) {
-  picture* aux_pic = make_copy();
+bool picture::apply_filter(const filter* flitr) {  
+  QImage* aux_img = new QImage(*raw_image);
 
   unsigned number = N_THREADS;
 
@@ -266,19 +258,22 @@ bool picture::apply_filter(const filter* flitr) {
         for (unsigned k = 0; k < filter_size; k++) {
           for (unsigned h = 0; h < filter_size; h++) {
             QColor color = raw_image->pixelColor(i + k - offset, j + h - offset);
-            acumulator.r += flitr->get_element(k,h) * color.red();
-            acumulator.g += flitr->get_element(k,h) * color.green();
-            acumulator.b += flitr->get_element(k,h) * color.blue();
+            int element = flitr->get_element(k,h);
+            acumulator.r += element * color.red();
+            acumulator.g += element * color.green();
+            acumulator.b += element * color.blue();
           }
         }                
 
-        acumulator.r = std::round(acumulator.r / std::pow(filter_size,2));
-        acumulator.g = std::round(acumulator.g / std::pow(filter_size,2));
-        acumulator.b = std::round(acumulator.b / std::pow(filter_size,2));
+        unsigned double_f_size = filter_size * filter_size;
 
-        aux_pic->get_raw_image()->setPixelColor(i,j,QColor(acumulator.r,
-                                                           acumulator.g,
-                                                           acumulator.b));
+        acumulator.r = acumulator.r / double_f_size;
+        acumulator.g = acumulator.g / double_f_size;
+        acumulator.b = acumulator.b / double_f_size;
+
+        aux_img->setPixelColor(i,j,QColor(acumulator.r,
+                                          acumulator.g,
+                                          acumulator.b));
 
         acumulator = {0, 0, 0};
         image_in_use.store(false);
@@ -286,21 +281,27 @@ bool picture::apply_filter(const filter* flitr) {
     }
   };
 
-  for (unsigned i = 0; i < number - 1; i++) {
-    promises[i] =  std::async(async_function,
-                              aux_width * i + offset,
-                              aux_width * (i + 1) + offset);
-  }
+  promises[0] = std::async(async_function, offset, aux_width);
+
+  for (unsigned i = 1; i < number - 1; i++)
+    promises[i] =  std::async(async_function, aux_width * i, aux_width * (i + 1));
 
   promises[number - 1] =  std::async(async_function,
-                                     aux_width * (number - 1) + offset,
+                                     aux_width * (number - 1),
                                      raw_image->width() - offset);
 
   for (auto& promise : promises)
     promise.get();
 
-  restore_from(aux_pic);
-  delete aux_pic;
+  QImage*  old_img = raw_image;
+  QPixmap* old_pix = pixmap;
+
+  raw_image = aux_img;
+  pixmap = new QPixmap();
+  pixmap->fromImage(*aux_img);
+
+  delete old_img;
+  delete old_pix;
 
   generate_histograms();
   generate_basic_info();

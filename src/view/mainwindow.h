@@ -34,9 +34,7 @@ private:
                                               {"Abrir", "Guardar", "Guardar como" },
                                               {},
                                               {},
-                                              {},
-                                              {"Basadas en histograma", "Otras"}, // Otras = transformación gamma
-                                              // Basadas en hsitograma -> especialización del hist y ecualización del hist
+                                              {},                                              
                                               {}
                                             };
 

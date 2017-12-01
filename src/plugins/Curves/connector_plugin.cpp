@@ -5,7 +5,7 @@
 conector_plugin::conector_plugin () {  
   meta_info = {
   /* name            */  "Ajuste lineal por tramos",
-  /* category        */  "core",
+  /* category        */  "Operaciones lineales",
   /* can_work_no_gui */  false,
   /* is_no_gui       */  false,
   /* can preview     */  true,

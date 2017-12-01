@@ -96,6 +96,7 @@ public:
   picture (QImage* image, QString f);
   picture (const picture& P);
   picture (const picture* P);
+  picture (QSize size);
 
   virtual void subImage (const picture* pic);
 

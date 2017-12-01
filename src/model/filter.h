@@ -7,7 +7,7 @@ class filter {
 private:
   std::vector <std::vector <int>> kernel;
 public:
-  filter();
+  filter();  
   filter(std::vector<std::vector<int>> k);
   inline unsigned get_size () const { return kernel.size(); }
   inline int get_element (unsigned i, unsigned j) const {
@@ -16,6 +16,9 @@ public:
     if (j > kernel.size())
       j = 0;
     return kernel[i][j];
+  }
+  static filter* generate_filter (std::vector<std::vector<int>> k) {
+    return new filter (k);
   }
 };
 

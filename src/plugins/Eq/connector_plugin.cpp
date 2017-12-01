@@ -5,7 +5,7 @@
 conector_plugin::conector_plugin () {
   meta_info = {
   /* name            */  "Ecualizar",
-  /* category        */  "core",
+  /* category        */  "Operaciones no lineales",
   /* can_work_no_gui */  true,
   /* is_no_gui       */  false,
   /* can preview     */  true,

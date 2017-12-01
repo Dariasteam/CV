@@ -992,6 +992,7 @@ moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		menu.h \
 		controller.h \
 		model.h \
@@ -1003,6 +1004,7 @@ moc_connector_plugin.cpp: ../../controller/plugin_interface.h \
 moc_menu.cpp: ../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		menu.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -1012,6 +1014,7 @@ moc_controller.cpp: menu.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		model.h \
 		../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h \
@@ -1040,6 +1043,7 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		menu.h \
 		controller.h \
 		model.h
@@ -1048,7 +1052,8 @@ connector_plugin.o: connector_plugin.cpp connector_plugin.h \
 menu.o: menu.cpp menu.h \
 		../../model/picture.h \
 		../../model/histogram.h \
-		../../model/lut.h
+		../../model/lut.h \
+		../../model/filter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o menu.cpp
 
 controller.o: controller.cpp controller.h \
@@ -1056,6 +1061,7 @@ controller.o: controller.cpp controller.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		model.h \
 		../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h
@@ -1065,6 +1071,7 @@ model.o: model.cpp model.h \
 		../../model/picture.h \
 		../../model/histogram.h \
 		../../model/lut.h \
+		../../model/filter.h \
 		../../controller/plugin_interface.h \
 		../../view/canvas_image_label.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model.cpp

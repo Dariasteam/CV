@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
-  ui->setupUi(this);
+//  ui->setupUi(this);
 
   // Creación del footer
   foot = new footer(this);
@@ -24,11 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
   op_dock = new options_dock (this);
   op_dock->setFeatures(QDockWidget::DockWidgetMovable);
   addDockWidget(Qt::RightDockWidgetArea, op_dock);
-
+/*
   // Creación del toolbar
   toolbar = new QToolBar (this);
   addToolBar(Qt::ToolBarArea::TopToolBarArea, toolbar);
-
+*/
 }
 
 void MainWindow::generate_menu() {
@@ -92,19 +92,20 @@ void MainWindow::on_no_focused_image() {
 }
 
 indexed_action* MainWindow::on_add_plugin(QString category, QString name, unsigned i) {
-  int index = -1;
-  for (auto m : plugin_menu->findChildren<QMenu*>()) {
+  int index = 0;
+  for (auto c_name : menu_strings[0]) {
+    if (c_name == category)
+      break;    
     index++;
-    if (m->title() == category)
-      break;
-  }
+  } 
 
   QMenu* menu;
 
-  if (index == -1) {
-    menu = plugin_menu->addMenu(category);
+  if (index >= menu_strings[0].size()) {
+    menu_strings[0].push_back(category);
+    menu = menu_bar->addMenu(category);
   } else {
-    menu = plugin_menu->findChildren<QMenu*>().at(index);
+    menu = menu_bar->findChildren<QMenu*>().at(index + 1);
   }
 
   indexed_action* action = new indexed_action (name, i, menu);
