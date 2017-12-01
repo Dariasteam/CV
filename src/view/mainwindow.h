@@ -34,7 +34,8 @@ private:
                                               {"Abrir", "Guardar", "Guardar como" },
                                               {},
                                               {},
-                                              {},                                              
+                                              {},
+                                              {},
                                               {}
                                             };
 
