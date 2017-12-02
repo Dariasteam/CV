@@ -18,15 +18,24 @@ public:
       j = 0;
     return kernel[i][j];
   }
-  static filter* generate_filter (std::vector<std::vector<int>> k) {
-    return new filter (k);
-  }
-};
 
+};
 
 class model : public PluginModel {
 public:
   model();
+  filter_a* generate_filter (unsigned size) {
+
+    std::vector<std::vector<int>> ker (size);
+    for (unsigned i = 0; i < size; i++) {
+      ker[i].resize(size);
+      for (unsigned j = 0; j < size; j++) {
+        ker[i][j] = 1;
+      }
+    }
+    return new filter_a (ker);
+  }
+
 };
 
 #endif // MODEL_H

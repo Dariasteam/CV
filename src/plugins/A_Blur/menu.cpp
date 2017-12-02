@@ -6,12 +6,11 @@ menu::menu(QWidget *parent) :
   layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
   setLayout(layout);
 
-  gamma_s = new gamma_slider;
+  slider = new labeled_slider;
 
   layout->setMargin(0);
   layout->setSpacing(0);
 
   layout->addWidget(new QLabel(GAMMA_TXT, this));
-  layout->addWidget(gamma_s);
+  layout->addWidget(slider);
 }
-
