@@ -11,7 +11,7 @@
 #include <iostream>
 #include <cmath>
 
-#define N_THREADS 16
+#define N_THREADS 32
 
 struct LUT {
   std::vector<double> r;

@@ -36,7 +36,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   backup_pic = new picture (pic);
   modified_pic = pic;
 
-  connect(pic,SIGNAL(update_progress(int)),foot,SLOT(on_update_progress_bar(int)));
+  connect(modified_pic,SIGNAL(update_progress(int)),foot,SLOT(on_update_progress_bar(int)));
 
   connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),
            this,SLOT(update_view()));
@@ -115,8 +115,9 @@ void plugin_controller::on_cancel(bool b) {
 }
 
 void plugin_controller::on_end() {
-
+  disconnect(modified_pic,SIGNAL(update_progress(int)),foot,SLOT(on_update_progress_bar(int)));
   disconnect((view_interface*)current_operation->get_view(),SIGNAL(update_inform()),this,SLOT(update_view()));
+
   delete backup_pic;
   op_widget->on_clear_widget();
   current_canvas = nullptr;

@@ -1,7 +1,5 @@
 # Proyecto para la asignatura Visión por Computador
+![pic/1.png]
 
-### Dependencias 
-
-### Autores 
+### Autores
 - [Daniel Darias Sánchez](https://github.com/dariasteam)
-- [Daniel Ojeda Martín](https://github.com/bianchullo)

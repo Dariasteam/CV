@@ -30,12 +30,12 @@ footer::footer(QWidget *parent) : QStatusBar(parent) {
   addWidget(rgb_show); 
 
   QWidget* spacer = new QWidget (this);
-  //spacer->sizePolicy().setHorizontalPolicy(QSizePolicy::E);
   spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   addWidget(spacer);
   addWidget(progress_bar);
   progress_bar->setFixedWidth(200);
   progress_bar->setValue(0);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void footer::on_update_coordenate_labels(QPoint point) {
