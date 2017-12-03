@@ -36,6 +36,8 @@ bool plugin_controller::operator ()(canvas_window* canvas,
   backup_pic = new picture (pic);
   modified_pic = pic;
 
+  connect(pic,SIGNAL(update_progress(int)),foot,SLOT(on_update_progress_bar(int)));
+
   connect ((PluginController*)op->get_controller(),SIGNAL(update_inform()),
            this,SLOT(update_view()));
 
@@ -49,8 +51,7 @@ bool plugin_controller::operator ()(canvas_window* canvas,
 
   connect(this,SIGNAL(send_current_image(picture*)),
           (PluginController*)op->get_controller(),
-          SLOT(on_receive_current_image(picture*)));
-
+          SLOT(on_receive_current_image(picture*))); 
 
   plugin_metainfo info = op->get_meta_info();
 
@@ -78,7 +79,8 @@ bool plugin_controller::operator ()(canvas_window* canvas,
       (modified_pic, lut, current_canvas->get_content())) return false;
 }
 
-void plugin_controller::update_view() {  
+void plugin_controller::update_view() {
+  foot->on_reset_progress_bar();
   if (preview) {
     current_canvas->set_pixmap(modified_pic->get_pixmap());
     emit update_histogram(modified_pic->get_histograms());

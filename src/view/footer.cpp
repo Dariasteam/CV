@@ -16,6 +16,7 @@ footer::footer(QWidget *parent) : QStatusBar(parent) {
   rgb_values = new QLabel (R_VALUE G_VALUE B_VALUE, this);
   rgb_values->setFixedWidth(150);
 
+  progress_bar = new QProgressBar(this);
 
   rgb_show = new QLabel (this);
   rgb_show->setMinimumWidth(50);
@@ -26,7 +27,15 @@ footer::footer(QWidget *parent) : QStatusBar(parent) {
   addWidget(image_format);
   addWidget(image_size);
   addWidget(rgb_values);
-  addWidget(rgb_show);
+  addWidget(rgb_show); 
+
+  QWidget* spacer = new QWidget (this);
+  //spacer->sizePolicy().setHorizontalPolicy(QSizePolicy::E);
+  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  addWidget(spacer);
+  addWidget(progress_bar);
+  progress_bar->setFixedWidth(200);
+  progress_bar->setValue(0);
 }
 
 void footer::on_update_coordenate_labels(QPoint point) {
@@ -48,6 +57,16 @@ void footer::on_update_rgb_at(QColor color) {
   pal.setColor(QPalette::Background, color);
   rgb_show->setPalette(pal);
 }
+
+void footer::on_update_progress_bar(int value) {
+  progress_bar->setValue(progress_bar->value() + value);
+}
+
+void footer::on_reset_progress_bar() {
+progress_bar->setValue(0);
+}
+
+
 
 void footer::on_update_meta_data(QString format, QSize size) {
   image_format->setText(FORMAT_STRING + format);

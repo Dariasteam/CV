@@ -16,14 +16,13 @@ operation_options_widget::operation_options_widget(QWidget *parent) :
   check_preview->setChecked(true);
 
   bttn_apply_operation = new QPushButton (BTTN_APPLY, this);
-
-  bttn_cancel_operation = new QPushButton (BTTN_CANCEL, this);
+  bttn_cancel_operation = new QPushButton (BTTN_CANCEL, this);  
 
   layout->addWidget(title_label,0,0);
   layout->addWidget(check_overwrite,2,0);
   layout->addWidget(check_preview,2,1);
   layout->addWidget(bttn_apply_operation,3,0);
-  layout->addWidget(bttn_cancel_operation,3,1);
+  layout->addWidget(bttn_cancel_operation,3,1);  
 
   setEnabled(false);
 }

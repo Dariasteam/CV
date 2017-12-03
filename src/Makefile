@@ -75,6 +75,7 @@ SOURCES       = main.cpp \
 		moc_view.cpp \
 		moc_controller.cpp \
 		moc_canvas_window.cpp \
+		moc_picture.cpp \
 		moc_footer.cpp \
 		moc_ensure_close_dialog.cpp \
 		moc_histogram_widget.cpp \
@@ -111,6 +112,7 @@ OBJECTS       = main.o \
 		moc_view.o \
 		moc_controller.o \
 		moc_canvas_window.o \
+		moc_picture.o \
 		moc_footer.o \
 		moc_ensure_close_dialog.o \
 		moc_histogram_widget.o \
@@ -1075,9 +1077,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_picture.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_view.cpp moc_controller.cpp moc_canvas_window.cpp moc_picture.cpp moc_footer.cpp moc_ensure_close_dialog.cpp moc_histogram_widget.cpp moc_canvas_image_label.cpp moc_plugin_interface.cpp moc_indexed_action.cpp moc_operation_options_widget.cpp moc_plugin_contoller.cpp moc_view_interface.cpp moc_image_info_widget.cpp
 moc_mainwindow.cpp: view/view.h \
 		view/canvas_window.h \
 		view/options_dock.h \
@@ -1156,6 +1158,14 @@ moc_canvas_window.cpp: view/options_dock.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include view/canvas_window.h -o moc_canvas_window.cpp
+
+moc_picture.cpp: model/histogram.h \
+		model/lut.h \
+		model/filter.h \
+		model/picture.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/darias/ULL/VC/vision_computador/src -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include model/picture.h -o moc_picture.cpp
 
 moc_footer.cpp: view/footer.h \
 		moc_predefs.h \
@@ -1467,6 +1477,9 @@ moc_controller.o: moc_controller.cpp
 
 moc_canvas_window.o: moc_canvas_window.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_canvas_window.o moc_canvas_window.cpp
+
+moc_picture.o: moc_picture.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_picture.o moc_picture.cpp
 
 moc_footer.o: moc_footer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_footer.o moc_footer.cpp

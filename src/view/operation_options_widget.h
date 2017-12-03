@@ -24,7 +24,7 @@ private:
   QCheckBox* check_overwrite;
   QCheckBox* check_preview;
   QPushButton* bttn_apply_operation;
-  QPushButton* bttn_cancel_operation;
+  QPushButton* bttn_cancel_operation;  
 public:
   explicit operation_options_widget(QWidget *parent = nullptr);
 

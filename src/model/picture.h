@@ -76,6 +76,7 @@ struct picture_basic_info {
  * QPixmap: clase optimizada para la representación
  * */
 class picture : public QObject {
+  Q_OBJECT
 private:  
   bool black_and_white;
   QString format;
@@ -135,6 +136,8 @@ public:
 
   inline void set_black_and_white (bool b)       { black_and_white = true; }
   inline bool is_black_and_white ()        const { return black_and_white; }
+signals:
+  void update_progress (int);
 };
 
 #endif // IMAGE_H

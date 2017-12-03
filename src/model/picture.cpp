@@ -192,9 +192,9 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
         image_in_use.store(true);
         raw_image->setPixelColor(i, j, output_color);
         image_in_use.store(false);
-      }
-    }
-  };
+      }      
+    }        
+  };  
 
   for (unsigned i = 0; i < number; i++) {
     promises[i] =  std::async(async_function,
@@ -206,8 +206,11 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
                                  aux_width * number,
                                  raw_image->width());
 
-  for (auto& promise : promises)
+  emit update_progress(7);
+  for (auto& promise : promises) {
     promise.get();
+    emit update_progress(7);
+  }
 
   generate_histograms();
   generate_basic_info();
@@ -290,8 +293,11 @@ bool picture::apply_filter(const filter* flitr) {
                                      aux_width * (number - 1),
                                      raw_image->width() - offset);
 
-  for (auto& promise : promises)
+  emit update_progress(7);
+  for (auto& promise : promises) {
     promise.get();
+    emit update_progress(7);
+  }
 
   QImage*  old_img = raw_image;
   QPixmap* old_pix = pixmap;
