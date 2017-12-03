@@ -1,5 +1,5 @@
 # Proyecto para la asignatura Visión por Computador
-![pic/1.png]
+![Example picture](pic/1.png)
 
 ### Autores
 - [Daniel Darias Sánchez](https://github.com/dariasteam)
