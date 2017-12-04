@@ -21,14 +21,17 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
   ((model*)mdl)->old_brightness = old_b;
   ((model*)mdl)->old_contrast = old_c;
 
-  ((menu*)view)->set_slider_b(old_b);
-  ((menu*)view)->set_slider_c(old_c);    
+  ((model*)mdl)->brightness = old_b;
+  ((model*)mdl)->contrast = old_c;
 
-  connect(((menu*)view)->get_bright_values(),SIGNAL(update_values(rgb_float_values)),
-          this,SLOT(on_change_brightness(rgb_float_values)));
+  ((menu*)view)->set_slider_b(old_b);
+  ((menu*)view)->set_slider_c(old_c);
 
   connect(((menu*)view)->get_contrast_values(),SIGNAL(update_values(rgb_float_values)),
           this,SLOT(on_change_contrast(rgb_float_values)));
+
+  connect(((menu*)view)->get_bright_values(),SIGNAL(update_values(rgb_float_values)),
+          this,SLOT(on_change_brightness(rgb_float_values)));
 }
 
 bool controller::operator ()() {  
@@ -62,19 +65,11 @@ bool controller::operator ()() {
 }
 
 void controller::on_change_brightness(rgb_float_values rgb) {
-  ((model*)mdl)->brightness = {
-    double(rgb.r),
-    double(rgb.g),
-    double(rgb.b)
-  };
+  ((model*)mdl)->brightness = rgb;
   operator ()();
 }
 
 void controller::on_change_contrast  (rgb_float_values rgb) {
-  ((model*)mdl)->contrast = {
-    double(rgb.r),
-    double(rgb.g),
-    double(rgb.b)
-  };
+  ((model*)mdl)->contrast = rgb;
   operator ()();
 }
