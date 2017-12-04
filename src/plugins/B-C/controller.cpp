@@ -2,13 +2,7 @@
 
 controller::controller(QWidget *mn, PluginModel* mdl) :
   plugin_controller (mn, mdl)
-{
-  connect(((menu*)mn)->get_bright_values(),SIGNAL(update_values(rgb_float_values)),
-          this,SLOT(on_change_brightness(rgb_float_values)));
-
-  connect(((menu*)mn)->get_contrast_values(),SIGNAL(update_values(rgb_float_values)),
-          this,SLOT(on_change_contrast(rgb_float_values)));
-}
+{}
 
 bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canvas) {
   mdl->set_lut(lut);
@@ -27,12 +21,14 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
   ((model*)mdl)->old_brightness = old_b;
   ((model*)mdl)->old_contrast = old_c;
 
-  on_change_brightness(old_b);
-  on_change_contrast(old_c);
-
   ((menu*)view)->set_slider_b(old_b);
-  ((menu*)view)->set_slider_c(old_c);
-  operator ()();
+  ((menu*)view)->set_slider_c(old_c);    
+
+  connect(((menu*)view)->get_bright_values(),SIGNAL(update_values(rgb_float_values)),
+          this,SLOT(on_change_brightness(rgb_float_values)));
+
+  connect(((menu*)view)->get_contrast_values(),SIGNAL(update_values(rgb_float_values)),
+          this,SLOT(on_change_contrast(rgb_float_values)));
 }
 
 bool controller::operator ()() {  
@@ -41,11 +37,10 @@ bool controller::operator ()() {
 
   LUT* lut = mdl->get_lut();
 
-// RED  
-
   rgb_float_values alpha = ((model*)mdl)->contrast / ((model*)mdl)->old_contrast;
   rgb_float_values beta = ((model*)mdl)->brightness - alpha * ((model*)mdl)->old_brightness;
 
+// RED
   lut->each_value_modificator_r([&](double i) -> double {
     return alpha.r * i + beta.r - 1;
   });

@@ -129,10 +129,11 @@ public:
   inline unsigned get_sz () { return sz; }
   inline QString get_format () const { return format; }
 
+
   inline QImage* get_raw_image ()          const { return raw_image; }
   inline const histogram get_histograms () const { return histograms; }
 
-  const picture_basic_info& get_basic_info () const { return basic_info; }
+  virtual const picture_basic_info& get_basic_info () const { return basic_info; }
 
   inline void set_black_and_white (bool b)       { black_and_white = true; }
   inline bool is_black_and_white ()        const { return black_and_white; }
