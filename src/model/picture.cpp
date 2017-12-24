@@ -217,6 +217,54 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
   update_pixmap();
 }
 
+
+
+bool picture::each_pixel_modificator_with_index(std::function<QColor (QColor, unsigned, unsigned)> lambda) {
+  unsigned number = N_THREADS;
+
+  std::atomic<bool> image_in_use (false);
+  unsigned aux_width  = raw_image->width() / number;
+  unsigned height = raw_image->height();
+
+  std::vector<std::future<void>> promises (number + 1);
+
+  auto async_function = [&](unsigned min_w, unsigned max_w) {
+    for (unsigned i = min_w; i < max_w; i++) {
+      for (unsigned j = 0; j < height; j++) {
+        QColor input_color = raw_image->pixelColor(i, j);
+        QColor output_color = lambda (input_color, i, j);
+        while (image_in_use.load()) {}
+        image_in_use.store(true);
+        raw_image->setPixelColor(i, j, output_color);
+        image_in_use.store(false);
+      }
+    }
+  };
+
+  for (unsigned i = 0; i < number; i++) {
+    promises[i] =  std::async(async_function,
+                              aux_width * i,
+                              aux_width * (i + 1));
+  }
+
+  promises[number] =  std::async(async_function,
+                                 aux_width * number,
+                                 raw_image->width());
+
+  emit update_progress(7);
+  for (auto& promise : promises) {
+    promise.get();
+    emit update_progress(7);
+  }
+
+  generate_histograms();
+  generate_basic_info();
+  update_pixmap();
+}
+
+
+
+
 bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {    
   for (unsigned i = 0; i < raw_image->width(); i++) {
     for (unsigned j = 0; j < raw_image->height(); j++) {      

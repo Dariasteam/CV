@@ -13,7 +13,7 @@ canvas_window::canvas_window(unsigned id, QPixmap& pix, footer* foot,
            foot,SLOT(on_update_coordenate_labels(QPoint)));
 
   setWidget(showed_image);
-  setFixedSize(pix.size().width(), pix.height() + HEADER_BAR_SIZE);
+  setFixedSize(pix.width(), pix.height() + HEADER_BAR_SIZE);
 }
 
 void canvas_window::focusInEvent(QFocusEvent *focusInEvent) {

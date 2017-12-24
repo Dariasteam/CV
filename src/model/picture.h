@@ -100,6 +100,9 @@ public:
   picture (QSize size);
 
   virtual void subImage (const picture* pic);
+  virtual void resize (int w, int h) {
+    raw_image = new QImage(w, h, QImage::Format_RGB888);
+  }
 
   virtual picture* make_copy ();
   virtual void restore_from (const picture* pic);
@@ -109,6 +112,8 @@ public:
   void operator =(const picture& pic);
 
   virtual bool each_pixel_modificator (std::function<QColor (QColor)> lambda);
+  virtual bool each_pixel_modificator_with_index
+                  (std::function<QColor (QColor, unsigned, unsigned)> lambda);
   virtual bool each_pixel_iterator    (std::function<bool (QColor)> lambda);
 
   virtual bool apply_filter           (const filter* ker);
@@ -128,7 +133,6 @@ public:
   inline QSize get_size () { return pixmap->size(); }
   inline unsigned get_sz () { return sz; }
   inline QString get_format () const { return format; }
-
 
   inline QImage* get_raw_image ()          const { return raw_image; }
   inline const histogram get_histograms () const { return histograms; }

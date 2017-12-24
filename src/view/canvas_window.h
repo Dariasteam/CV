@@ -34,9 +34,12 @@ private:
 public:
   canvas_window(unsigned id, QPixmap& pixmap, footer* foot,
                 QString name, QWidget* parent = nullptr);
-  inline void set_pixmap (const QPixmap* pix) {
+  inline void set_pixmap (const QPixmap* pix) {        
+    showed_image->setFixedSize(pix->width(), pix->height());
     showed_image->setPixmap(*pix);
     showed_image->update();
+    setFixedSize(pix->width(), pix->height() + HEADER_BAR_SIZE);
+    this->update();
   }
   inline void set_name (const QString& name) { setWindowTitle(name); }
   inline canvas_image_label* get_content () { return showed_image; }
