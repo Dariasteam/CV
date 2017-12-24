@@ -15,6 +15,7 @@ public:
 
 
   void fill_from_histogram (const histogram& hist) {
+
     for (unsigned i = 0; i < DEPTH; i++) {
       double c = hist.normalized_acumulated_r [unsigned(i)];
       r[i] = std::max(c * DEPTH -1, double(0));
@@ -28,10 +29,10 @@ public:
     for (unsigned i = 0; i < DEPTH; i++) {
       double c = hist.normalized_acumulated_b [unsigned(i)];
       b[i] = std::max(c * DEPTH -1, double(0));
-    }
+    }  
   }
 
-  double search_value (double v, double original, std::vector<double>& vec) {
+  double search_value (double v, double original, std::vector<double>& vec) {    
     unsigned distance = DEPTH + 1;
     double value = 0;
     for (unsigned i = 0; i < vec.size(); i++) {
@@ -44,7 +45,7 @@ public:
     if (distance < 15)
       return value;
     else
-      return original;
+      return original;      
   }
 
   double search_value_r (double v, double original) {

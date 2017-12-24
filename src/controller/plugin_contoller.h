@@ -53,7 +53,7 @@ signals:
   void update_basic_info(picture_basic_info);
   void overwrite_image(picture*);
   void generate_image(picture*);
-  void send_current_image (picture*);
+  void send_current_image (void*);
   void request_current_image ();
 private slots:
   void update_view ();

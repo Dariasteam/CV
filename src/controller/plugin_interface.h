@@ -74,10 +74,12 @@ public:
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
 public slots:
   virtual void on_receive_current_image (picture* pic) = 0;
+/*
 signals:
   virtual void update_inform () = 0;
   virtual void set_canvas_image_label (QLabel *) = 0;
   virtual void request_current_image () = 0;
+  */
 };
 
 

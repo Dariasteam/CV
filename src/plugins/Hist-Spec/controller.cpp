@@ -12,10 +12,7 @@ bool controller::operator () (picture* image, LUT* lut, canvas_image_label* canv
   ((model*)mdl)->a_lut.fill_from_histogram(image->get_histograms());
 }
 
-#include <iostream>
-
 bool controller::operator ()() {  
-
   mdl->restore_backup();
   picture* img = mdl->get_image();
 
@@ -39,15 +36,17 @@ bool controller::operator ()() {
   img->apply_lut(lut);
 
   emit update_inform();
-  return true;
+  return true;  
 }
-
 
 void controller::on_bttn_request_pushed() {
-  emit request_current_image();
+  emit request_current_image();  
 }
 
-void controller::on_receive_current_image(picture *pic) {
-  ((model*)mdl)->b_lut.fill_from_histogram(pic->get_histograms());
+void controller::on_receive_current_image(void *pic) {
+  ((model*)mdl)->b_lut.fill_from_histogram(((picture*)pic)->get_histograms());
   operator ()();
 }
+
+
+

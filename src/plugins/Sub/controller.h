@@ -27,11 +27,7 @@ public:
   }    
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas) = 0;
 public slots:
-  virtual void on_receive_current_image (picture* pic) = 0;
-signals:
-  virtual void update_inform () = 0;
-  virtual void set_canvas_image_label (QLabel *) = 0;
-  virtual void request_current_image () = 0;
+  virtual void on_receive_current_image (void* pic) = 0;
 };
 
 class controller : public plugin_controller {
@@ -42,7 +38,7 @@ public:
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
   controller (QWidget* mn, PluginModel* mdl);
 public slots:
-  void on_receive_current_image (picture* pic);
+  void on_receive_current_image (void* pic);
   void on_bttn_request_pushed();
 signals:
   void update_inform ();

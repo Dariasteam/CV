@@ -212,7 +212,6 @@ bool picture::each_pixel_modificator(std::function<QColor (QColor)> lambda) {
     emit update_progress(7);
   }
 
-  generate_histograms();
   generate_basic_info();
   update_pixmap();
 }

@@ -72,7 +72,7 @@ void controller::on_bttn_request_pushed() {
   emit request_current_image();
 }
 
-void controller::on_receive_current_image(picture *pic) {
-  ((model*)mdl)->aux_pic = pic;
+void controller::on_receive_current_image(void *pic) {
+  ((model*)mdl)->aux_pic = (picture*)pic;
   operator ()();
 }

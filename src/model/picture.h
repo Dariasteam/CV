@@ -123,6 +123,7 @@ public:
 
   inline QImage*  get_image  () const { return raw_image; }
   inline QPixmap* get_pixmap () const { return pixmap;    }
+
   inline void update_pixmap () {
     generate_histograms();
     pixmap->convertFromImage(*raw_image);    

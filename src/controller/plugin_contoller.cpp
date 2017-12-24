@@ -49,9 +49,9 @@ bool plugin_controller::operator ()(canvas_window* canvas,
           SIGNAL(request_current_image()),this,
           SLOT(on_request_current_image()));
 
-  connect(this,SIGNAL(send_current_image(picture*)),
+  connect(this,SIGNAL(send_current_image(void*)),
           (PluginController*)op->get_controller(),
-          SLOT(on_receive_current_image(picture*))); 
+          SLOT(on_receive_current_image(void*)));
 
   plugin_metainfo info = op->get_meta_info();
 
@@ -154,12 +154,12 @@ void plugin_controller::on_preview_toggled(bool b) {
   update_view();
 }
 
-void plugin_controller::on_request_current_image() {
+void plugin_controller::on_request_current_image() {  
   emit request_current_image();
 }
 
-void plugin_controller::on_receive_current_image(picture* pic ) {
-  emit send_current_image(pic);
+void plugin_controller::on_receive_current_image(picture* pic ) {    
+  emit send_current_image((void*)pic);
 }
 
 void plugin_controller::on_change_image_label(QLabel *canv) {
