@@ -21,6 +21,7 @@ private:
   QSpinBox* spin_width;
   QSpinBox* spin_height;
   QCheckBox* check_fixed_ratio;
+  QCheckBox* check_bilinear_filter;
 private slots:
   void on_width_updated (int i);
   void on_height_updated (int i);
@@ -30,6 +31,7 @@ public:
   explicit menu(QWidget *parent = nullptr);
   const QSpinBox* get_spin_width() { return spin_width; }
   const QSpinBox* get_spin_height() { return spin_height; }
+  const QCheckBox* get_check_bilinear() { return check_bilinear_filter; }
 signals:
   void updated_values (int, int);
 };

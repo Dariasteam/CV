@@ -21,7 +21,6 @@ menu::menu(QWidget *parent) : view_interface(parent)
   spin_height->setSingleStep(1);
   spin_width->setSingleStep(1);
 
-
   layout->addWidget(new QLabel("Ancho", this), 0, 0);
   layout->addWidget(spin_width, 0, 1);
   layout->addWidget(new QLabel("Alto", this), 0, 2);
@@ -29,7 +28,12 @@ menu::menu(QWidget *parent) : view_interface(parent)
 
   check_fixed_ratio = new QCheckBox(this);
   check_fixed_ratio->setText("Bloquear ratio");
-  layout->addWidget(check_fixed_ratio, 2, 0, -1, -1);
+  layout->addWidget(check_fixed_ratio, 2, 0);
+
+  check_bilinear_filter = new QCheckBox(this);
+  check_bilinear_filter->setText("Utilizar filtro bilinear");
+  layout->addWidget(check_bilinear_filter, 2, 1);
+  check_bilinear_filter->setChecked(false);
 
   connect(check_fixed_ratio,SIGNAL(toggled(bool)),this,SLOT(on_check_fixed_ration_changed(bool)));
   check_fixed_ratio->setChecked(true);

@@ -27,12 +27,14 @@ signals:
 class controller : public plugin_controller {
   Q_OBJECT
 private:
+  bool use_bilinear;
 public:  
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
   bool operator ()(double w, double h);
   controller (QWidget* mn, PluginModel* mdl);
 public slots:
   void on_update_values (int, int);
+  void on_update_bilinear (bool);
 signals:
   void update_inform ();
 };
