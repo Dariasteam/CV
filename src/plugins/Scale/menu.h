@@ -2,8 +2,10 @@
 #define MENU_H
 
 #include <QWidget>
-#include <QBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
+#include <QSpinBox>
+#include <QCheckBox>
 
 #define INFO_TXT "Pulse aplicar para establecer la transformación "
 
@@ -16,9 +18,20 @@ public:
 class menu : public view_interface {
   Q_OBJECT
 private:
-  QLabel* info;
+  QSpinBox* spin_width;
+  QSpinBox* spin_height;
+  QCheckBox* check_fixed_ratio;
+private slots:
+  void on_width_updated (int i);
+  void on_height_updated (int i);
+  void on_check_fixed_ration_changed (bool b);
+  void on_single_update (int);
 public:
   explicit menu(QWidget *parent = nullptr);
+  const QSpinBox* get_spin_width() { return spin_width; }
+  const QSpinBox* get_spin_height() { return spin_height; }
+signals:
+  void updated_values (int, int);
 };
 
 #endif // MENU_H

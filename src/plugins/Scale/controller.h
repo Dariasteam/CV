@@ -29,7 +29,10 @@ class controller : public plugin_controller {
 private:
 public:  
   virtual bool operator () (picture* image, LUT* lut, canvas_image_label* canvas);
+  bool operator ()(double w, double h);
   controller (QWidget* mn, PluginModel* mdl);
+public slots:
+  void on_update_values (int, int);
 signals:
   void update_inform ();
 };

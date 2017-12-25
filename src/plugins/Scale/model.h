@@ -16,7 +16,9 @@
 #include <iostream>
 
 class model : public PluginModel {
-private:
+public:
+  int width;
+  int height;
 public:
   model();
 };
