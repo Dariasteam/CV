@@ -33,7 +33,7 @@ menu::menu(QWidget *parent) : view_interface(parent)
   check_bilinear_filter = new QCheckBox(this);
   check_bilinear_filter->setText("Utilizar filtro bilinear");
   layout->addWidget(check_bilinear_filter, 2, 1);
-  check_bilinear_filter->setChecked(false);
+  check_bilinear_filter->setChecked(true);
 
   connect(check_fixed_ratio,SIGNAL(toggled(bool)),this,SLOT(on_check_fixed_ration_changed(bool)));
   check_fixed_ratio->setChecked(true);

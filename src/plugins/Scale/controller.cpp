@@ -4,7 +4,7 @@
 
 controller::controller(QWidget *mn, PluginModel *mdl) :
   plugin_controller (mn, mdl),
-  use_bilinear (false)
+  use_bilinear (true)
 {
   connect(((menu*)mn),SIGNAL(updated_values(int,int)),this,SLOT(on_update_values(int,int)));
   connect(((menu*)mn)->get_check_bilinear(),SIGNAL(toggled(bool)),this,SLOT(on_update_bilinear(bool)));
