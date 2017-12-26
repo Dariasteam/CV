@@ -9,16 +9,6 @@ controller::controller(QWidget *mn, PluginModel *mdl) :
   connect(((menu*)mn)->get_slider_rotate(),SIGNAL(valueChanged(int)),this,SLOT(on_update_value(int)));
 }
 
-double controller::to_rad(double angle) {
-  return angle * PI / 180;
-}
-
-std::pair<double, double> controller::direct_transformation(double x, double y, double ro) {
-  double X = cos(ro) * x - sin(ro) * y;
-  double Y = sin(ro) * x + cos(ro) * y;
-  return {X, Y};
-}
-
 double controller::max_x(std::vector<std::pair<double, double> > &vec) {
   double max = -1;
   for (auto& pr : vec) {
@@ -55,6 +45,22 @@ double controller::min_y(std::vector<std::pair<double, double> > &vec) {
   return min;
 }
 
+double controller::to_rad(double angle) {
+  return angle * PI / 180;
+}
+
+std::pair<double, double> controller::direct_transformation(double x, double y, double ro) {
+  double X = cos(ro) * x - sin(ro) * y;
+  double Y = sin(ro) * x + cos(ro) * y;
+  return {X, Y};
+}
+
+std::pair<double, double> controller::indirect_transformation(double X, double Y, double ro) {
+  double x = cos(-ro) * X - sin(-ro) * Y;
+  double y = sin(-ro) * X + cos(-ro) * Y;
+  return {x, y};
+}
+
 void controller::on_update_value(int ro) {
 
   mdl->restore_backup();
@@ -66,7 +72,7 @@ void controller::on_update_value(int ro) {
 
   double rad_ro = to_rad(ro);
 
-  // Primer paso. Encontrar las esquinas, rotación directa
+  // Encontrar las esquinas, transformación directa
   std::vector<std::pair<double, double>> corners;
   corners.push_back(direct_transformation(0, 0, rad_ro));
   corners.push_back(direct_transformation(0, h, rad_ro));
@@ -77,8 +83,25 @@ void controller::on_update_value(int ro) {
   unsigned new_w = std::round(fabs(max_x(corners) - min_x(corners)));
   unsigned new_h = std::round(fabs(max_y(corners) - min_y(corners)));
 
-
   aux->resize(new_w, new_h);
+  QImage* img = original_img->get_image();
+
+  std::pair<double, double> T = {min_x(corners), min_y(corners)};
+
+  // Mapear la imagen, transformación indirecta
+
+  unsigned origina_w = img->size().width();
+  unsigned origina_h = img->size().height();
+
+  aux->each_pixel_modificator_with_index([&](QColor color, unsigned i, unsigned j) -> QColor {
+    std::pair<double, double> aux = indirect_transformation(T.first + double(i), T.second + double(j), rad_ro);
+    if (aux.first < 0 || aux.second < 0 || aux.first > origina_w || aux.second > origina_h)
+      return QColor(0, 0, 0);
+    else
+      return (img->pixelColor(std::round(aux.first), std::round(aux.second)));
+  });
+
+
   original_img->restore_from(aux);
 
   emit update_inform();

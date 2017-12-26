@@ -32,6 +32,7 @@ class controller : public plugin_controller {
 private:
   bool use_bilinear;
   std::pair<double, double> direct_transformation (double x, double y, double ro);
+  std::pair<double, double> indirect_transformation (double x, double y, double ro);
   double max_x (std::vector<std::pair<double, double>>& vec);
   double max_y (std::vector<std::pair<double, double>>& vec);
   double min_x (std::vector<std::pair<double, double>>& vec);
