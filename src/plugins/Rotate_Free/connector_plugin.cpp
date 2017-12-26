@@ -4,10 +4,10 @@
 
 conector_plugin::conector_plugin () {  
   meta_info = {
-  /* name            */  "Cambiar tamaño",
+  /* name            */  "Rotación libre",
   /* category        */  "Editar",
-  /* can_work_no_gui */  true,
-  /* is_no_gui       */  true,
+  /* can_work_no_gui */  false,
+  /* is_no_gui       */  false,
   /* can preview     */  true,
   /* require_lut     */  false,
   /* require_canvas  */  false,

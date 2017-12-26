@@ -256,7 +256,6 @@ bool picture::each_pixel_modificator_with_index(std::function<QColor (QColor, un
     emit update_progress(7);
   }
 
-  generate_histograms();
   generate_basic_info();
   update_pixmap();
 }
