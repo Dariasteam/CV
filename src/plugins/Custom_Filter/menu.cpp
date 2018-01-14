@@ -50,11 +50,11 @@ void menu::check_kernel() {
       return;
   }
 
-  if (size_y == 1 && size_x % 2 != 0)
+  if (size_y == 1 && size_x % 2 != 0 && size_x > 1)
     emit kernel_valid(vec);
-  else if (size_x == 1 && size_y % 2 != 0)
+  else if (size_x == 1 && size_y % 2 != 0 && size_y > 1)
     emit kernel_valid(vec);
-  else if (size_y == size_x && size_x % 2 != 0)
+  else if (size_y == size_x && size_x % 2 != 0 && size_x > 1)
     emit kernel_valid(vec);
   else
     return;

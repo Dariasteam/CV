@@ -10,17 +10,13 @@ private:
 public:
   filter_a(std::vector<std::vector<int>> k) : kernel (k) {}
 
-  inline unsigned get_size () const { return kernel.size(); }
+  inline unsigned get_y_size () const { return kernel.size(); }
+  inline unsigned get_x_size () const { return kernel[0].size(); }
+
   inline int get_element (unsigned i, unsigned j) const {
-    if (i > kernel.size())
-      i = 0;
-    if (j > kernel.size())
-      j = 0;
     return kernel[i][j];
   }
-  static filter* generate_filter (std::vector<std::vector<int>> k) {
-    return new filter (k);
-  }
+
 };
 
 
