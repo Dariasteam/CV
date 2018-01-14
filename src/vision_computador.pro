@@ -33,7 +33,6 @@ SOURCES += \
         view/footer.cpp \
         ensure_close_dialog.cpp \
         image_operation.cpp \
-        operation_color_to_black.cpp \
         model/histogram.cpp \
         view/histogram_widget.cpp \
         view/chart_representation.cpp \
@@ -56,7 +55,6 @@ HEADERS += \
         view/footer.h \
         ensure_close_dialog.h \
         image_operation.h \
-        operation_color_to_black.h \
         model/histogram.h \
         view/histogram_widget.h \
         view/chart_representation.h \

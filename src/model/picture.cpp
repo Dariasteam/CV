@@ -260,9 +260,6 @@ bool picture::each_pixel_modificator_with_index(std::function<QColor (QColor, un
   update_pixmap();
 }
 
-
-
-
 bool picture::each_pixel_iterator(std::function<bool (QColor)> lambda) {    
   for (unsigned i = 0; i < raw_image->width(); i++) {
     for (unsigned j = 0; j < raw_image->height(); j++) {      
@@ -285,8 +282,23 @@ bool picture::apply_filter(const filter* flitr) {
 
   unsigned number = N_THREADS;
 
-  unsigned filter_size = flitr->get_size();
-  unsigned offset = filter_size / 3;
+  unsigned filter_x_size = flitr->get_x_size();
+  unsigned filter_y_size = flitr->get_y_size();
+
+  std::cout << filter_x_size << " " << filter_y_size << std::endl;
+
+  unsigned v_offset;
+  unsigned h_offset;
+
+  if (filter_x_size == 1)
+    h_offset = 0;
+  else
+    h_offset = filter_x_size / 3;
+
+  if (filter_y_size == 1)
+    v_offset = 0;
+  else
+    v_offset = filter_y_size / 3;
 
   std::atomic<bool> image_in_use (false);
   unsigned aux_width  = raw_image->width() / number;
@@ -296,7 +308,7 @@ bool picture::apply_filter(const filter* flitr) {
 
   auto async_function = [&](unsigned min_w, unsigned max_w) {
     for (unsigned i = min_w; i < max_w; i++) {
-      for (unsigned j = offset; j < height - offset; j++) {
+      for (unsigned j = v_offset; j < height - v_offset; j++) {
         while (image_in_use.load()) {}
         image_in_use.store(true);
 
@@ -304,17 +316,21 @@ bool picture::apply_filter(const filter* flitr) {
 
         rgb_float_values acumulator;
 
-        for (unsigned k = 0; k < filter_size; k++) {
-          for (unsigned h = 0; h < filter_size; h++) {
-            QColor color = raw_image->pixelColor(i + k - offset, j + h - offset);
-            int element = flitr->get_element(k,h);
+        for (unsigned k = 0; k < filter_x_size; k++) {
+          for (unsigned h = 0; h < filter_y_size; h++) {
+            QColor color = raw_image->pixelColor(i + k - h_offset, j + h - v_offset);
+
+            int element = flitr->get_element(h,k);
+
+
             acumulator.r += element * color.red();
             acumulator.g += element * color.green();
             acumulator.b += element * color.blue();
-          }
-        }                
 
-        unsigned double_f_size = filter_size * filter_size;
+          }          
+        }
+
+        unsigned double_f_size = filter_x_size * filter_y_size;
 
         acumulator.r = acumulator.r / double_f_size;
         acumulator.g = acumulator.g / double_f_size;
@@ -330,14 +346,16 @@ bool picture::apply_filter(const filter* flitr) {
     }
   };
 
-  promises[0] = std::async(async_function, offset, aux_width);
+
+  promises[0] = std::async(async_function, h_offset, aux_width);
+
 
   for (unsigned i = 1; i < number - 1; i++)
     promises[i] =  std::async(async_function, aux_width * i, aux_width * (i + 1));
 
   promises[number - 1] =  std::async(async_function,
                                      aux_width * (number - 1),
-                                     raw_image->width() - offset);
+                                     raw_image->width() - h_offset);
 
   emit update_progress(7);
   for (auto& promise : promises) {

@@ -9,9 +9,12 @@ private:
 public:
   filter();  
   filter(std::vector<std::vector<int>> k);
-  inline unsigned get_size () const { return kernel.size(); }
+
+  inline unsigned get_y_size () const { return kernel.size(); }
+  inline unsigned get_x_size () const { return kernel[0].size(); }
+
   inline int get_element (unsigned i, unsigned j) const {
-    if (i > kernel.size())
+    if (i > kernel[0].size())
       i = 0;
     if (j > kernel.size())
       j = 0;
